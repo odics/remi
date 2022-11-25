@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<section class="pb-4">
+    <section class="w-120 p-4 d-flex justify-content-center pb-4">
+        <form method="POST" style="width: 22rem;">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <input type="email" id="email" name="email" class="form-control" placeholder="Enter email"/>
+                <label class="form-label" for="email">Email address</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Enter first name"/>
+                <label class="form-label" for="firstName">First Name</label>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="password" id="password1" name="password1" class="form-control" placeholder="Enter password"/>
+                <label class="form-label" for="password1">Password</label>
+            </div>
+
+              <div class="form-outline mb-4">
+                <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm password"/>
+                <label class="form-label" for="password2">Confirm Password</label>
+            </div>
+
+            <!-- 2 column grid layout for inline styling -->
+            <div class="row mb-4">
+                <div class="col d-flex justify-content-center">
+                    <!-- Checkbox -->
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                        <label class="form-check-label" for="form2Example31"> Remember me </label>
+                    </div>
+            </div>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+
+        </form>
+    </section>
+</section>
+{% endblock %}
