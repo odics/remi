@@ -1,42 +1,82 @@
 from bs4 import BeautifulSoup
 import requests
 
-url = "https://www.allrecipes.com/recipe/8510539/baked-turkey-riggies/"
-result = requests.get(url)
+# Recipe class that will be returned, which will contain all the necessary information for each recipe parses from
+# the URL:
 
-doc = BeautifulSoup(result.text, features="html.parser")
-recipe_title = doc.find(id="article-heading_2-0")
 
-recipe_details = doc.find(id="recipe-details_1-0")
+class Recipe:
+    def __init__(self, title, prep, cook, rest, total, servings, ingredients, instructions):
+        self.title = title
+        self.prep = prep
+        self.cook = cook
+        self.rest = rest
+        self.total = total
+        self.servings = servings
+        self.ingredients = ingredients
+        self.instructions = instructions
 
-prep_time = doc.find(text="Prep Time:").find_next("div")
-# print("Prep Time: ", prep_time.string)
 
-cook_time = doc.find(text="Cook Time:").find_next("div")
-# print("Cook Time: ", cook_time.string)
+def allrecipes_parse(url):
+    result = requests.get(url)
+    doc = BeautifulSoup(result.text, features="html.parser")
 
-stand_time = doc.find(text="Stand Time:").find_next("div")
-# print("Stand Time: ", stand_time.string)
+    recipe_title = doc.find(id="article-heading_2-0")
+    recipe_details = doc.find(id="recipe-details_1-0")
+    prep_time = doc.find(text="Prep Time:").find_next("div")
+    cook_time = doc.find(text="Cook Time:").find_next("div")
+    stand_time = doc.find(text="Stand Time:").find_next("div")
+    total_time = doc.find(text="Total Time:").find_next("div")
+    total_servings = doc.find(text="Servings:").find_next("div")
 
-total_time = doc.find(text="Total Time:").find_next("div")
-# print("Total Time: ", total_time.string)
+    # recipe_ingredients is a variable that will contain the raw HTML/CSS pertaining to the recipes. This raw data is
+    # structured as an unordered list, and each list entry has a <p> tag surrounding it. The following line parses out
+    # all the <p> tags within the list, and adds them to a Python list (BS does this automatically):
 
-total_servings = doc.find(text="Servings:").find_next("div")
-# print("Total Servings: ", total_servings.string)
+    recipe_ingredients = doc.find(class_="mntl-structured-ingredients__list").find_all("p")
 
-# recipe_ingredients is a variable that will contain the raw HTML/CSS pertaining to the recipes. This raw data is
-# structured as an unordered list, and each list entry has a <p> tag surrounding it. The following line parses out
-# all the <p> tags within the list, and adds them to a Python list (BS does this automatically):
+    # This simple loop just goes through the above-generated list and further breaks it down by each <span> tag that
+    # contains the data we're looking for. Allrecipes.com has three <span> tags for every ingredient, one containing
+    # quantity, one containing unit of measurement, and one for type of ingredient. Each of these (quantity, unit of
+    # measurement, etc) is added to its own list. The if statements check to make sure the value actually exists before
+    # appending to the list:
 
-recipe_ingredients = doc.find(class_="mntl-structured-ingredients__list").find_all("p")
+    complete_ingredients = []
 
-# This simple loop just goes through the above-generated list and further breaks it down by each <span> tag that
-# contains the data we're looking for. Allrecipes.com has three <span> tags for every ingredient, one containing
-# quantity, one containing unit of measurement, and one for type of ingredient:
+    for row in recipe_ingredients:
+        if row.find_all("span")[0].string is None:
+            quantity = ""
+        else:
+            quantity = row.find_all("span")[0].string + " "
 
-# for row in recipe_ingredients:
-#    print(row.find_all("span")[0].string, row.find_all("span")[1].string, row.find_all("span")[2].string)
+        if row.find_all("span")[1].string is None:
+            measurement = ""
+        else:
+            measurement = row.find_all("span")[1].string + " "
 
-recipe_instructions = doc.find(id="mntl-sc-block_2-0").find_all("li")
-for row in recipe_instructions:
-    print(row.find_all("p")[0].string)
+        if row.find_all("span")[2].string is None:
+            ingredient = ""
+        else:
+            ingredient = row.find_all("span")[2].string
+
+        concatenated_ingredients = quantity + measurement + ingredient
+        complete_ingredients.append(concatenated_ingredients)
+
+    recipe_instructions = doc.find(id="mntl-sc-block_2-0").find_all("li")
+    parsed_instructions = []
+    stripped_instructions = []
+
+    # The following (clunky) code gets the raw HTML/CSS section for the recipe instructions, creates a list with
+    # cleaned up instructions, and finally strips newlines out of the list. This leaves stripped_instructions
+    # as the list containing all of the instructions for the recipe:
+
+    for row in recipe_instructions:
+        parsed_instructions.append(row.find_all("p")[0].string)
+
+    for i in parsed_instructions:
+        stripped_instructions.append(i.strip())
+
+    recipe_data = Recipe(recipe_title.string, prep_time.string, cook_time.string, stand_time.string,
+                         total_time.string, total_servings.string, complete_ingredients, stripped_instructions)
+
+    return recipe_data
