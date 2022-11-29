@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Add Recipe{% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+        <div class="card text-left">
+         <div class="card-body">
+             <h5>Timing and Details</h5>
+             <hr/>
+             <ul>
+                 <li><b>Prep Time:</b> {{ prep }}</li>
+                 <li><b>Cook Time:</b> {{ cook }}</li>
+                 <li><b>Rest Time:</b> {{ rest }}</li>
+                 <li><b>Total Time:</b> {{ total }}</li>
+                 <li><b>Servings:</b> {{ servings }}</li>
+             </ul>
+         </div>
+        </div>
+        <br>
+        <div class="card text-left">
+         <div class="card-body">
+             <h5>Ingredients</h5>
+             <hr/>
+             <ul>
+             {% for ingredient in ingredients %}
+                 <li>{{ ingredient }}</li><br>
+             {% endfor %}
+             </ul>
+         </div>
+        </div>
+    </div>
+    <div class="col-8">
+      <div class="card text-left">
+         <div class="card-body">
+             <h5>{{ title }}</h5>
+             <hr/>
+             <ol>
+                {% for instruction in instructions %}
+                    <li>{{ instruction }}</li><br>
+                {% endfor %}
+            </ol>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+{% endblock %}

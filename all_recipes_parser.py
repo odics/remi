@@ -21,13 +21,47 @@ def allrecipes_parse(url):
     result = requests.get(url)
     doc = BeautifulSoup(result.text, features="html.parser")
 
-    recipe_title = doc.find(id="article-heading_2-0")
     recipe_details = doc.find(id="recipe-details_1-0")
-    prep_time = doc.find(text="Prep Time:").find_next("div")
-    cook_time = doc.find(text="Cook Time:").find_next("div")
-    stand_time = doc.find(text="Stand Time:").find_next("div")
-    total_time = doc.find(text="Total Time:").find_next("div")
-    total_servings = doc.find(text="Servings:").find_next("div")
+
+    # The following if statements check to make sure the data we're looking for actually exists. If it does not,
+    # it will assign the variable in question to "None indicated," to let the user know the recipe site did not provide
+    # a value.
+
+    if doc.find(id="article-heading_2-0") is not None:
+        recipe_title = doc.find(id="article-heading_2-0")
+        recipe_title = recipe_title.string
+    else:
+        recipe_title = "None indicated."
+
+    if doc.find(text="Prep Time:").find_next("div") is not None:
+        prep_time = doc.find(text="Prep Time:").find_next("div")
+        prep_time = prep_time.string
+    else:
+        prep_time = "None indicated."
+
+    if doc.find(text="Cook Time:").find_next("div") is not None:
+        cook_time = doc.find(text="Cook Time:").find_next("div")
+        cook_time = cook_time.string
+    else:
+        cook_time = "None indicated."
+
+    if doc.find(text="Stand Time:") is not None:
+        stand_time = doc.find(text="Stand Time:").find_next("div")
+        stand_time = stand_time.string
+    else:
+        stand_time = "None indicated."
+
+    if doc.find(text="Total Time:").find_next("div") is not None:
+        total_time = doc.find(text="Total Time:").find_next("div")
+        total_time = total_time.string
+    else:
+        total_time = "None indicated."
+
+    if doc.find(text="Servings:").find_next("div") is not None:
+        total_servings = doc.find(text="Servings:").find_next("div")
+        total_servings = total_servings.string
+    else:
+        total_servings = "None indicated."
 
     # recipe_ingredients is a variable that will contain the raw HTML/CSS pertaining to the recipes. This raw data is
     # structured as an unordered list, and each list entry has a <p> tag surrounding it. The following line parses out
@@ -76,7 +110,7 @@ def allrecipes_parse(url):
     for i in parsed_instructions:
         stripped_instructions.append(i.strip())
 
-    recipe_data = Recipe(recipe_title.string, prep_time.string, cook_time.string, stand_time.string,
+    recipe_data = Recipe(recipe_title.string, prep_time.string, cook_time.string, stand_time,
                          total_time.string, total_servings.string, complete_ingredients, stripped_instructions)
 
     return recipe_data

@@ -29,5 +29,9 @@ def add_recipe():
 
         recipe = allrecipes_parse(url)
 
-    print(recipe.prep)
+        return render_template("list_recipe.html", user=current_user, title=recipe.title, prep=recipe.prep,
+                               cook=recipe.cook,
+                               rest=recipe.rest, total=recipe.total, servings=recipe.servings,
+                               ingredients=recipe.ingredients, instructions=recipe.instructions)
+
     return render_template("add_recipe.html", user=current_user)
