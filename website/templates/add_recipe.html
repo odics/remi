@@ -2,18 +2,21 @@
 {% block title %}Add Recipe{% endblock %}
 
 {% block content %}
-<section class="pb-4">
-    <section class="w-120 p-4 d-flex justify-content-center pb-4">
-        <form method="POST" style="width: 22rem;">
-            <div class="form-outline mb-4">
-                <input type="text" id="recipe_url" name="recipe_url" class="form-control"
-                       placeholder="Enter Recipe URL"/>
+<br>
+<div class="row justify-content-center">
+        <div class="card border-secondary mb-3" style="width: 22rem;">
+            <div class="card-header">Add Recipe to Collection</div>
+            <div class="card-body text-secondary">
+                <form method="POST">
+                    <div class="form-outline mb-4">
+                        <input type="text" id="recipe_url" name="recipe_url" class="form-control"
+                                placeholder="Enter Recipe URL"/>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">Add Recipe</button>
+                    </div>
+                </form>
             </div>
-            </div>
-            <div align="center">
-                <button type="submit" class="btn btn-primary">Add Recipe</button>
-            </div>
-        </form>
-    </section>
-</section>
+        </div>
+</div>
 {% endblock %}

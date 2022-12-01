@@ -2,16 +2,15 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
-    {% for note in user.notes %}
-    <li class="list-group-item"> {{ note.data }}</li>
-    {% endfor %}
-</ul>
-<form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
+<br>
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{url_for('static', filename='test.jpg')}}">
+    <div class="card-body text-center bg-light">
+      <h6 class="card-title">Best Cream Of Broccoli Soup</h6>
+        <hr/>
+        <button type="button" class="btn btn-outline-info waves-effect btn-sm"><i class="fa fa-book"></i> Vew</button>
+        <button type="button" class="btn btn-outline-info waves-effect btn-sm"><i class="fa fa-pencil-square-o"></i> Edit</button>
+        <button type="button" class="btn btn-outline-danger waves-effect btn-sm"><i class="fa fa-trash"></i> Delete</button>
     </div>
-</form>
+  </div>
 {% endblock %}
