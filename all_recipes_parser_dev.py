@@ -19,7 +19,9 @@ class Recipe:
         self.instructions = instructions
         self.image = image
 
-# Function to download and store recipe images:
+
+# Function to download and store recipe images. Essentially copy/pasted from
+# https://www.scrapingbee.com/blog/download-image-python/
 def download_image(url, file_name):
     url = "https://www.allrecipes.com/thmb/uMcDhmjckCPqwW4VVWE2vQ_L2tU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/13313_BestCreamofBroccoliSoup_ArMag-7d4ae2b074864fdeba8e0726d1d5e34c.jpg"
     res = requests.get(url, stream=True)
@@ -32,18 +34,6 @@ def download_image(url, file_name):
     else:
         print('Image Couldn\'t be retrieved')
 
-# Function to resize downloaded image:
-def resize_image(img_path):
-    img = Image.open(r"website/static/test.jpg")
-
-    left = 0
-    top = 50
-    right = 510
-    bottom = 292
-
-    img_res = img.crop((left, top, right, bottom))
-
-    img_res.save("cropped.jpg")
 
 # Main parser function:
 def allrecipes_parse(url):
