@@ -3,14 +3,59 @@
 
 {% block content %}
 <br>
-  <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="{{url_for('static', filename='test.jpg')}}">
-    <div class="card-body text-center bg-light">
-      <h6 class="card-title">Best Cream Of Broccoli Soup</h6>
-        <hr/>
-        <button type="button" class="btn btn-outline-info waves-effect btn-sm"><i class="fa fa-book"></i> Vew</button>
-        <button type="button" class="btn btn-outline-info waves-effect btn-sm"><i class="fa fa-pencil-square-o"></i> Edit</button>
-        <button type="button" class="btn btn-outline-danger waves-effect btn-sm"><i class="fa fa-trash"></i> Delete</button>
+<div class="container">
+<div class="row justify-content-start">
+    {% for recipe in recipes %}
+    <div class="col">
+        <div class="card mb-4" style="width: 20rem;">
+            <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}">
+            <div class="card-body text-center bg-light">
+                <h6 class="card-title">{{ recipe.recipe_name }}</h6>
+                <hr/>
+                <span class="badge badge-info"><i class="fa fa-clock-o fa-sm"></i> Prep: {{ recipe.prep_time }}</span>
+                <span class="badge badge-info"><i
+                        class="fa fa-clock-o fa-sm"></i> Cook: {{ recipe.cook_time }}</span></span>
+                <span class="badge badge-info"><i class="fa fa-clock-o fa-sm"></i> Total: 30 mins</span></span>
+                <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span></span>
+                <hr/>
+                <a href="view_recipe?recipe_id={{ recipe.id }}" class="btn btn-primary btn-sm"><i class="fa fa-book"></i> Vew
+                </a>
+                <button type="button" class="btn btn-primary btn-sm"><i
+                        class="fa fa-pencil-square-o"></i>
+                    Edit
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                        data-target="#delete_recipe" data-recipe-id="{{ recipe.id }}"
+                        data-recipe-title="{{ recipe.recipe_name }}"><i class="fa fa-trash"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+<div class="modal fade" id="delete_recipe" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Recipe</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Deleting this recipe will permanently remove it from the database. Are you sure you want to proceed?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info waves-effect btn-sm" data-dismiss="modal">Close</button>
+        <a href="#" class="btn btn-outline-danger waves-effect btn-sm"><i class="fa fa-trash"></i>
+            Delete Recipe</a>
+      </div>
     </div>
   </div>
+</div>
+
 {% endblock %}

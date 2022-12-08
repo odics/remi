@@ -10,13 +10,13 @@
                 <div class="card-body bg-light">
                     <div class="row">
                         <div class="col">
-                            <i class="fa fa-clock-o fa-lg"></i> <b>Prep:</b> {{ prep }}
+                            <i class="fa-solid fa-clock"></i> <b>Prep:</b> {{ recipe.prep_time }}
                         </div>
                         <div class="col">
-                            <i class="fa fa-clock-o fa-lg"></i> <b>Cook:</b> {{ cook }}
+                            <i class="fa-solid fa-clock"></i> <b>Cook:</b> {{ recipe.cook_time }}
                         </div>
                         <div class="col">
-                            <i class="fa fa-clock-o fa-lg"></i> <b>Total:</b> {{ total }}
+                            <i class="fa-solid fa-clock"></i> <b>Total:</b> {{ total }}
                         </div>
                         <div class="col">
                             <i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b> {{ servings }}
@@ -39,7 +39,7 @@
                     <h5>Ingredients</h5>
                     <hr/>
                     <ul>
-                        {{ ingredients|safe }}
+                        {{ recipe.ingredients|safe }}
                     </ul>
                 </div>
             </div>
@@ -47,10 +47,10 @@
         <div class="col-8">
             <div class="card text-left bg-light">
                 <div class="card-body">
-                    <h5>{{ title }}</h5>
+                    <h5>{{ recipe.recipe_name }}</h5>
                     <hr/>
                     <ol>
-                        {{ instructions|safe }}
+                        {{ recipe.instructions|safe }}
                     </ol>
                 </div>
             </div>

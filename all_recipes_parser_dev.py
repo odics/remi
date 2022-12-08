@@ -140,7 +140,5 @@ def allrecipes_parse(url):
                          recipe_img_src)
 
     print(recipe_data.image)
+
     return recipe_data
-
-
-resize_image("path")
