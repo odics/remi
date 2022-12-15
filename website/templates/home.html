@@ -18,15 +18,13 @@
                 <span class="badge badge-info"><i class="fa fa-clock-o fa-sm"></i> Total: 30 mins</span></span>
                 <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span></span>
                 <hr/>
-                <a href="view_recipe?recipe_id={{ recipe.id }}" class="btn btn-primary btn-sm"><i class="fa fa-book"></i> Vew
+                <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-primary btn-sm"><i class="fa fa-book"></i> Vew
                 </a>
-                <button type="button" class="btn btn-primary btn-sm"><i
-                        class="fa fa-pencil-square-o"></i>
+                <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>
                     Edit
                 </button>
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                        data-target="#delete_recipe" data-recipe-id="{{ recipe.id }}"
-                        data-recipe-title="{{ recipe.recipe_name }}"><i class="fa fa-trash"></i>
+                 <button type="button" class="btn btn-danger btn-sm" data-mdb-toggle="modal"
+                                    data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}" data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i>
                     Delete
                 </button>
             </div>
@@ -36,26 +34,20 @@
 </div>
 </div>
 
-<div class="modal fade" id="delete_recipe" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Recipe</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Deleting this recipe will permanently remove it from the database. Are you sure you want to proceed?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-info waves-effect btn-sm" data-dismiss="modal">Close</button>
-        <a href="#" class="btn btn-outline-danger waves-effect btn-sm"><i class="fa fa-trash"></i>
-            Delete Recipe</a>
-      </div>
+<div class="modal fade" id="delete_recipe" tabindex="-1" aria-labelledby="delete_recipe_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">Are you sure you want to delete this recipe?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 {% endblock %}

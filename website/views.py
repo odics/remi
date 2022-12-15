@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, flash, session, redirect, url_for
 from flask_login import login_required, current_user
 import json
-from .models import Recipe
+from .models import Recipe, Ingredients, ShoppingList
 from all_recipes_parser import allrecipes_parse
 from . import db
+import shortuuid
 
 views = Blueprint('views', __name__)
 
@@ -20,7 +21,9 @@ def home():
             flash('Note added.', category='success')
 
     recipes = Recipe.query.filter_by(username=current_user.id).all()
-    return render_template("home.html", user=current_user, recipes=recipes)
+    shopping_list = ShoppingList.query.count()
+    session['shopping_list'] = shopping_list
+    return render_template("home.html", user=current_user, recipes=recipes, shopping_list=shopping_list)
 
 
 @views.route('/add_recipe', methods=['GET', 'POST'])
@@ -41,6 +44,7 @@ def add_recipe():
         session['ingredients'] = recipe.ingredients
         session['instructions'] = recipe.instructions
         session['image'] = recipe.image
+        session['ingredient_list'] = recipe.ingredient_list
 
         return render_template("list_recipe.html", user=current_user, title=recipe.title, prep=recipe.prep,
                                cook=recipe.cook,
@@ -64,12 +68,20 @@ def save_recipe_to_db():
     ingredients = session.get('ingredients', None)
     instructions = session.get('instructions', None)
     image = session.get('image', None)
+    ingredient_list = session.get('ingredient_list', None)
+    uuid = shortuuid.uuid()
 
     new_recipe = Recipe(username=user_id, prep_time=prep, cook_time=cook, ingredients=ingredients,
-                        instructions=instructions, recipe_name=title, image=image)
+                        instructions=instructions, recipe_name=title, image=image, total_time=total, servings=servings,
+                        uuid=uuid)
 
     db.session.add(new_recipe)
     db.session.commit()
+
+    for ingredient in ingredient_list:
+        ingredient = Ingredients(uuid=uuid, ingredient=ingredient)
+        db.session.add(ingredient)
+        db.session.commit()
 
     flash('Recipe successfully added.', category='success')
     return redirect(url_for('views.home'))
@@ -79,18 +91,36 @@ def save_recipe_to_db():
 @login_required
 def delete_recipe():
 
-    recipe_id = request.args.get('recipe_id')
-    recipe = db.session.query(Recipe).filter(Recipe.id == recipe_id).first()
+    uuid = request.args.get('recipe_uuid')
+    recipe = db.session.query(Recipe).filter(Recipe.uuid == uuid).first()
     db.session.delete(recipe)
+
+    ingredients = db.session.query(Ingredients).filter(Ingredients.uuid == uuid).all()
+    for ingredient in ingredients:
+        db.session.delete(ingredient)
+
     db.session.commit()
 
     return redirect(url_for('views.home'))
 
 
-@views.route('/view_recipe')
+@views.route('/view_recipe', methods=['POST', 'GET'])
 @login_required
 def view_recipe():
 
-    recipe_id = request.args.get('recipe_id')
-    recipe = Recipe.query.filter_by(id=recipe_id).first()
-    return render_template("view_recipe.html", recipe=recipe, user=current_user)
+    if request.method == 'POST':
+        ingredient_list = request.form.getlist('ingredients')
+        for ingredient in ingredient_list:
+            ingredient = ShoppingList(shopping_item=ingredient)
+            db.session.add(ingredient)
+            db.session.commit()
+
+    shopping_list = ShoppingList.query.count()
+
+    recipe_uuid = request.args.get('recipe_uuid')
+    recipe_id = request.args.get('recipe_uuid')
+    recipe = Recipe.query.filter_by(uuid=recipe_id).first()
+    ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()
+
+    return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
+                           shopping_list=shopping_list)

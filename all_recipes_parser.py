@@ -7,7 +7,7 @@ import re
 # Recipe class that will be returned, which will contain all the necessary information for each recipe parses from
 # the URL:
 class Recipe:
-    def __init__(self, title, prep, cook, rest, total, servings, ingredients, instructions, image):
+    def __init__(self, title, prep, cook, rest, total, servings, ingredients, instructions, image, ingredient_list):
         self.title = title
         self.prep = prep
         self.cook = cook
@@ -17,6 +17,7 @@ class Recipe:
         self.ingredients = ingredients
         self.instructions = instructions
         self.image = image
+        self.ingredient_list = ingredient_list
 
 
 # Function to download and store recipe images. Essentially copy/pasted from
@@ -148,6 +149,8 @@ def allrecipes_parse(url):
 
     download_image(recipe_img_src, image_title)
     recipe_data = Recipe(recipe_title, prep_time.string, cook_time.string, stand_time,
-                         total_time.string, total_servings.string, joined_ingredients, joined_instructions, image_title)
+                         total_time.string, total_servings.string, joined_ingredients, joined_instructions, image_title,
+                         complete_ingredients)
 
+    print(complete_ingredients)
     return recipe_data
