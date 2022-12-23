@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+<br>
+
+<div class="container col-md-5">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <div class="main-content">
+        <div class="container mt-6">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header border-0 text-center">
+                        <h5 class="mb-0"><i class="fa-sharp fa-solid fa-cart-shopping fa-md"></i> SHOPPING LIST - {{
+                            shopping_list }} ITEMS</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush table-sm">
+                            {% if produce %}
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top" scope="col"><small class="text-primary"><i
+                                        class="fa-solid fa-pepper-hot"></i> &nbsp;&nbsp;PRODUCE - FRUITS -
+                                    VEGGIES</small></th>
+                                <th class="border-top text-right" scope="col"><button type="button"
+                                            class="btn btn-link btn-sm"><i
+                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in produce %}
+                            <tr>
+                                <td>
+                                    <span class="fw-lighter">{{ item.shopping_item }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            {% endif %}
+                            {% if meat %}
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top" scope="col"><small class="text-primary"><i
+                                        class="fa-solid fa-drumstick-bite"></i> &nbsp;&nbsp;MEAT</small></th>
+                                <th class="border-top" scope="col"><button type="button"
+                                            class="btn btn-link btn-sm"><i
+                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in meat %}
+                            <tr>
+                                <td>
+                                    <span class="fw-lighter">{{ item.shopping_item }}</span>
+                                </td>
+                                <td>
+                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            {% endif %}
+                            {% if dairy %}
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top" scope="col"><small class="text-primary"><i
+                                        class="fa-solid fa-bread-slice"></i> &nbsp;&nbsp;BREAD - EGGS -
+                                    DAIRY</small></th>
+                                <th class="border-top" scope="col"><button type="button"
+                                            class="btn btn-link btn-sm"><i
+                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in dairy %}
+                            <tr>
+                                <td>
+                                    <span class="fw-lighter">{{ item.shopping_item }}</span>
+                                </td>
+                                <td>
+                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            {% endif %}
+                            {% if coffee_tea %}
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top" scope="col"><small class="text-primary">
+                                    <i class="fa-solid fa-mug-saucer"></i> &nbsp;&nbsp;COFFEE - TEA - SNACKS</small></th>
+                                <th class="border-top" scope="col"><button type="button"
+                                            class="btn btn-link btn-sm"><i
+                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in coffee_tea %}
+                            <tr>
+                                <td>
+                                    <span class="fw-lighter">{{ item.shopping_item }}</span>
+                                </td>
+                                <td>
+                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            {% endif %}
+                            {% if pasta %}
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top" scope="col"><small class="text-primary">
+                                    <i class="fa-solid fa-utensils"></i> &nbsp;&nbsp;PASTA</small></th>
+                                <th class="border-top" scope="col"><button type="button"
+                                            class="btn btn-link btn-sm"><i
+                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in pasta %}
+                            <tr>
+                                <td>
+                                    <span class="fw-lighter">{{ item.shopping_item }}</span>
+                                </td>
+                                <td>
+                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            {% endif %}
+                            {% if misc %}
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top" scope="col"><small class="text-primary">
+                                    <i class="fa-solid fa-utensils"></i> &nbsp;&nbsp;MISCELLANEOUS</small></th>
+                                <th class="border-top" scope="col"><button type="button"
+                                            class="btn btn-link btn-sm"><i
+                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in misc %}
+                            <tr class="border-top">
+                                <td class="border-top">
+                                    <span class="fw-lighter">{{ item.shopping_item }}</span>
+                                </td>
+                                <td>
+                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            {% endif %}
+                            {% if frozen %}
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top" scope="col"><small class="text-primary">
+                                    <i class="fa-solid fa-igloo"></i> &nbsp;&nbsp;FROZEN</small></th>
+                                <th class="border-top" scope="col"><button type="button"
+                                            class="btn btn-link btn-sm"><i
+                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in frozen %}
+                            <tr class="border-top">
+                                <td class="border-top">
+                                    <span class="fw-lighter">{{ item.shopping_item }}</span>
+                                </td>
+                                <td>
+                                     <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                             class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

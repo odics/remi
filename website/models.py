@@ -33,8 +33,10 @@ class Ingredients(db.Model):
     uuid = db.Column(db.Integer, primary_key=False)
     recipe = db.Column(db.Integer, db.ForeignKey('recipe.uuid'))
     ingredient = db.Column(db.String())
+    ing_type = db.Column(db.String(), default="misc")
 
 
 class ShoppingList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     shopping_item = db.Column(db.String())
+    category = db.Column(db.String())

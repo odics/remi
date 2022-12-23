@@ -152,5 +152,4 @@ def allrecipes_parse(url):
                          total_time.string, total_servings.string, joined_ingredients, joined_instructions, image_title,
                          complete_ingredients)
 
-    print(complete_ingredients)
     return recipe_data

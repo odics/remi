@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Add Recipe{% endblock %}
-
 {% block content %}
 <br>
 <div class="container">
@@ -22,9 +21,12 @@
                             <i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b> {{ servings }}
                         </div>
                         <div class="col text-right">
-                            <a href="save_recipe" class="btn btn-primary btn-sm" role="button"><i class="fa-solid fa-floppy-disk"></i> Save Recipe</a>
+                            <button type="submit" form="ing" class="btn btn-primary btn-sm" role="button"><i
+                                    class="fa-solid fa-floppy-disk"></i> Save Recipe</button>
 
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash"></i> Discard</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#myModal"><i class="fa fa-trash"></i> Discard
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -35,23 +37,74 @@
     <div class="row">
         <div class="col-4">
             <div class="card text-left bg-light">
-                <div class="card-body">
-                    <h5>Ingredients</h5>
-                    <hr/>
-                    <ul>
-                        {{ ingredients|safe }}
-                    </ul>
+                <div class="card shadow">
+                    <div class="card-header border-0 text-center">
+
+                    </div>
+                    <div class="table-responsive">
+                        <form action="save_recipe" method="POST" id="ing">
+                        <table class="table align-items-center table-flush table-sm">
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top text-center" scope="col" colspan="2"><span
+                                        class="text-primary"><h5>Ingredients</h5></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for ingredient in ingredient_list %}
+                            <tr>
+                                <td>
+                                    <span class="fw-lighter">{{ ingredient }}</span>
+                                </td>
+                                <td>
+                                    <select class="form-select form-select-sm" data-style="btn-info"
+                                            aria-label=".form-select-sm example" id="{{ loop.index0 }}"
+                                    name="{{ loop.index0 }}">
+                                        <option value="0" selected>Misc.</option>
+                                        <option value="1">Produce</option>
+                                        <option value="2">Meat</option>
+                                        <option value="3">Coffee and Tea</option>
+                                        <option value="4">Pasta</option>
+                                        <option value="5">Frozen Food</option>
+                                        <option value="6">Dairy</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                            </form>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-8">
             <div class="card text-left bg-light">
-                <div class="card-body">
-                    <h5>{{ title }}</h5>
-                    <hr/>
+                <div class="card shadow">
+                    <div class="card-header border-0 text-center">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush table-sm">
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top text-center" scope="col"><span class="text-primary">
+                                    <h5>{{ title }}</h5></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span class="fw-lighter">
                     <ol>
                         {{ instructions|safe }}
                     </ol>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,22 +113,22 @@
 </div>
  
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}
