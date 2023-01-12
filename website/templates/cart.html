@@ -11,9 +11,19 @@
         <div class="container mt-6">
             <div class="col">
                 <div class="card shadow">
-                    <div class="card-header border-0 text-center">
+                    <div class="card-header border-0">
+                        <div class="row">
+                        <div class="col">
                         <h5 class="mb-0"><i class="fa-sharp fa-solid fa-cart-shopping fa-md"></i> SHOPPING LIST - {{
-                            shopping_list }} ITEMS</h5>
+                            shopping_list }} ITEMS
+                        </h5>
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-danger btn-sm text-nowrap" data-mdb-toggle="modal"
+                                    data-mdb-target="#clear_cart"><i class="fa fa-trash"></i> Clear All
+                            </button>
+                        </div>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush table-sm">
@@ -194,6 +204,22 @@
         </div>
     </div>
 
+</div>
+
+<div class="modal fade" id="clear_cart" tabindex="-1" aria-labelledby="clear_cart_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ClearCartModal">Clear Cart?</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">This will clear all items from the shopping cart. Are you sure you want to proceed?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                <button onclick="clear_cart({{ user.id }})" type="button" class="btn btn-danger">Clear Cart</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

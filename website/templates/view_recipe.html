@@ -6,26 +6,30 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="card" style="background-color:#e2eff3">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <i class="fa-solid fa-clock"></i> <b>Prep:</b> {{ recipe.prep_time }}
+                            <span class="fw-lighter"><i class="fa-solid fa-clock"></i> <b>Prep:</b> {{ recipe.prep_time }}</span>
                         </div>
                         <div class="col">
-                            <i class="fa-solid fa-clock"></i> <b>Cook:</b> {{ recipe.cook_time }}
+                            <span class="fw-lighter"><i class="fa-solid fa-clock"></i> <b>Cook:</b> {{ recipe.cook_time }}</span>
                         </div>
                         <div class="col">
-                            <i class="fa-solid fa-clock"></i> <b>Total:</b> {{ recipe.total_time }}
+                            <span class="fw-lighter"> <i class="fa-solid fa-clock"></i> <b>Total:</b> {{ recipe.total_time }}</span>
                         </div>
                         <div class="col">
-                            <i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b> {{ recipe.servings }}
+                            <span class="fw-lighter"><i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b> {{ recipe.servings }}</span>
                         </div>
                         <div class="col text-right">
-                            <button type="button" class="btn btn-danger btn-sm" data-mdb-toggle="modal"
+                            <div class="btn-group" role="group" aria-label="Recipe buttons">
+                            <button type="button" class="btn btn-primary btn-sm text-nowrap" role="button"><i
+                                    class="fa-solid fa-star"></i> Add Favorite</button>
+                            <button type="button" class="btn btn-danger btn-sm text-nowrap" data-mdb-toggle="modal"
                                     data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
                                     data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i> Delete Recipe
                             </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -33,51 +37,87 @@
         </div>
     </div>
     <br>
-    <div class="row">
-        <div class="col-4">
-            <div class="card text-left" style="background-color:#e2eff3;">
-                <div class="card-body">
+    <form method="POST">
+        <div class="row">
+            <div class="col-4">
+                <div class="card text-left bg-light">
+                    <div class="card shadow">
+                        <div class="card-header border-0 text-center">
 
-                    <h5>Ingredients</h5>
-                    <hr/>
-                    <form method="POST">
-                        <div class="form-check">
-                            <span class="fw-lighter">
-                            {% for ingredient in ingredients %}
-                            <input class="form-check-input" type="checkbox" value="{{ ingredient.ingredient }}"
-                                   id="ingredients" name="ingredients" checked/>
-                            <label class="form-check-label" for="ingredients">{{ ingredient.ingredient
-                                }}</label><input type="hidden" name=category value="{{ ingredient.ing_type }}"><br><br>
-                            {% endfor %}
-                            </span>
                         </div>
-                        <hr/>
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-primary"><i class="fa-sharp fa-solid fa-cart-plus"></i>
-                                Add Ingredients to Shopping List
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-8">
-            <div class="card text-left" style="background-color:#e2eff3;">
-                <div class="card-body">
-                    <h5>{{ recipe.recipe_name }}</h5>
-                    <hr/>
-                    <span class="fw-lighter">
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush table-sm">
+                                <thead class="table-info">
+                                <tr>
+                                    <th class="border-top text-center" scope="col" colspan="2"><span
+                                            class="text-primary"><h5>Ingredients</h5></span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for ingredient in ingredients %}
+                                <tr>
+                                    <td>
+                                        <label class="form-check-label" for="ingredients"><span class="fw-lighter">{{ ingredient.ingredient
+                                        }}</span></label><input type="hidden" name=category
+                                                                value="{{ ingredient.ing_type }}">
+                                    </td>
+                                    <td>
+                                        <input class="form-check-input" type="checkbox"
+                                               value="{{ ingredient.ingredient }}"
+                                               id="ingredients" name="ingredients" checked/>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+    </form>
+    </tbody>
+    </table>
+    <div class="col text-center">
+        <button type="submit" class="btn btn-primary"><i class="fa-sharp fa-solid fa-cart-plus"></i>
+            Add Ingredients to Shopping List
+        </button>
+        </form>
+    </div>
+    <br>
+</div>
+</div>
+</div>
+</div>
+<div class="col-8">
+   <div class="card text-left bg-light">
+                <div class="card shadow">
+                    <div class="card-header border-0 text-center">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush table-sm">
+                            <thead class="table-info">
+                            <tr>
+                                <th class="border-top text-center" scope="col"><span class="text-primary">
+                                    <h5>{{ recipe.recipe_name }}</h5></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span class="fw-lighter">
                     <ol>
                         {{ recipe.instructions|safe }}
                     </ol>
-                    </span>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
+<br>
 </div>
 </div>
- 
+</div>
+</div>
+</div>
 <div class="modal fade" id="delete_recipe" tabindex="-1" aria-labelledby="delete_recipe_modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

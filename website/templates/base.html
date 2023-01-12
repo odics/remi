@@ -110,6 +110,17 @@ $('#delete_recipe').on('show.bs.modal', function (event) {
 </script>
 
 <script>
+function clear_cart(user_id) {
+fetch('/clear_cart', {
+method: 'POST',
+body: JSON.stringify({ user_id: user_id })
+}).then((_res) => {
+window.location.href="/cart";
+});
+}
+</script>
+
+<script>
 function delete_shopping_item(item_id) {
 fetch('/delete_item', {
 method: 'POST',

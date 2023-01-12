@@ -61,7 +61,6 @@ def add_recipe():
 @views.route('/save_recipe', methods=['GET', 'POST'])
 @login_required
 def save_recipe_to_db():
-
     user_id = session.get('user_id', None)
     title = session.get('title', None)
     prep = session.get('prep', None)
@@ -127,7 +126,6 @@ def save_recipe_to_db():
 @views.route('/delete_recipe')
 @login_required
 def delete_recipe():
-
     uuid = request.args.get('recipe_uuid')
     recipe = db.session.query(Recipe).filter(Recipe.uuid == uuid).first()
     db.session.delete(recipe)
@@ -144,7 +142,6 @@ def delete_recipe():
 @views.route('/view_recipe', methods=['POST', 'GET'])
 @login_required
 def view_recipe():
-
     if request.method == 'POST':
         category = request.form.getlist('category')
         ingredient_list = request.form.getlist('ingredients')
@@ -189,5 +186,15 @@ def delete_item():
     item_to_delete = ShoppingList.query.get(item_id)
     db.session.delete(item_to_delete)
     db.session.commit()
+
+    return jsonify({})
+
+
+@views.route('/clear_cart', methods=['POST'])
+@login_required
+def clear_cart():
+    db.session.query(ShoppingList).delete()
+    db.session.commit()
+
     return jsonify({})
 
