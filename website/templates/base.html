@@ -22,7 +22,7 @@
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
 
             <a class="navbar-brand" href="#">ReMI</a>
@@ -54,10 +54,12 @@
             <div class="d-flex align-items-center">
        <a href="/cart" class="btn btn-primary position-relative">
   <i class="fa-sharp fa-solid fa-cart-shopping fa-xl"></i>
+  {% if shopping_list %}
   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger">
     {{ shopping_list }}
     <span class="visually-hidden">unread messages</span>
   </span>
+  {% endif %}
 </a>
 
 
@@ -128,6 +130,14 @@ body: JSON.stringify({ item_id: item_id })
 }).then((_res) => {
 window.location.href="/cart";
 });
+}
+</script>
+
+<script>
+function copyShopping(list_to_copy) {
+  var copyText = $(list_to_copy).data();
+
+  navigator.clipboard.writeText(copyText.copy);
 }
 </script>
     </body>

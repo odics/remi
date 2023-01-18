@@ -28,12 +28,13 @@
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush table-sm">
                             {% if produce %}
+                            <meta id="produce-to-copy" data-copy="{{ produce_to_copy }}">
                             <thead class="table-info">
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary"><i
                                         class="fa-solid fa-pepper-hot"></i> &nbsp;&nbsp;PRODUCE - FRUITS -
                                     VEGGIES</small></th>
-                                <th class="border-top text-right" scope="col"><button type="button"
+                                <th class="border-top text-right" scope="col"><button onclick="copyShopping('#produce-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
                                         class="fa-solid fa-copy fa-lg"></i></button></th>
                             </tr>
@@ -53,11 +54,12 @@
                             </tbody>
                             {% endif %}
                             {% if meat %}
+                            <meta id="meat-to-copy" data-copy="{{ meat_to_copy }}">
                             <thead class="table-info">
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary"><i
                                         class="fa-solid fa-drumstick-bite"></i> &nbsp;&nbsp;MEAT</small></th>
-                                <th class="border-top" scope="col"><button type="button"
+                                <th class="border-top" scope="col"><button onclick="copyShopping('#meat-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
                                         class="fa-solid fa-copy fa-lg"></i></button></th>
                             </tr>
@@ -77,12 +79,13 @@
                             </tbody>
                             {% endif %}
                             {% if dairy %}
+                            <meta id="dairy-to-copy" data-copy="{{ dairy_to_copy }}">
                             <thead class="table-info">
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary"><i
                                         class="fa-solid fa-bread-slice"></i> &nbsp;&nbsp;BREAD - EGGS -
                                     DAIRY</small></th>
-                                <th class="border-top" scope="col"><button type="button"
+                                <th class="border-top" scope="col"><button onclick="copyShopping('#dairy-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
                                         class="fa-solid fa-copy fa-lg"></i></button></th>
                             </tr>
@@ -102,11 +105,12 @@
                             </tbody>
                             {% endif %}
                             {% if coffee_tea %}
+                            <meta id="coffee-to-copy" data-copy="{{ coffee_to_copy }}">
                             <thead class="table-info">
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary">
                                     <i class="fa-solid fa-mug-saucer"></i> &nbsp;&nbsp;COFFEE - TEA - SNACKS</small></th>
-                                <th class="border-top" scope="col"><button type="button"
+                                <th class="border-top" scope="col"><button onclick="copyShopping('#coffee-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
                                         class="fa-solid fa-copy fa-lg"></i></button></th>
                             </tr>
@@ -126,11 +130,12 @@
                             </tbody>
                             {% endif %}
                             {% if pasta %}
+                            <meta id="pasta-to-copy" data-copy="{{ pasta_to_copy }}">
                             <thead class="table-info">
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary">
                                     <i class="fa-solid fa-utensils"></i> &nbsp;&nbsp;PASTA</small></th>
-                                <th class="border-top" scope="col"><button type="button"
+                                <th class="border-top" scope="col"><button onclick="copyShopping('#pasta-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
                                         class="fa-solid fa-copy fa-lg"></i></button></th>
                             </tr>
@@ -150,13 +155,13 @@
                             </tbody>
                             {% endif %}
                             {% if misc %}
+                            <meta id="misc-to-copy" data-copy="{{ misc_to_copy }}">
                             <thead class="table-info">
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary">
                                     <i class="fa-solid fa-utensils"></i> &nbsp;&nbsp;MISCELLANEOUS</small></th>
-                                <th class="border-top" scope="col"><button type="button"
-                                            class="btn btn-link btn-sm"><i
-                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                                <th class="border-top" scope="col"><button onclick="copyShopping('#misc-to-copy')" type="button"
+                                            class="btn btn-link btn-sm"><i class="fa-solid fa-copy fa-lg"></i></button></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -174,11 +179,12 @@
                             </tbody>
                             {% endif %}
                             {% if frozen %}
+                            <meta id="frozen-to-copy" data-copy="{{ frozen_to_copy }}">
                             <thead class="table-info">
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary">
                                     <i class="fa-solid fa-igloo"></i> &nbsp;&nbsp;FROZEN</small></th>
-                                <th class="border-top" scope="col"><button type="button"
+                                <th class="border-top" scope="col"><button onclick="copyShopping('#frozen-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
                                         class="fa-solid fa-copy fa-lg"></i></button></th>
                             </tr>

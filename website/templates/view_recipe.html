@@ -6,20 +6,20 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="card shadow">
+            <div class="card shadow" style="border-radius:3px;">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <span class="fw-lighter"><i class="fa-solid fa-clock"></i> <b>Prep:</b> {{ recipe.prep_time }}</span>
+                            <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i> <b>Prep:</b></span> {{ recipe.prep_time }}</span>
                         </div>
                         <div class="col">
-                            <span class="fw-lighter"><i class="fa-solid fa-clock"></i> <b>Cook:</b> {{ recipe.cook_time }}</span>
+                            <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i> <b>Cook:</b></span> {{ recipe.cook_time }}</span>
                         </div>
                         <div class="col">
-                            <span class="fw-lighter"> <i class="fa-solid fa-clock"></i> <b>Total:</b> {{ recipe.total_time }}</span>
+                            <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i> <b>Total:</b></span> {{ recipe.total_time }}</span>
                         </div>
                         <div class="col">
-                            <span class="fw-lighter"><i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b> {{ recipe.servings }}</span>
+                            <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b></span> {{ recipe.servings }}</span>
                         </div>
                         <div class="col text-right">
                             <div class="btn-group" role="group" aria-label="Recipe buttons">
@@ -29,6 +29,21 @@
                                     data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
                                     data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i> Delete Recipe
                             </button>
+                                <button
+    class="btn btn-primary dropdown-toggle"
+    type="button"
+    id="dropdownMenuButton"
+    data-mdb-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Actions
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-star"></i> Add to Favorites</a></li>
+      <li><hr class="dropdown-divider" /></li>
+      <li><a class="dropdown-item " href="#"><span class="text-danger"><i class="fa fa-trash"></i> Delete Recipe</span></a></li>
+  </ul>
                             </div>
                         </div>
                     </div>
@@ -40,9 +55,9 @@
     <form method="POST">
         <div class="row">
             <div class="col-4">
-                <div class="card text-left bg-light">
-                    <div class="card shadow">
-                        <div class="card-header border-0 text-center">
+                <div class="card text-left bg-light" style="border-radius:3px;">
+                    <div class="card shadow" style="border-radius:3px;">
+                        <div class="card-header border-0 text-center" style="border-radius:3px;">
 
                         </div>
                         <div class="table-responsive">
@@ -84,8 +99,8 @@
 </div>
 </div>
 <div class="col-8">
-   <div class="card text-left bg-light">
-                <div class="card shadow">
+   <div class="card text-left bg-light" style="border-radius:3px;">
+                <div class="card shadow" style="border-radius:3px;">
                     <div class="card-header border-0 text-center">
                     </div>
                     <div class="table-responsive">

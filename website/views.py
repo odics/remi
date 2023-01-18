@@ -12,14 +12,6 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    if request.method == 'POST':
-        note = request.form.get('note')
-
-        if len(note) < 1:
-            flash('Note is too short', category='error')
-        else:
-            flash('Note added.', category='success')
-
     recipes = Recipe.query.filter_by(username=current_user.id).all()
     shopping_list = ShoppingList.query.count()
     session['shopping_list'] = shopping_list
@@ -36,24 +28,27 @@ def add_recipe():
 
         recipe = recipe_parser(url)
 
-        session['user_id'] = current_user.id
-        session['title'] = recipe.title
-        session['prep'] = recipe.prep
-        session['cook'] = recipe.cook
-        session['rest'] = recipe.rest
-        session['total'] = recipe.total
-        session['servings'] = recipe.servings
-        session['ingredients'] = recipe.ingredients
-        session['instructions'] = recipe.instructions
-        session['image'] = recipe.image
-        session['ingredient_list'] = recipe.ingredient_list
-        shopping_list = session.get('shopping_list', None)
+        if recipe == 1:
+            return "Error 1"
+        else:
+            session['user_id'] = current_user.id
+            session['title'] = recipe.title
+            session['prep'] = recipe.prep
+            session['cook'] = recipe.cook
+            session['rest'] = recipe.rest
+            session['total'] = recipe.total
+            session['servings'] = recipe.servings
+            session['ingredients'] = recipe.ingredients
+            session['instructions'] = recipe.instructions
+            session['image'] = recipe.image
+            session['ingredient_list'] = recipe.ingredient_list
+            shopping_list = session.get('shopping_list', None)
 
-        return render_template("list_recipe.html", user=current_user, title=recipe.title, prep=recipe.prep,
-                               cook=recipe.cook,
-                               rest=recipe.rest, total=recipe.total, servings=recipe.servings,
-                               ingredients=recipe.ingredients, instructions=recipe.instructions, image=recipe.image,
-                               ingredient_list=recipe.ingredient_list, shopping_list=shopping_list)
+            return render_template("list_recipe.html", user=current_user, title=recipe.title, prep=recipe.prep,
+                                   cook=recipe.cook,
+                                   rest=recipe.rest, total=recipe.total, servings=recipe.servings,
+                                   ingredients=recipe.ingredients, instructions=recipe.instructions, image=recipe.image,
+                                   ingredient_list=recipe.ingredient_list, shopping_list=shopping_list)
 
     return render_template("add_recipe.html", user=current_user, shopping_list=shopping_list)
 
@@ -84,37 +79,37 @@ def save_recipe_to_db():
     if request.method == 'POST':
         for ingredient in ingredient_list:
             form_id = request.form[str(ingredient_list.index(ingredient))]
-            if form_id == "0":
+            if form_id == "0" and form_id != "7":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="misc")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "1":
+            if form_id == "1" and form_id != "7":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="produce")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "2":
+            if form_id == "2" and form_id != "7":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="meat")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "3":
+            if form_id == "3" and form_id != "7":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="coffee_tea")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "4":
+            if form_id == "4" and form_id != "7":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="pasta")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "5":
+            if form_id == "5" and form_id != "7":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="frozen")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "6":
+            if form_id == "6" and form_id != "7":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="dairy_bread")
                 db.session.add(ingredient)
                 db.session.commit()
@@ -173,9 +168,42 @@ def cart():
     shopping_items_frozen = ShoppingList.query.filter_by(category='frozen').all()
     shopping_items_coffee = ShoppingList.query.filter_by(category='coffee_tea').all()
 
+    pasta_to_copy = ""
+    produce_to_copy = ""
+    misc_to_copy = ""
+    dairy_to_copy = ""
+    meat_to_copy = ""
+    frozen_to_copy = ""
+    coffee_to_copy = ""
+
+    if shopping_items_pasta:
+        for item in shopping_items_pasta:
+            pasta_to_copy = pasta_to_copy + "- " + item.shopping_item + "\n"
+    elif shopping_items_produce:
+        for item in shopping_items_produce:
+            produce_to_copy = produce_to_copy + "- " + item.shopping_item + "\n"
+    elif shopping_items_misc:
+        for item in shopping_items_misc:
+            misc_to_copy = misc_to_copy + "- " + item.shopping_item + "\n"
+    elif shopping_items_dairy:
+        for item in shopping_items_dairy:
+            dairy_to_copy = dairy_to_copy + "- " + item.shopping_item + "\n"
+    elif shopping_items_meat:
+        for item in shopping_items_meat:
+            meat_to_copy = meat_to_copy + "- " + item.shopping_item + "\n"
+    elif shopping_items_frozen:
+        for item in shopping_items_frozen:
+            frozen_to_copy = frozen_to_copy + "- " + item.shopping_item + "\n"
+    elif shopping_items_coffee:
+        for item in shopping_items_coffee:
+            coffee_to_copy = coffee_to_copy + "- " + item.shopping_item + "\n"
+
     return render_template("cart.html", user=current_user, shopping_list=shopping_list, pasta=shopping_items_pasta,
                            produce=shopping_items_produce, misc=shopping_items_misc, dairy=shopping_items_dairy,
-                           meat=shopping_items_meat, frozen=shopping_items_frozen, coffee=shopping_items_coffee)
+                           meat=shopping_items_meat, frozen=shopping_items_frozen, coffee=shopping_items_coffee,
+                           pasta_to_copy=pasta_to_copy, produce_to_copy=produce_to_copy,misc_to_copy=misc_to_copy,
+                           dairy_to_copy=dairy_to_copy, meat_to_copy=meat_to_copy, frozen_to_copy=frozen_to_copy,
+                           coffee_to_copy=coffee_to_copy)
 
 
 @views.route('/delete_item', methods=['POST'])

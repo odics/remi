@@ -7,9 +7,9 @@
 <div class="row justify-content-start">
     {% for recipe in recipes %}
     <div class="col">
-        <div class="card mb-4" style="width: 20rem;">
+        <div class="card mb-4" style="width: 20rem; border-radius:5px;">
             <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}" style="width: 100%;height: 15vw;object-fit: cover;">
-            <div class="card-body text-center bg-light">
+            <div class="card-body text-center rounded-5">
                 <h6 class="card-title">{{ recipe.recipe_name }}</h6>
                 <hr/>
                 <span class="badge badge-info"><i class="fa fa-clock-o fa-sm"></i> Prep: {{ recipe.prep_time }}</span>

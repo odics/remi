@@ -5,20 +5,20 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="card">
-                <div class="card-body bg-light">
+            <div class="card shadow" style="border-radius:3px;">
+                <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <i class="fa fa-clock-o fa-lg"></i> <b>Prep:</b> {{ prep }}
+                            <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i> <b>Prep:</b></span> {{ prep }}</span>
                         </div>
                         <div class="col">
-                            <i class="fa fa-clock-o fa-lg"></i> <b>Cook:</b> {{ cook }}
+                            <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i> <b>Cook:</b></span> {{ cook }}</span>
                         </div>
                         <div class="col">
-                            <i class="fa fa-clock-o fa-lg"></i> <b>Total:</b> {{ total }}
+                            <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i> <b>Total:</b></span> {{ total }}</span>
                         </div>
                         <div class="col">
-                            <i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b> {{ servings }}
+                            <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b></span> {{ servings }}</span>
                         </div>
                         <div class="col text-right">
                             <button type="submit" form="ing" class="btn btn-primary btn-sm" role="button"><i
@@ -36,8 +36,8 @@
     <br>
     <div class="row">
         <div class="col-4">
-            <div class="card text-left bg-light">
-                <div class="card shadow">
+            <div class="card text-left bg-light" style="border-radius:3px;">
+                <div class="card shadow" style="border-radius:3px;">
                     <div class="card-header border-0 text-center">
 
                     </div>
@@ -67,6 +67,7 @@
                                         <option value="4">Pasta</option>
                                         <option value="5">Frozen Food</option>
                                         <option value="6">Dairy</option>
+                                        <option value="7">Exclude Ingredient</option>
                                     </select>
                                 </td>
                             </tr>
@@ -80,8 +81,8 @@
             </div>
         </div>
         <div class="col-8">
-            <div class="card text-left bg-light">
-                <div class="card shadow">
+            <div class="card text-left bg-light" style="border-radius:3px;">
+                <div class="card shadow" style="border-radius:3px;">
                     <div class="card-header border-0 text-center">
                     </div>
                     <div class="table-responsive">
