@@ -42,13 +42,16 @@ def add_recipe():
             session['instructions'] = recipe.instructions
             session['image'] = recipe.image
             session['ingredient_list'] = recipe.ingredient_list
+            session['original_url'] = recipe.original_url
+            session['date_parsed'] = recipe.date_parsed
             shopping_list = session.get('shopping_list', None)
 
             return render_template("list_recipe.html", user=current_user, title=recipe.title, prep=recipe.prep,
                                    cook=recipe.cook,
                                    rest=recipe.rest, total=recipe.total, servings=recipe.servings,
                                    ingredients=recipe.ingredients, instructions=recipe.instructions, image=recipe.image,
-                                   ingredient_list=recipe.ingredient_list, shopping_list=shopping_list)
+                                   ingredient_list=recipe.ingredient_list, shopping_list=shopping_list,
+                                   original_url=recipe.original_url, date_parsed=recipe.date_parsed)
 
     return render_template("add_recipe.html", user=current_user, shopping_list=shopping_list)
 
@@ -68,10 +71,12 @@ def save_recipe_to_db():
     image = session.get('image', None)
     ingredient_list = session.get('ingredient_list', None)
     uuid = shortuuid.uuid()
+    original_url = session.get('original_url', None)
+    date_parsed = session.get('date_parsed', None)
 
     new_recipe = Recipe(username=user_id, prep_time=prep, cook_time=cook, ingredients=ingredients,
                         instructions=instructions, recipe_name=title, image=image, total_time=total, servings=servings,
-                        uuid=uuid)
+                        uuid=uuid, original_url=original_url, date_parsed=date_parsed)
 
     db.session.add(new_recipe)
     db.session.commit()
@@ -79,40 +84,43 @@ def save_recipe_to_db():
     if request.method == 'POST':
         for ingredient in ingredient_list:
             form_id = request.form[str(ingredient_list.index(ingredient))]
-            if form_id == "0" and form_id != "7":
+            if form_id == "0":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="misc")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "1" and form_id != "7":
+            if form_id == "1":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="produce")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "2" and form_id != "7":
+            if form_id == "2":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="meat")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "3" and form_id != "7":
+            if form_id == "3":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="coffee_tea")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "4" and form_id != "7":
+            if form_id == "4":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="pasta")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "5" and form_id != "7":
+            if form_id == "5":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="frozen")
                 db.session.add(ingredient)
                 db.session.commit()
 
-            if form_id == "6" and form_id != "7":
+            if form_id == "6":
                 ingredient = Ingredients(uuid=uuid, ingredient=ingredient, ing_type="dairy_bread")
                 db.session.add(ingredient)
                 db.session.commit()
+
+            if form_id == "7":
+                pass
 
     flash('Recipe successfully added.', category='success')
     return redirect(url_for('views.home'))

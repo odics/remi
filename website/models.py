@@ -24,6 +24,7 @@ class Recipe(db.Model):
     ingredients_measurement = db.Column(db.String())
     instructions = db.Column(db.String())
     original_url = db.Column(db.String())
+    date_parsed = db.Column(db.String())
     image = db.Column(db.String())
     ingredient_list = db.relationship('Ingredients')
 

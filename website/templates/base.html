@@ -1,100 +1,106 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!-- Font Awesome -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"
-/>
-<!-- Google Fonts -->
-<link
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-  rel="stylesheet"
-/>
-<!-- MDB -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
-  rel="stylesheet"
-/>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+            rel="stylesheet"
+    />
 
-        <title>{% block title %}Home{% endblock %}</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
 
-            <a class="navbar-brand" href="#">ReMI</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="btn btn-link px-3 me-2" id="home" href="/"><i class="fa-solid fa-house-user"></i> Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-link px-3 me-2" id="home" href="/add_recipe"><i class="fa-solid fa-pen-to-square"></i> Add Recipe</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-link px-3 me-2" id="logout" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item active">
-                        <a class="nav-link" id="login" href="/login">Login<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="signUp" href="/sign-up">Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="home" href="/">Home</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="d-flex align-items-center">
-       <a href="/cart" class="btn btn-primary position-relative">
-  <i class="fa-sharp fa-solid fa-cart-shopping fa-xl"></i>
-  {% if shopping_list %}
-  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger">
+        <a class="navbar-brand" href="#">ReMI</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="btn btn-link px-3 me-2" id="home" href="/"><i class="fa-solid fa-house-user"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-link px-3 me-2" id="home" href="/add_recipe"><i
+                            class="fa-solid fa-pen-to-square"></i> Add Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-link px-3 me-2" id="logout" href="/logout"><i
+                            class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                </li>
+                {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" id="login" href="/login">Login<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="signUp" href="/sign-up">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="home" href="/">Home</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="d-flex align-items-center">
+            <a href="/cart" class="btn btn-primary position-relative">
+                <i class="fa-sharp fa-solid fa-cart-shopping fa-xl"></i>
+                {% if shopping_list %}
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger">
     {{ shopping_list }}
     <span class="visually-hidden">unread messages</span>
   </span>
-  {% endif %}
-</a>
+                {% endif %}
+            </a>
 
 
-      </div>
-      </div>
-        </nav>
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-            {% if category == 'error' %}
-                <div class="alert alert-danger alert-dismissable fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% else %}
-                <div class="alert alert-warning alert-dismissible" role="alert" data-mdb-color="success">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-mdb-dismiss="alert"></button>
-                </div>
-            {% endif %}
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-
-        <div class="container">
-            {% block content %}
-            {% endblock %}
         </div>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <!-- MDB -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+    </div>
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+{% if category == 'error' %}
+<div class="alert alert-danger alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% else %}
+<div class="alert alert-warning alert-dismissible" role="alert" data-mdb-color="success">
+    {{ message }}
+    <button type="button" class="btn-close" data-mdb-dismiss="alert"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
 
 <script>
 $('#delete_recipe').on('show.bs.modal', function (event) {
@@ -140,5 +146,5 @@ function copyShopping(list_to_copy) {
   navigator.clipboard.writeText(copyText.copy);
 }
 </script>
-    </body>
+</body>
 </html>

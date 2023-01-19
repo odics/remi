@@ -5,6 +5,7 @@ import shutil
 import json
 import isodate
 import re
+from datetime import date
 
 
 # Recipe class that will be returned, which will contain all the necessary information for each recipe parsed from
@@ -12,7 +13,8 @@ import re
 class Recipe:
     """This class stores the parsed recipe, and is returned by the parser.
     """
-    def __init__(self, title, prep, cook, rest, total, servings, ingredients, instructions, image, ingredient_list):
+    def __init__(self, title, prep, cook, rest, total, servings, ingredients, instructions, image, ingredient_list,
+                 original_url, date_parsed):
         self.title = title
         self.prep = prep
         self.cook = cook
@@ -23,6 +25,8 @@ class Recipe:
         self.instructions = instructions
         self.image = image
         self.ingredient_list = ingredient_list
+        self.original_url = original_url
+        self.date_parsed = date_parsed
 
 
 def download_image(url, file_name):
@@ -55,17 +59,17 @@ def get_time(iso_time):
 
     if parsed_time_list[0] == "1" and parsed_time_list[1] != "00":
         parsed_time = parsed_time_list[0] + " hour and " + parsed_time_list[1] + " minutes"
-        return parsed_time
+        return str(parsed_time)
     elif parsed_time_list[0] != "0" and parsed_time_list[1] == "00":
         if parsed_time_list[0] == "1":
             parsed_time = parsed_time_list[0] + " hour"
-            return parsed_time
+            return str(parsed_time)
         else:
             parsed_time = parsed_time_list[0] + " hours"
-            return parsed_time
+            return str(parsed_time)
     else:
         parsed_time = parsed_time_list[1] + " minutes"
-        return parsed_time
+        return str(parsed_time)
 
 
 def recipe_parser(url):
@@ -86,6 +90,10 @@ def recipe_parser(url):
 
     # Parse URL into components for later checking of which website the recipe is from:
     parsed_url = urlparse(url)
+
+    # Get current date so we know when the recipe was originally parsed:
+    current_date = date.today()
+    current_date = current_date.strftime("%B %d, %Y")
 
     result = requests.get(url, headers=headers)
     doc = BeautifulSoup(result.text, features="html.parser")
@@ -300,7 +308,10 @@ def recipe_parser(url):
                     else:
                         total_servings = "Not specified"
             elif "recipeYield" in recipe_json.keys() and recipe_json.get('recipeYield') is not None:
-                total_servings = str(recipe_json.get('recipeYield'))
+                if isinstance(recipe_json.get('recipeYield'), list):
+                    total_servings = str(recipe_json.get('recipeYield')[0])
+                else:
+                    total_servings = str(recipe_json.get('recipeYield'))
             else:
                 total_servings = "Not specified"
         elif isinstance(recipe_json, list):
@@ -312,7 +323,7 @@ def recipe_parser(url):
         elif recipe_json['@graph'][7].get('@context') == "https://schema.org/":
             total_servings = str(recipe_json['@graph'][7]['recipeYield'][0])
         elif type(recipe_json[0]['recipeYield']) == list:
-            total_servings = recipe_json[0]['recipeYield'][0]
+            total_servings = str(recipe_json[0]['recipeYield'][0])
         else:
             total_servings = str(recipe_json[0]['recipeYield'])
     except:
@@ -334,7 +345,10 @@ def recipe_parser(url):
                             image_url = list(image_url.values())[0]
                             break
             elif "image" in recipe_json.keys() and isinstance(recipe_json.get("image"), list):
-                image_url = recipe_json.get("image")[0].get("url")
+                if "url" in recipe_json.get("image")[0]:
+                    image_url = recipe_json.get("image")[0].get("url")
+                else:
+                    image_url = recipe_json.get("image")[0]
             else:
                 image_url = recipe_json.get("image")
         elif isinstance(recipe_json, list):
@@ -358,6 +372,6 @@ def recipe_parser(url):
 
     recipe_data = Recipe(recipe_title, prep_time, cook_time, rest_time,
                          total_time, total_servings, joined_ingredients, joined_instructions, image_title,
-                         ingredient_list)
+                         ingredient_list, url, current_date)
 
     return recipe_data
