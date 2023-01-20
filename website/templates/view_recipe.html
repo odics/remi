@@ -44,8 +44,8 @@
                             <table class="table align-items-center table-flush table-sm">
                                 <thead class="table-info">
                                 <tr>
-                                    <th class="border-top text-center" scope="col" colspan="2"><span
-                                            class="text-primary"><h5>Ingredients</h5></span></th>
+                                    <th class="border-top text-center" scope="col" colspan="2"><h5><span
+                                            class="text-primary fw-lighter">Ingredients</span></h5></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -87,9 +87,9 @@
                 <table class="table align-items-center table-flush table-sm">
                     <thead class="table-info">
                     <tr>
-                        <th class="border-top text-center" scope="col">
+                        <th class="border-top text-center align-middle" scope="col">
                             <h5>
-                                <span class="text-primary">{{ recipe.recipe_name }}</span>
+                                <span class="text-primary align-middle fw-lighter">{{ recipe.recipe_name }}</span>
                                 <span style="float: right;">
                             <button
                                     class="btn btn-primary btn-sm float-right"
@@ -101,26 +101,30 @@
                                 <i class="fa-solid fa-caret-down fa-xl"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item text-primary" href="#" target="#"><i
-                                        class="fa-solid fa-star"></i> Add Recipe to
-                                    Favorites</a></li>
                                 <li>
-                                    <li><a class="dropdown-item text-primary" href="#" target="#"><i
+                                    <a class="dropdown-item text-primary" href="#" target="#"><i
+                                        class="fa-solid fa-star"></i> Add Recipe to
+                                    Favorites</a>
+                                </li>
+                                  <li>
+                                    <button class="link dropdown-item text-primary" type="submit"><i
                                             class="fa-sharp fa-solid fa-cart-plus"></i> Add Ingredients to
-                                    Shopping List</a></li>
+                                    Shopping List</button>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider"/>
                                 </li>
-                                <li>
-                                    <li><a class="dropdown-item text-primary" href="{{ recipe.original_url }}"
+                                <li><a class="dropdown-item text-primary" href="{{ recipe.original_url }}"
                                            target="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Link to Original Recipe</a></li>
                                 <li>
                                     <hr class="dropdown-divider"/>
                                 </li>
-                                <li><a class="dropdown-item" href="#" data-mdb-toggle="modal"
+                                <li>
+                                    <a class="dropdown-item" href="#" data-mdb-toggle="modal"
                                        data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
                                        data-recipe-uuid="{{ recipe.uuid }}"><span class="text-danger"><i
-                                        class="fa fa-trash"></i> Delete Recipe</span></a></li>
+                                        class="fa fa-trash"></i> Delete Recipe</span></a>
+                                </li>
                             </ul>
                         </span>
                             </h5>
