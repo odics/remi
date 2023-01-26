@@ -15,6 +15,7 @@ def home():
     recipes = Recipe.query.filter_by(username=current_user.id).all()
     shopping_list = ShoppingList.query.count()
     session['shopping_list'] = shopping_list
+
     return render_template("home.html", user=current_user, recipes=recipes, shopping_list=shopping_list)
 
 
@@ -164,9 +165,19 @@ def view_recipe():
                            shopping_list=shopping_list)
 
 
-@views.route('/cart')
+@views.route('/cart', methods=['POST', 'GET'])
 @login_required
 def cart():
+    if request.method == 'POST':
+        category = request.form.get('ing_type')
+        ingredient = request.form.get('ingredient')
+
+        ingredient_to_add = ShoppingList(shopping_item=ingredient, category=category)
+        db.session.add(ingredient_to_add)
+        db.session.commit()
+
+        return redirect(url_for('views.cart'))
+
     shopping_list = ShoppingList.query.count()
     shopping_items_pasta = ShoppingList.query.filter_by(category='pasta').all()
     shopping_items_produce = ShoppingList.query.filter_by(category='produce').all()

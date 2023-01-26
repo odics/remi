@@ -7,15 +7,15 @@
 <div class="row justify-content-start">
     {% for recipe in recipes %}
     <div class="col">
-        <div class="card mb-4" style="width: 20rem; border-radius:5px;">
-            <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}" style="width: 100%;height: 15vw;object-fit: cover;">
-            <div class="card-body text-center rounded-5">
-                <h6 class="card-title">{{ recipe.recipe_name }}</h6>
+        <div class="card mb-4 shadow-3-strong" style="width: 20rem; border-radius:4px;">
+            <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}" style="width: 100%;height: 15vw;object-fit: cover; border-radius:4px">
+            <div class="card-body text-center rounded-4">
+                <h6 class="card-title"><span class=" text-primary fw-lighter">{{ recipe.recipe_name }}</span></h6>
                 <hr/>
-                <span class="badge badge-info"><i class="fa fa-clock-o fa-sm"></i> Prep: {{ recipe.prep_time }}</span>
+                <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Prep: {{ recipe.prep_time }}</span>
                 <span class="badge badge-info"><i
-                        class="fa fa-clock-o fa-sm"></i> Cook: {{ recipe.cook_time }}</span></span>
-                <span class="badge badge-info"><i class="fa fa-clock-o fa-sm"></i> Total: 30 mins</span></span>
+                        class="fa-solid fa-clock fa-sm"></i> Cook: {{ recipe.cook_time }}</span></span>
+                <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Total: 30 mins</span></span>
                 <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span></span>
                 <hr/>
                 <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-primary btn-sm"><i class="fa fa-book"></i> Vew

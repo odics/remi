@@ -9,20 +9,61 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <div class="main-content">
         <div class="container mt-6">
+            <div class="row pb-2">
+                <div class="card shadow-3-strong ps-4 pt-3 pb-3" style="border-radius:4px;">
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="mb-0 pb-2">
+                                <i class="fa-solid fa-cart-plus fa-md"></i> MANUALLY ADD INGREDIENT
+                            </h6>
+                            <form method="POST">
+                            <div class="input-group mb-3">
+                                <input
+                                        type="text"
+                                        name="ingredient"
+                                        class="form-control w-50"
+                                        placeholder="Ingredient"
+                                        aria-label="ingredient"
+                                        aria-describedby="button-addon2"
+                                />
+                                <button class="btn btn-outline-primary" type="submit" id="button"
+                                        data-mdb-ripple-color="dark">
+                                    <i class="fa-solid fa-plus"></i> Add
+                                </button>
+                                     <select class="form-select form-select-sm" data-style="btn-info"
+                                            aria-label=".form-select-sm" id="1"
+                                    name="ing_type">
+                                        <option value="misc" selected>Misc.</option>
+                                        <option value="produce">Produce</option>
+                                        <option value="meat">Meat</option>
+                                        <option value="coffee_tea">Coffee and Tea</option>
+                                        <option value="pasta">Pasta</option>
+                                        <option value="frozen">Frozen Food</option>
+                                        <option value="dairy_bread">Dairy</option>
+                                    </select>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col">
-                <div class="card shadow">
+                <div class="card shadow-3-strong" style="border-radius:4px;">
                     <div class="card-header border-0">
                         <div class="row">
-                        <div class="col">
-                        <h5 class="mb-0"><i class="fa-sharp fa-solid fa-cart-shopping fa-md"></i> SHOPPING LIST - {{
-                            shopping_list }} ITEMS
-                        </h5>
-                        </div>
-                        <div class="col-3">
-                            <button type="button" class="btn btn-danger btn-sm text-nowrap" data-mdb-toggle="modal"
-                                    data-mdb-target="#clear_cart"><i class="fa fa-trash"></i> Clear All
-                            </button>
-                        </div>
+                            <div class="col">
+                                <h5 class="mb-0"><i class="fa-sharp fa-solid fa-cart-shopping fa-md"></i> SHOPPING LIST
+                                    - {{
+                                    shopping_list }} ITEMS
+                                </h5>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-danger btn-sm text-nowrap" data-mdb-toggle="modal"
+                                        data-mdb-target="#clear_cart"><i class="fa fa-trash"></i> Clear All
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -34,9 +75,11 @@
                                 <th class="border-top" scope="col"><small class="text-primary"><i
                                         class="fa-solid fa-pepper-hot"></i> &nbsp;&nbsp;PRODUCE - FRUITS -
                                     VEGGIES</small></th>
-                                <th class="border-top text-right" scope="col"><button onclick="copyShopping('#produce-to-copy')" type="button"
+                                <th class="border-top text-right" scope="col">
+                                    <button onclick="copyShopping('#produce-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
-                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                                            class="fa-solid fa-copy fa-lg"></i></button>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -47,7 +90,8 @@
                                 </td>
                                 <td>
                                     <button onclick="delete_shopping_item({{ item.id }})" type="button"
-                                            class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -59,9 +103,11 @@
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary"><i
                                         class="fa-solid fa-drumstick-bite"></i> &nbsp;&nbsp;MEAT</small></th>
-                                <th class="border-top" scope="col"><button onclick="copyShopping('#meat-to-copy')" type="button"
+                                <th class="border-top" scope="col">
+                                    <button onclick="copyShopping('#meat-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
-                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                                            class="fa-solid fa-copy fa-lg"></i></button>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -71,8 +117,9 @@
                                     <span class="fw-lighter">{{ item.shopping_item }}</span>
                                 </td>
                                 <td>
-                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
-                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                    <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -85,9 +132,11 @@
                                 <th class="border-top" scope="col"><small class="text-primary"><i
                                         class="fa-solid fa-bread-slice"></i> &nbsp;&nbsp;BREAD - EGGS -
                                     DAIRY</small></th>
-                                <th class="border-top" scope="col"><button onclick="copyShopping('#dairy-to-copy')" type="button"
+                                <th class="border-top" scope="col">
+                                    <button onclick="copyShopping('#dairy-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
-                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                                            class="fa-solid fa-copy fa-lg"></i></button>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -97,8 +146,9 @@
                                     <span class="fw-lighter">{{ item.shopping_item }}</span>
                                 </td>
                                 <td>
-                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
-                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                    <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -109,10 +159,13 @@
                             <thead class="table-info">
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary">
-                                    <i class="fa-solid fa-mug-saucer"></i> &nbsp;&nbsp;COFFEE - TEA - SNACKS</small></th>
-                                <th class="border-top" scope="col"><button onclick="copyShopping('#coffee-to-copy')" type="button"
+                                    <i class="fa-solid fa-mug-saucer"></i> &nbsp;&nbsp;COFFEE - TEA - SNACKS</small>
+                                </th>
+                                <th class="border-top" scope="col">
+                                    <button onclick="copyShopping('#coffee-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
-                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                                            class="fa-solid fa-copy fa-lg"></i></button>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -122,8 +175,9 @@
                                     <span class="fw-lighter">{{ item.shopping_item }}</span>
                                 </td>
                                 <td>
-                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
-                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                    <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -135,9 +189,11 @@
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary">
                                     <i class="fa-solid fa-utensils"></i> &nbsp;&nbsp;PASTA</small></th>
-                                <th class="border-top" scope="col"><button onclick="copyShopping('#pasta-to-copy')" type="button"
+                                <th class="border-top" scope="col">
+                                    <button onclick="copyShopping('#pasta-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
-                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                                            class="fa-solid fa-copy fa-lg"></i></button>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -147,8 +203,9 @@
                                     <span class="fw-lighter">{{ item.shopping_item }}</span>
                                 </td>
                                 <td>
-                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
-                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                    <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -160,8 +217,10 @@
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary">
                                     <i class="fa-solid fa-utensils"></i> &nbsp;&nbsp;MISCELLANEOUS</small></th>
-                                <th class="border-top" scope="col"><button onclick="copyShopping('#misc-to-copy')" type="button"
-                                            class="btn btn-link btn-sm"><i class="fa-solid fa-copy fa-lg"></i></button></th>
+                                <th class="border-top" scope="col">
+                                    <button onclick="copyShopping('#misc-to-copy')" type="button"
+                                            class="btn btn-link btn-sm"><i class="fa-solid fa-copy fa-lg"></i></button>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -171,8 +230,9 @@
                                     <span class="fw-lighter">{{ item.shopping_item }}</span>
                                 </td>
                                 <td>
-                                      <button onclick="delete_shopping_item({{ item.id }})" type="button"
-                                              class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                    <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -184,9 +244,11 @@
                             <tr>
                                 <th class="border-top" scope="col"><small class="text-primary">
                                     <i class="fa-solid fa-igloo"></i> &nbsp;&nbsp;FROZEN</small></th>
-                                <th class="border-top" scope="col"><button onclick="copyShopping('#frozen-to-copy')" type="button"
+                                <th class="border-top" scope="col">
+                                    <button onclick="copyShopping('#frozen-to-copy')" type="button"
                                             class="btn btn-link btn-sm"><i
-                                        class="fa-solid fa-copy fa-lg"></i></button></th>
+                                            class="fa-solid fa-copy fa-lg"></i></button>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -196,8 +258,9 @@
                                     <span class="fw-lighter">{{ item.shopping_item }}</span>
                                 </td>
                                 <td>
-                                     <button onclick="delete_shopping_item({{ item.id }})" type="button"
-                                             class="btn btn-link btn-sm"><span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                    <button onclick="delete_shopping_item({{ item.id }})" type="button"
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -209,6 +272,7 @@
             </div>
         </div>
     </div>
+</div>
 
 </div>
 
@@ -219,7 +283,9 @@
                 <h5 class="modal-title" id="ClearCartModal">Clear Cart?</h5>
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">This will clear all items from the shopping cart. Are you sure you want to proceed?</div>
+            <div class="modal-body">This will clear all items from the shopping cart. Are you sure you want to
+                proceed?
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
                 <button onclick="clear_cart({{ user.id }})" type="button" class="btn btn-danger">Clear Cart</button>

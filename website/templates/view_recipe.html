@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="card shadow" style="border-radius:3px;">
+            <div class="card shadow-3-strong" style="border-radius:4px;">
                 <div class="card-body">
                     <div class="container">
                         <div class="row">
@@ -35,9 +35,9 @@
     <form method="POST">
         <div class="row">
             <div class="col-4">
-                <div class="card text-left bg-light" style="border-radius:3px;">
-                    <div class="card shadow" style="border-radius:3px;">
-                        <div class="card-header border-0 text-center" style="border-radius:3px;">
+                <div class="card text-left bg-light" style="border-radius:4px;">
+                    <div class="card shadow-3-strong" style="border-radius:4px;">
+                        <div class="card-header border-0 text-center" style="border-radius:4px;">
 
                         </div>
                         <div class="table-responsive">
@@ -79,8 +79,8 @@
 </div>
 </div>
 <div class="col-8">
-    <div class="card text-left bg-light" style="border-radius:3px;">
-        <div class="card shadow" style="border-radius:3px;">
+    <div class="card text-left bg-light" style="border-radius:4px;">
+        <div class="card shadow-3-strong" style="border-radius:4px;">
             <div class="card-header border-0 text-center">
             </div>
             <div class="table-responsive">
@@ -98,7 +98,7 @@
                                     data-mdb-toggle="dropdown"
                                     aria-expanded="false"
                             >
-                                <i class="fa-solid fa-caret-down fa-xl"></i>
+                                <i class="fa-solid fa-caret-down fa-lg"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li>
@@ -138,8 +138,15 @@
                                     <span class="fw-lighter">
                     <ol>
                         {{ recipe.instructions|safe }}
-                    </ol>
-                                    </span>
+                    </ol></span>
+                            <select class="form-control form-select form-select-sm form-select-solid" data-control="select2" multiple="multiple" style="width: 75%" data-select2-tags="true">
+  <option value="AL">Alabama</option>
+  <option value="WY">Wyoming</option>
+    <option value="VA">Virginia</option>
+    <option value="NC">North Carolina</option>
+</select>
+
+
                         </td>
                     </tr>
                     </tbody>
@@ -169,6 +176,7 @@
         </div>
     </div>
 </div>
+
 
 
 {% endblock %}
