@@ -2,6 +2,15 @@ from . import db
 from flask_login import UserMixin
 
 
+recipe_tag = db.Table('recipe_tag', db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
+                      db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')))
+
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tag_name = db.Column(db.String(10))
+
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
@@ -26,7 +35,10 @@ class Recipe(db.Model):
     original_url = db.Column(db.String())
     date_parsed = db.Column(db.String())
     image = db.Column(db.String())
+    favorite = db.Column(db.Boolean, default=False)
+    category = db.Column(db.String())
     ingredient_list = db.relationship('Ingredients')
+    tags = db.relationship('Tag', secondary=recipe_tag, backref='recipe')
 
 
 class Ingredients(db.Model):

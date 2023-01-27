@@ -158,8 +158,40 @@ body: JSON.stringify({ item_id: item_id })
 window.location.href="/cart";
 });
 }
+</script>
 
+<script>
+function add_favorite(recipe_id) {
+fetch('/add_favorite', {
+method: 'POST',
+body: JSON.stringify({ recipe_id: recipe_id })
+}).then((_res) => {
+window.location.href="/";
+});
+}
+</script>
 
+<script>
+function remove_favorite(recipe_id) {
+fetch('/remove_favorite', {
+method: 'POST',
+body: JSON.stringify({ recipe_id: recipe_id })
+}).then((_res) => {
+window.location = window.location;
+});
+}
+</script>
+
+<script>
+function delete_tag(tag_id, view_id, recipe_id) {
+var recipe_url = "view_recipe?recipe_uuid=" + view_id
+fetch('/delete_tag', {
+method: 'POST',
+body: JSON.stringify({ tag_id: tag_id, recipe_id: recipe_id })
+}).then((_res) => {
+window.location.href=recipe_url;
+});
+}
 </script>
 
 <script>
@@ -172,7 +204,10 @@ function copyShopping(list_to_copy) {
 
 <script>
 $(document).ready(function() {
-    $('select').select2({theme: 'bootstrap-5'});
+    $('.recipe-tags').select2({
+    theme: 'bootstrap-5',
+    placeholder: "Tag your recipe here..."
+    });
 });
 </script>
 

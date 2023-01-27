@@ -25,6 +25,9 @@
                             <div class="col text-center">
                                 <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b></span> {{ recipe.servings }}</span>
                             </div>
+                            <div class="col text-center">
+                                <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i> <b>Category:</b></span> {{ recipe.category }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,7 +38,7 @@
     <form method="POST">
         <div class="row">
             <div class="col-4">
-                <div class="card text-left bg-light" style="border-radius:4px;">
+                <div class="card text-left bg-light mb-10" style="border-radius:4px;">
                     <div class="card shadow-3-strong" style="border-radius:4px;">
                         <div class="card-header border-0 text-center" style="border-radius:4px;">
 
@@ -72,6 +75,16 @@
                                     Add Ingredients to Shopping List
                                 </button>
     </form>
+    <hr>
+    {% for recipe_tag in recipe.tags %}
+    <span class="align-middle text-primary border border-info rounded p-1 m-1 fw-light"
+    style="font-size:12px">
+        <b>{{ recipe_tag.tag_name }}</b>
+        <a href ="javascript:delete_tag({{ recipe_tag.id }}, '{{ view_id }}', {{ recipe.id }});"><span class="text-primary"><i class="fa-solid fa-xmark fa-md"></i></span></a>
+    </span>
+        {% endfor %}
+
+
 </div>
 <br>
 </div>
@@ -79,7 +92,7 @@
 </div>
 </div>
 <div class="col-8">
-    <div class="card text-left bg-light" style="border-radius:4px;">
+    <div class="card text-left bg-light mb-10" style="border-radius:4px;">
         <div class="card shadow-3-strong" style="border-radius:4px;">
             <div class="card-header border-0 text-center">
             </div>
@@ -101,11 +114,19 @@
                                 <i class="fa-solid fa-caret-down fa-lg"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                {% if recipe.favorite == False %}
                                 <li>
-                                    <a class="dropdown-item text-primary" href="#" target="#"><i
-                                        class="fa-solid fa-star"></i> Add Recipe to
+                                    <a class="dropdown-item text-primary" href="javascript:add_favorite({{ recipe.id }});"><i
+                                            class="fa-solid fa-star"></i> Add Recipe to
                                     Favorites</a>
                                 </li>
+                                {% else %}
+                                 <li>
+                                    <a class="dropdown-item text-primary" href="javascript:remove_favorite({{ recipe.id }});"><i
+                                            class="fa-solid fa-star"></i> Remove Recipe From
+                                    Favorites</a>
+                                </li>
+                                {% endif %}
                                   <li>
                                     <button class="link dropdown-item text-primary" type="submit"><i
                                             class="fa-sharp fa-solid fa-cart-plus"></i> Add Ingredients to
@@ -115,15 +136,18 @@
                                     <hr class="dropdown-divider"/>
                                 </li>
                                 <li><a class="dropdown-item text-primary" href="{{ recipe.original_url }}"
-                                           target="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Link to Original Recipe</a></li>
+                                       target="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Link to Original Recipe</a></li>
                                 <li>
                                     <hr class="dropdown-divider"/>
+                                </li>
+                                 <li>
+                                    <a class="dropdown-item" href="#"><span class="text-primary"><i class="fa-solid fa-pen-to-square"></i> Edit Recipe</span></a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#" data-mdb-toggle="modal"
                                        data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
                                        data-recipe-uuid="{{ recipe.uuid }}"><span class="text-danger"><i
-                                        class="fa fa-trash"></i> Delete Recipe</span></a>
+                                            class="fa fa-trash"></i> Delete Recipe</span></a>
                                 </li>
                             </ul>
                         </span>
@@ -139,14 +163,6 @@
                     <ol>
                         {{ recipe.instructions|safe }}
                     </ol></span>
-                            <select class="form-control form-select form-select-sm form-select-solid" data-control="select2" multiple="multiple" style="width: 75%" data-select2-tags="true">
-  <option value="AL">Alabama</option>
-  <option value="WY">Wyoming</option>
-    <option value="VA">Virginia</option>
-    <option value="NC">North Carolina</option>
-</select>
-
-
                         </td>
                     </tr>
                     </tbody>
@@ -176,7 +192,6 @@
         </div>
     </div>
 </div>
-
 
 
 {% endblock %}
