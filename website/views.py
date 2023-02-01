@@ -10,19 +10,19 @@ import shortuuid
 views = Blueprint('views', __name__)
 
 
-@views.route('/', methods=['GET', 'POST'])
+@views.route('/all_recipes', methods=['GET', 'POST'])
 @login_required
-def home():
+def all_recipes():
     recipes = Recipe.query.filter_by(username=current_user.id).all()
     shopping_list = ShoppingList.query.count()
     session['shopping_list'] = shopping_list
 
-    return render_template("home.html", user=current_user, recipes=recipes, shopping_list=shopping_list)
+    return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list)
 
 
-@views.route('/test', methods=['GET', 'POST'])
+@views.route('/', methods=['GET', 'POST'])
 @login_required
-def test():
+def home():
     # Query all of the favorite recipes belonging to currently logged in user:
     recipes = Recipe.query.filter_by(username=current_user.id, favorite=True).all()
 
@@ -36,13 +36,17 @@ def test():
     category_query = db.session.query(
         Recipe.category, func.count(Recipe.id).label('qty')).group_by(Recipe.category).order_by(desc('qty')).limit(1)
 
-    # The result is a list containing one tuple of two items. First item is the name of the popular category:
-    popular_category = category_query[0][0]
+    # The result is a list containing one tuple of two items. First item (category_query[0][0]) is the name of the popular category.
+    # This is wrapped in a try/except block in case the user has no recipes added yet, in which case it will throw an IndexError:
+    try:
+        popular_category = category_query[0][0]
+    except IndexError:
+        popular_category = "None"
 
     shopping_list = ShoppingList.query.count()
     session['shopping_list'] = shopping_list
 
-    return render_template("test.html", user=current_user, recipes=recipes, shopping_list=shopping_list,
+    return render_template("home.html", user=current_user, recipes=recipes, shopping_list=shopping_list,
                            favorite_total=favorite_total, total_recipes=total_recipes,
                            popular_category=popular_category)
 
@@ -181,14 +185,34 @@ def save_recipe_to_db():
     return redirect(url_for('views.home'))
 
 
-@views.route('/delete_recipe')
+@views.route('/delete_recipe', methods=['POST'])
 @login_required
 def delete_recipe():
-    uuid = request.args.get('recipe_uuid')
-    recipe = db.session.query(Recipe).filter(Recipe.uuid == uuid).first()
+    recipe_uuid = json.loads(request.data)
+    recipe_uuid = recipe_uuid.get('recipe_id')
+
+    recipe = db.session.query(Recipe).filter(Recipe.uuid == recipe_uuid).first()
     db.session.delete(recipe)
 
-    ingredients = db.session.query(Ingredients).filter(Ingredients.uuid == uuid).all()
+    ingredients = db.session.query(Ingredients).filter(Ingredients.uuid == recipe_uuid).all()
+    for ingredient in ingredients:
+        db.session.delete(ingredient)
+
+    db.session.commit()
+
+    return jsonify({})
+
+
+@views.route('/delete_recipe_go_home', methods=['POST'])
+@login_required
+def delete_recipe_go_home():
+    recipe_uuid = json.loads(request.data)
+    recipe_uuid = recipe_uuid.get('recipe_id')
+
+    recipe = db.session.query(Recipe).filter(Recipe.uuid == recipe_uuid).first()
+    db.session.delete(recipe)
+
+    ingredients = db.session.query(Ingredients).filter(Ingredients.uuid == recipe_uuid).all()
     for ingredient in ingredients:
         db.session.delete(ingredient)
 

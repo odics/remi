@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="card shadow-3-strong" style="border-radius:4px;">
+            <div class="card shadow-3-strong border" style="border-radius:4px;">
                 <div class="card-body">
                     <div class="container">
                         <div class="row">
@@ -26,7 +26,7 @@
                                 <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b></span> {{ recipe.servings }}</span>
                             </div>
                             <div class="col text-center">
-                                <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i> <b>Category:</b></span> {{ recipe.category }}</span>
+                                <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i> <b>Category:</b></span> {{ recipe.category  }}</span>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col-4">
                 <div class="card text-left bg-light mb-10" style="border-radius:4px;">
-                    <div class="card shadow-3-strong" style="border-radius:4px;">
+                    <div class="card shadow-3-strong border" style="border-radius:4px;">
                         <div class="card-header border-0 text-center" style="border-radius:4px;">
 
                         </div>
@@ -47,8 +47,8 @@
                             <table class="table align-items-center table-flush table-sm">
                                 <thead class="table-info">
                                 <tr>
-                                    <th class="border-top text-center" scope="col" colspan="2"><h5><span
-                                            class="text-primary fw-lighter">Ingredients</span></h5></th>
+                                    <td class="border-top text-center align-middle" scope="col" colspan="2"><h4 class="mb-0"><span
+                                            class="text-primary fw-lighter mb-0">Ingredients</span></h4></td>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -93,16 +93,16 @@
 </div>
 <div class="col-8">
     <div class="card text-left bg-light mb-10" style="border-radius:4px;">
-        <div class="card shadow-3-strong" style="border-radius:4px;">
+        <div class="card shadow-3-strong border" style="border-radius:4px;">
             <div class="card-header border-0 text-center">
             </div>
             <div class="table-responsive">
                 <table class="table align-items-center table-flush table-sm">
                     <thead class="table-info">
                     <tr>
-                        <th class="border-top text-center align-middle" scope="col">
-                            <h5>
-                                <span class="text-primary align-middle fw-lighter">{{ recipe.recipe_name }}</span>
+                        <td class="border-top text-center align-middle" scope="col">
+                            <h4 class="mb-0">
+                                <span class="text-primary align-middle fw-lighter mb-0">{{ recipe.recipe_name }}</span>
                                 <span style="float: right;">
                             <button
                                     class="btn btn-primary btn-sm float-right"
@@ -145,15 +145,15 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#" data-mdb-toggle="modal"
-                                       data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
+                                       data-mdb-target="#delete_recipe_go_home" data-recipe-title="{{ recipe.recipe_name }}"
                                        data-recipe-uuid="{{ recipe.uuid }}"><span class="text-danger"><i
                                             class="fa fa-trash"></i> Delete Recipe</span></a>
                                 </li>
                             </ul>
                         </span>
-                            </h5>
+                            </h4>
                             <div style="clear:both;"></div>
-                        </th>
+                        </td>
                     </tr>
                     </thead>
                     <tbody>
@@ -177,7 +177,7 @@
 </div>
 </div>
 </div>
-<div class="modal fade" id="delete_recipe" tabindex="-1" aria-labelledby="delete_recipe_modal" aria-hidden="true">
+<div class="modal fade" id="delete_recipe_go_home" tabindex="-1" aria-labelledby="delete_recipe_modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

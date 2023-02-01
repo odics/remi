@@ -4,44 +4,158 @@
 {% block content %}
 <br>
 <div class="container">
-<div class="row justify-content-start">
-    {% for recipe in recipes %}
-    <div class="col">
-        <div class="card mb-4 shadow-3-strong" style="width: 20rem; border-radius:4px;">
-            <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}" style="width: 100%;height: 15vw;object-fit: cover;
-            border-top-left-radius:4px; border-top-right-radius:4px">
-            {% if recipe.favorite == True %}
-            <button class="btn btn-secondary btn-sm" onclick="remove_favorite('{{ recipe.id }}')" style="position:absolute; top: 10px; right: 10px">
-            <i class="fa-solid fa-star fa-xl text-danger"></i>
-            </button>
-            {% else %}
-            <button class="btn btn-secondary btn-sm" onclick="add_favorite('{{ recipe.id }}')" style="position:absolute; top: 10px; right: 10px">
-            <i class="fa-regular fa-star fa-xl text-danger"></i>
-            </button>
-            {% endif %}
-            <div class="card-body text-center rounded-4">
-                <h6 class="card-title"><span class=" text-primary fw-lighter">{{ recipe.recipe_name }}</span></h6>
-                <hr/>
-                <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Prep: {{ recipe.prep_time }}</span>
-                <span class="badge badge-info"><i
-                        class="fa-solid fa-clock fa-sm"></i> Cook: {{ recipe.cook_time }}</span></span>
-                <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Total: 30 mins</span></span>
-                <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span></span>
-                <hr/>
-                <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-primary btn-sm"><i class="fa fa-book"></i> Vew
-                </a>
-                <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>
-                    Edit
-                </button>
-                 <button type="button" class="btn btn-danger btn-sm" data-mdb-toggle="modal"
-                                    data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}" data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i>
-                    Delete
-                </button>
+    <div class="row">
+        <div class="col">
+            <h1 class="display-6 text-primary" style="font-size:1.5rem"><b>Hello, {{ user.first_name }}</b></h1>
+        </div>
+    </div>
+    <div class="row justify-content-center mb-2">
+        <div class="col-3">
+            <div class="card mb-4 shadow-3-strong p-2 border" style="border-radius:4px;">
+                <div class="row">
+                    <div class="col-2 d-flex align-items-center"><i class="text-primary fa-regular fa-file-lines fa-2x"></i></div>
+                    <div class="col">
+                        <h5 class="text-primary" style="font-size:1rem">{{ total_recipes }}</h5>
+                        <hr class="m-0">
+                        <div class="col">
+                            <span class="fw-lighter text-primary"><small>Total recipes</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card mb-4 shadow-3-strong p-2 border" style="border-radius:4px;">
+                <div class="row">
+                    <div class="col-2 d-flex align-items-center"><i class="text-primary fa-solid fa-star fa-2x"></i></div>
+                    <div class="col">
+                        <h5 class="text-primary" style="font-size:1rem">{{ favorite_total }}</h5>
+                        <hr class="m-0">
+                        <span class="fw-lighter text-primary"><small>Favorite recipes</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card mb-4 shadow-3-strong p-2 border" style="border-radius:4px;">
+                <div class="row">
+                    <div class="col-2 d-flex align-items-center"><i class="text-primary fa-solid fa-utensils fa-2x"></i></div>
+                    <div class="col">
+                        <h5 class="text-primary" style="font-size:1rem">{{ popular_category }}</h5>
+                        <hr class="m-0">
+                        <span class="fw-lighter text-primary"><small>Most popular category</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card mb-4 shadow-3-strong p-2 border" style="border-radius:4px;">
+                <div class="row">
+                    <div class="col-2 d-flex align-items-center"><i class="text-primary fa-sharp fa-solid fa-cart-shopping fa-2x"></i></div>
+                    <div class="col">
+                        {% if shopping_list %}
+                        <h5 class="text-primary" style="font-size:1rem">{{ shopping_list }}</h5>
+                        <hr class="m-0">
+                        <span class="fw-lighter text-primary"><small>Items on your shopping list</small></span>
+                        {% else %}
+                         <h5 class="text-primary" style="font-size:1rem">{{ shopping_list }}</h5>
+                        <hr class="m-0">
+                        <span class="fw-lighter text-primary"><small>Items on your shopping list</small></span>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    {% endfor %}
-</div>
+    <div class="row">
+        <div class="col">
+            <h1 class="display-6 text-primary" style="font-size:1.5rem"><b>Find your next meal</b></h1>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card shadow-3-strong p-3 border" style="border-radius:4px;">
+                <div class="row">
+                    <div class="col d-flex justify-content-between">
+                        <a class="btn btn-primary" href="/add_recipe"><i class="fa-solid fa-pen-to-square"></i> Add Recipe</a>
+                        <a class="btn btn-secondary" href="/all_recipes"><i class="fa-regular fa-file-lines fa-lg me-2"></i> All Recipes</a>
+                        <button class="btn btn-secondary"><i class="fa-solid fa-star fa-lg me-2"></i> Favorites</button>
+                        <button class="btn btn-secondary"><i class="fa-solid fa-star fa-lg me-2"></i> Random Recipe</button>
+                        <form class="input-group w-50 my-auto d-none d-sm-flex">
+                            <input
+                                    autocomplete="off"
+                                    type="search"
+                                    class="form-control rounded form-control-sm me-3"
+                                    placeholder="Enter keyword"
+                                    style="min-width: 125px;"
+                            />
+                            <select class="form-select rounded form-select-sm" data-style="btn-info"
+                                    id="recipe_category" name="recipe_category">
+                                <option value="7" disabled>Select Category</option>
+                                <option value="0">All Categories</option>
+                                <option value="0">Breakfast</option>
+                                <option value="1">Lunch</option>
+                                <option value="2">Dinner</option>
+                                <option value="3">Dessert</option>
+                                <option value="4">Sides</option>
+                            </select>
+                            <button class="btn btn-link btn-lg"><i class="fa-solid fa-magnifying-glass"></i> Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <h1 class="display-6 text-primary" style="font-size:1.5rem"><b>Some of your favorites</b></h1>
+        </div>
+    </div>
+    <div class="row">
+        {% for recipe in recipes %}
+        <div class="d-flex justify-content-between col-lg-4 col-md-3 col-sm-6">
+            <div class="card mb-4 shadow-3-strong border" style="border-radius:4px;">
+                <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}" style="width: 100%;height: 15vw;object-fit: cover;
+            border-top-left-radius:4px; border-top-right-radius:4px">
+                {% if recipe.favorite == True %}
+                <button class="btn btn-secondary btn-sm" onclick="remove_favorite('{{ recipe.id }}')"
+                        style="position:absolute; top: 10px; right: 10px">
+                    <i class="fa-solid fa-star fa-xl text-danger"></i>
+                </button>
+                {% else %}
+                <button class="btn btn-secondary btn-sm" onclick="add_favorite('{{ recipe.id }}')"
+                        style="position:absolute; top: 10px; right: 10px">
+                    <i class="fa-regular fa-star fa-xl text-danger"></i>
+                </button>
+                {% endif %}
+                <div class="card-body text-center rounded-4">
+                    <h6 class="card-title"><span class=" text-primary fw-lighter">{{ recipe.recipe_name }}</span>
+                    </h6>
+                    <hr/>
+                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Prep: {{ recipe.prep_time }}</span>
+                    <span class="badge badge-info"><i
+                            class="fa-solid fa-clock fa-sm"></i> Cook: {{ recipe.cook_time }}</span></span>
+                    <span class="badge badge-info"><i
+                            class="fa-solid fa-clock fa-sm"></i> Total: 30 mins</span></span>
+                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span></span>
+                    <hr/>
+                    <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-primary btn-sm"><i
+                            class="fa fa-book"></i> Vew
+                    </a>
+                    <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" data-mdb-toggle="modal"
+                            data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
+                            data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
 <div class="modal fade" id="delete_recipe" tabindex="-1" aria-labelledby="delete_recipe_modal" aria-hidden="true">
