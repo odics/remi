@@ -6,22 +6,25 @@
 <div class="container">
     <div class="row mb-2">
         <div class="col">
-            <h1 class="display-6 text-primary mb-0" style="font-size:1.5rem"><b>Showing all recipes</b></h1>
+            <h1 class="display-6 text-primary mb-0" style="font-size:1.5rem"><b>{{ page_title }}</b></h1>
         </div>
         <div class="col d-flex justify-content-end">
-            <div class="input-group input-group-sm w-50 text-end">
-                <select class="form-select rounded" id="inputGroupSelect02">
-                    <option value="7" disabled>Select Category</option>
-                    <option value="0">Breakfast</option>
-                    <option value="1">Lunch</option>
-                    <option value="2">Dinner</option>
-                    <option value="3">Dessert</option>
-                    <option value="4">Sides</option>
-                </select>
-                <div class="input-group-append">
-                    <button class="btn btn-link"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort Recipes</button>
+            <form method="POST">
+                <div class="input-group input-group-sm w-100 text-end">
+                    <select class="form-select rounded" id="sort_method" name="sort_method">
+                        <option value="all">Show all</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Sides">Sides</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-link"><i class="fa-solid fa-arrow-down-short-wide"></i>
+                            Filter Recipes</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <div class="row">
@@ -32,38 +35,40 @@
     <div class="row">
         {% for recipe in recipes %}
         <div class="d-flex justify-content-between col-lg-4 col-md-3 col-sm-6">
-            <div class="card mb-4 shadow-3-strong border" style="border-radius:4px;">
+            <div class="card mb-4 shadow-2 border" style="border-radius:4px;">
                 <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}" style="width: 100%;height: 15vw;object-fit: cover;
             border-top-left-radius:4px; border-top-right-radius:4px">
                 {% if recipe.favorite == True %}
                 <button class="btn btn-secondary btn-sm" onclick="remove_favorite('{{ recipe.id }}')"
-                        style="position:absolute; top: 10px; right: 10px">
+                    style="position:absolute; top: 10px; right: 10px">
                     <i class="fa-solid fa-star fa-xl text-danger"></i>
                 </button>
                 {% else %}
                 <button class="btn btn-secondary btn-sm" onclick="add_favorite('{{ recipe.id }}')"
-                        style="position:absolute; top: 10px; right: 10px">
+                    style="position:absolute; top: 10px; right: 10px">
                     <i class="fa-regular fa-star fa-xl text-danger"></i>
                 </button>
                 {% endif %}
                 <div class="card-body text-center rounded-4">
                     <h6 class="card-title"><span class=" text-primary fw-lighter">{{ recipe.recipe_name }}</span></h6>
-                    <hr/>
-                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Prep: {{ recipe.prep_time }}</span>
-                    <span class="badge badge-info"><i
-                            class="fa-solid fa-clock fa-sm"></i> Cook: {{ recipe.cook_time }}</span></span>
-                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Total: 30 mins</span></span>
-                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span></span>
-                    <hr/>
-                    <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-primary btn-sm"><i
+                    <hr />
+                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> {{ recipe.category }}</span>
+                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Prep: {{ recipe.prep_time
+                        }}</span>
+                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Cook: {{ recipe.cook_time
+                        }}</span>
+                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Total: 30 mins</span>
+                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span>
+                    <hr />
+                    <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-secondary btn-sm shadow-none"><i
                             class="fa fa-book"></i> Vew
                     </a>
-                    <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>
+                    <button type="button" class="btn btn-secondary btn-sm shadow-none"><i class="fa-solid fa-pen-to-square"></i>
                         Edit
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm" data-mdb-toggle="modal"
-                            data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
-                            data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i>Delete
+                    <button type="button" class="btn btn-danger btn-sm shadow-none" data-mdb-toggle="modal"
+                        data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
+                        data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i>Delete
                     </button>
                 </div>
             </div>

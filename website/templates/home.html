@@ -6,12 +6,12 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="display-6 text-primary" style="font-size:1.5rem"><b>Hello, {{ user.first_name }}</b></h1>
+            <h1 class="display-6 text-primary" style="font-size:1.5rem">Hello, {{ user.first_name }}</h1>
         </div>
     </div>
     <div class="row justify-content-center mb-2">
         <div class="col-3">
-            <div class="card mb-4 shadow-3-strong p-2 border" style="border-radius:4px;">
+            <div class="card mb-4 shadow-2 p-2 border" style="border-radius:4px;">
                 <div class="row">
                     <div class="col-2 d-flex align-items-center"><i class="text-primary fa-regular fa-file-lines fa-2x"></i></div>
                     <div class="col">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="col-3">
-            <div class="card mb-4 shadow-3-strong p-2 border" style="border-radius:4px;">
+            <div class="card mb-4 shadow-2 p-2 border" style="border-radius:4px;">
                 <div class="row">
                     <div class="col-2 d-flex align-items-center"><i class="text-primary fa-solid fa-star fa-2x"></i></div>
                     <div class="col">
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="col-3">
-            <div class="card mb-4 shadow-3-strong p-2 border" style="border-radius:4px;">
+            <div class="card mb-4 shadow-2 p-2 border" style="border-radius:4px;">
                 <div class="row">
                     <div class="col-2 d-flex align-items-center"><i class="text-primary fa-solid fa-utensils fa-2x"></i></div>
                     <div class="col">
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="col-3">
-            <div class="card mb-4 shadow-3-strong p-2 border" style="border-radius:4px;">
+            <div class="card mb-4 shadow-2 p-2 border" style="border-radius:4px;">
                 <div class="row">
                     <div class="col-2 d-flex align-items-center"><i class="text-primary fa-sharp fa-solid fa-cart-shopping fa-2x"></i></div>
                     <div class="col">
@@ -69,18 +69,18 @@
     </div>
     <div class="row">
         <div class="col">
-            <h1 class="display-6 text-primary" style="font-size:1.5rem"><b>Find your next meal</b></h1>
+            <h1 class="display-6 text-primary" style="font-size:1.5rem">Find your next meal</h1>
         </div>
     </div>
     <div class="row mb-4">
         <div class="col">
-            <div class="card shadow-3-strong p-3 border" style="border-radius:4px;">
+            <div class="card shadow-2 p-3 border" style="border-radius:4px;">
                 <div class="row">
                     <div class="col d-flex justify-content-between">
-                        <a class="btn btn-primary" href="/add_recipe"><i class="fa-solid fa-pen-to-square"></i> Add Recipe</a>
+                        <a class="btn btn-primary shadow-none" href="/add_recipe"><i class="fa-solid fa-pen-to-square"></i> Add Recipe</a>
                         <a class="btn btn-secondary" href="/all_recipes"><i class="fa-regular fa-file-lines fa-lg me-2"></i> All Recipes</a>
                         <button class="btn btn-secondary"><i class="fa-solid fa-star fa-lg me-2"></i> Favorites</button>
-                        <button class="btn btn-secondary"><i class="fa-solid fa-star fa-lg me-2"></i> Random Recipe</button>
+                        <button class="btn btn-secondary"><i class="fa-solid fa-dice fa-lg me-2"></i> Random Recipe</button>
                         <form class="input-group w-50 my-auto d-none d-sm-flex">
                             <input
                                     autocomplete="off"
@@ -109,13 +109,13 @@
     </div>
     <div class="row mt-3">
         <div class="col">
-            <h1 class="display-6 text-primary" style="font-size:1.5rem"><b>Some of your favorites</b></h1>
+            <h1 class="display-6 text-primary" style="font-size:1.5rem">Some of your favorites</h1>
         </div>
     </div>
     <div class="row">
         {% for recipe in recipes %}
         <div class="d-flex justify-content-between col-lg-4 col-md-3 col-sm-6">
-            <div class="card mb-4 shadow-3-strong border" style="border-radius:4px;">
+            <div class="card mb-4 shadow-2 border" style="border-radius:4px;">
                 <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}" style="width: 100%;height: 15vw;object-fit: cover;
             border-top-left-radius:4px; border-top-right-radius:4px">
                 {% if recipe.favorite == True %}
@@ -133,6 +133,7 @@
                     <h6 class="card-title"><span class=" text-primary fw-lighter">{{ recipe.recipe_name }}</span>
                     </h6>
                     <hr/>
+                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> {{ recipe.category }}</span>
                     <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Prep: {{ recipe.prep_time }}</span>
                     <span class="badge badge-info"><i
                             class="fa-solid fa-clock fa-sm"></i> Cook: {{ recipe.cook_time }}</span></span>
@@ -140,13 +141,13 @@
                             class="fa-solid fa-clock fa-sm"></i> Total: 30 mins</span></span>
                     <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span></span>
                     <hr/>
-                    <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-primary btn-sm"><i
+                    <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-secondary btn-sm"><i
                             class="fa fa-book"></i> Vew
                     </a>
-                    <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>
+                    <button type="button" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i>
                         Edit
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm" data-mdb-toggle="modal"
+                    <button type="button" class="btn btn-danger btn-sm shadow-none" data-mdb-toggle="modal"
                             data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
                             data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i>
                         Delete
