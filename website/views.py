@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, session, redirect, url_for, jsonify
-from sqlalchemy import func, desc
+from sqlalchemy import func, desc, select
 from flask_login import login_required, current_user
 import json
 from .models import Recipe, Ingredients, ShoppingList, Tag
@@ -233,6 +233,26 @@ def delete_recipe_go_home():
     db.session.commit()
 
     return redirect(url_for('views.home'))
+
+
+@views.route('/random_recipe', methods=['POST', 'GET'])
+@login_required
+def random_recipe():
+    if request.method == 'POST':
+        category = request.form.getlist('category')
+        ingredient_list = request.form.getlist('ingredients')
+        for ingredient in ingredient_list:
+            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)])
+            db.session.add(ingredient)
+            db.session.commit()
+
+    shopping_list = ShoppingList.query.count()
+
+    recipe = Recipe.query.filter_by(username=current_user.id).group_by(func.random()).first()
+    ingredients = Ingredients.query.filter_by(uuid=recipe.uuid).all()
+
+    return render_template("random_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
+                           shopping_list=shopping_list, view_id=recipe.uuid)
 
 
 @views.route('/view_recipe', methods=['POST', 'GET'])
