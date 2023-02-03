@@ -257,6 +257,7 @@ def random_recipe():
                            shopping_list=shopping_list, view_id=recipe.uuid)
 
 
+
 @views.route('/view_recipe/<recipe_uuid>', methods=['POST', 'GET'])
 @login_required
 def view_recipe(recipe_uuid):
@@ -273,9 +274,10 @@ def view_recipe(recipe_uuid):
     recipe_id = recipe_uuid
     recipe = Recipe.query.filter_by(uuid=recipe_id).first()
     ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()
+    instructions_json = json.loads(recipe.instructions_json)
 
-    return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
-                           shopping_list=shopping_list, view_id=recipe_id)
+    return render_template("test_view.html", recipe=recipe, ingredients=ingredients, user=current_user,
+                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json)
 
 
 # Edits and updates an existing recipe.
@@ -289,7 +291,7 @@ def edit_recipe(recipe_uuid):
         ing_type = request.form.getlist('ing_type')
         ingredient_to_update = request.form.getlist('ingredient_list')
         ingredient_id = request.form.getlist('ingredient_id')
-        
+
         instructions_to_update = request.form.getlist('instructions')
 
         recipe_prep_time = request.form.get('prep_time')
