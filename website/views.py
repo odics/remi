@@ -91,6 +91,7 @@ def add_recipe():
             session['ingredient_list'] = recipe.ingredient_list
             session['original_url'] = recipe.original_url
             session['date_parsed'] = recipe.date_parsed
+            session['instructions_json'] = recipe.instructions_json
             shopping_list = session.get('shopping_list', None)
 
             return render_template("list_recipe.html", user=current_user, title=recipe.title, prep=recipe.prep,
@@ -98,7 +99,7 @@ def add_recipe():
                                    rest=recipe.rest, total=recipe.total, servings=recipe.servings,
                                    ingredients=recipe.ingredients, instructions=recipe.instructions, image=recipe.image,
                                    ingredient_list=recipe.ingredient_list, shopping_list=shopping_list,
-                                   original_url=recipe.original_url, date_parsed=recipe.date_parsed)
+                                   original_url=recipe.original_url, date_parsed=recipe.date_parsed, instructions_json=recipe.instructions_json)
 
     return render_template("add_recipe.html", user=current_user, shopping_list=shopping_list)
 
@@ -120,6 +121,7 @@ def save_recipe_to_db():
     uuid = shortuuid.uuid()
     original_url = session.get('original_url', None)
     date_parsed = session.get('date_parsed', None)
+    instructions_json = session.get('instructions_json', None)
 
     if request.method == 'POST':
 
@@ -181,7 +183,7 @@ def save_recipe_to_db():
     new_recipe = Recipe(username=user_id, prep_time=prep, cook_time=cook, ingredients=ingredients,
                         instructions=instructions, recipe_name=title, image=image, total_time=total, servings=servings,
                         uuid=uuid, original_url=original_url, date_parsed=date_parsed, favorite=False,
-                        category=recipe_category)
+                        category=recipe_category, instructions_json=instructions_json)
 
     tags = request.form.getlist('recipe_tags')
 
@@ -275,6 +277,37 @@ def view_recipe():
 
     return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
                            shopping_list=shopping_list, view_id=recipe_id)
+
+
+# Edits and updates an existing recipe.
+@views.route('/edit_recipe', methods=['POST', 'GET'])
+@login_required
+def edit_recipe():
+    if request.method == 'POST':
+        category = request.form.getlist('category')
+        ingredient_to_update = request.form.getlist('ingredient_list')
+        ingredient_id = request.form.getlist('ingredient_id')
+
+        for i in range(0, len(ingredient_to_update)):
+            print(ingredient_to_update[i])
+            print(ingredient_id[i])
+
+        ingredient_list = request.form.getlist('ingredients')
+        for ingredient in ingredient_list:
+            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)])
+            db.session.add(ingredient)
+            db.session.commit()
+
+    shopping_list = ShoppingList.query.count()
+
+    recipe_uuid = request.args.get('recipe_uuid')
+    recipe_id = request.args.get('recipe_uuid')
+    recipe = Recipe.query.filter_by(uuid=recipe_id).first()
+    instructions_json = json.loads(recipe.instructions_json)
+    ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()
+
+    return render_template("edit_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
+                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json)
 
 
 # Deletes a specific recipe's tag.

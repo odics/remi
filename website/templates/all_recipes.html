@@ -63,9 +63,9 @@
                     <a href="view_recipe?recipe_uuid={{ recipe.uuid }}" class="btn btn-secondary btn-sm shadow-none"><i
                             class="fa fa-book"></i> Vew
                     </a>
-                    <button type="button" class="btn btn-secondary btn-sm shadow-none"><i class="fa-solid fa-pen-to-square"></i>
+                    <a href="edit_recipe?recipe_uuid={{ recipe.uuid }}" type="button" class="btn btn-secondary btn-sm shadow-none"><i class="fa-solid fa-pen-to-square"></i>
                         Edit
-                    </button>
+                    </a>
                     <button type="button" class="btn btn-danger btn-sm shadow-none" data-mdb-toggle="modal"
                         data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
                         data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i>Delete

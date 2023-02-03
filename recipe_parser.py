@@ -14,7 +14,7 @@ class Recipe:
     """This class stores the parsed recipe, and is returned by the parser.
     """
     def __init__(self, title, prep, cook, rest, total, servings, ingredients, instructions, image, ingredient_list,
-                 original_url, date_parsed):
+                 original_url, date_parsed, instructions_json):
         self.title = title
         self.prep = prep
         self.cook = cook
@@ -27,6 +27,7 @@ class Recipe:
         self.ingredient_list = ingredient_list
         self.original_url = original_url
         self.date_parsed = date_parsed
+        self.instructions_json = instructions_json
 
 
 def download_image(url, file_name):
@@ -189,6 +190,13 @@ def recipe_parser(url):
             instruction_list = recipe_json[0].get('recipeInstructions')
     except:
         print("Failed to generate recipe ingredient and instruction lists from " + url)
+
+    instructions_dict = {}
+
+    for i, instruction in zip(range(len(instruction_list)), instruction_list):
+        instructions_dict[i] = instruction.get('text')
+
+    instructions_dict = json.dumps(instructions_dict)
 
     # Parse the ISO8601 time into human readable time:
     try:
@@ -372,6 +380,6 @@ def recipe_parser(url):
 
     recipe_data = Recipe(recipe_title, prep_time, cook_time, rest_time,
                          total_time, total_servings, joined_ingredients, joined_instructions, image_title,
-                         ingredient_list, url, current_date)
+                         ingredient_list, url, current_date, instructions_dict)
 
     return recipe_data
