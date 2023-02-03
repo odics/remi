@@ -38,6 +38,7 @@
     </div>
     <br>
     <form method="POST">
+        <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
         <div class="row">
             <div class="col-4">
                 <div class="card text-left bg-light mb-10" style="border-radius:4px;">
@@ -71,7 +72,7 @@
                                                     <div class="form-outline">
                                                         <select class="form-select form-select-sm" data-style="btn-info"
                                                             aria-label=".form-select-sm example" id="{{ loop.index0 }}"
-                                                            name="{{ loop.index0 }}">
+                                                            name="ing_type">
                                                             <option value="0" selected>Misc.</option>
                                                             <option value="1">Produce</option>
                                                             <option value="2">Meat</option>

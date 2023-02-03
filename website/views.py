@@ -257,9 +257,9 @@ def random_recipe():
                            shopping_list=shopping_list, view_id=recipe.uuid)
 
 
-@views.route('/view_recipe', methods=['POST', 'GET'])
+@views.route('/view_recipe/<recipe_uuid>', methods=['POST', 'GET'])
 @login_required
-def view_recipe():
+def view_recipe(recipe_uuid):
     if request.method == 'POST':
         category = request.form.getlist('category')
         ingredient_list = request.form.getlist('ingredients')
@@ -270,8 +270,7 @@ def view_recipe():
 
     shopping_list = ShoppingList.query.count()
 
-    recipe_uuid = request.args.get('recipe_uuid')
-    recipe_id = request.args.get('recipe_uuid')
+    recipe_id = recipe_uuid
     recipe = Recipe.query.filter_by(uuid=recipe_id).first()
     ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()
 
@@ -280,28 +279,40 @@ def view_recipe():
 
 
 # Edits and updates an existing recipe.
-@views.route('/edit_recipe', methods=['POST', 'GET'])
+@views.route('/edit_recipe/<recipe_uuid>', methods=['POST', 'GET'])
 @login_required
-def edit_recipe():
+def edit_recipe(recipe_uuid):
     if request.method == 'POST':
-        category = request.form.getlist('category')
+        recipe_id = request.form.get('recipe_id')
+        ing_type = request.form.getlist('ing_type')
         ingredient_to_update = request.form.getlist('ingredient_list')
         ingredient_id = request.form.getlist('ingredient_id')
+        instructions_to_update = request.form.getlist('instructions')
+
 
         for i in range(0, len(ingredient_to_update)):
-            print(ingredient_to_update[i])
-            print(ingredient_id[i])
-
-        ingredient_list = request.form.getlist('ingredients')
-        for ingredient in ingredient_list:
-            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)])
-            db.session.add(ingredient)
+            ingredient_update = Ingredients.query.filter_by(id=ingredient_id[i]).first()
+            ingredient_update.ingredient = ingredient_to_update[i]
+            ingredient_update.ing_type = ing_type[i]
             db.session.commit()
+
+        instructions_json = {}
+        for i in range(0, len(instructions_to_update)):
+            instructions_json[i] = instructions_to_update[i]
+
+        instructions_json = json.dumps(instructions_json)
+
+        recipe_update = Recipe.query.filter_by(id=recipe_id).first()
+        recipe_update.instructions_json = instructions_json
+
+        db.session.commit()
+
+        return redirect(url_for('views.view_recipe', recipe_uuid=recipe_uuid))
+       
 
     shopping_list = ShoppingList.query.count()
 
-    recipe_uuid = request.args.get('recipe_uuid')
-    recipe_id = request.args.get('recipe_uuid')
+    recipe_id = recipe_uuid
     recipe = Recipe.query.filter_by(uuid=recipe_id).first()
     instructions_json = json.loads(recipe.instructions_json)
     ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()

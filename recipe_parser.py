@@ -165,7 +165,7 @@ def recipe_parser(url):
         print("Failed to get recipe instructions from " + url)
 
     # Store a Python list of instructions and ingredients. Ingredient list is used to iterate over and generate
-    # shopping list. Instruction list is currently unused.
+    # shopping list.
     try:
         if isinstance(recipe_json, dict):
             if "@graph" in recipe_json.keys():
