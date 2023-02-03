@@ -3,6 +3,7 @@
 
 {% block content %}
 <br>
+<form method="POST">
 <div class="container">
     <div class="row">
         <div class="col">
@@ -12,23 +13,34 @@
                         <div class="row">
                             <div class="col text-center">
                                 <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
-                                        <b>Prep:</b></span> {{ recipe.prep_time }}</span>
+                                        <b>Prep:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="prep_time"
+                                        value="{{ recipe.prep_time }}" /></span>
                             </div>
                             <div class="col text-center">
                                 <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
-                                        <b>Cook:</b></span> {{ recipe.cook_time }}</span>
+                                        <b>Cook:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="cook_time"
+                                        value="{{ recipe.cook_time }}" /></span>
                             </div>
                             <div class="col text-center">
                                 <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
-                                        <b>Total:</b></span> {{ recipe.total_time }}</span>
+                                        <b>Total:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="total_time"
+                                        value="{{ recipe.total_time }}" /></span>
                             </div>
                             <div class="col text-center">
                                 <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i>
-                                        <b>Servings:</b></span> {{ recipe.servings }}</span>
+                                        <b>Servings:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="servings"
+                                        value="{{ recipe.servings }}" /></span>
                             </div>
                             <div class="col text-center">
                                 <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i>
-                                        <b>Category:</b></span> {{ recipe.category }}</span>
+                                        <b>Category:</b></span>  <select value="1" class="form-select form-select-sm" data-style="btn-info" id="recipe_category" name="recipe_category">
+                                            <option value="{{ recipe.category }}">{{ recipe.category }}</option>
+                                            <option value="Breakfast">Breakfast</option>
+                                            <option value="Lunch">Lunch</option>
+                                            <option value="Dinner">Dinner</option>
+                                            <option value="Dessert">Dessert</option>
+                                            <option value="Sides">Sides</option>
+                                </select></span>
                             </div>
                         </div>
                     </div>
@@ -37,7 +49,6 @@
         </div>
     </div>
     <br>
-    <form method="POST">
         <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
         <div class="row">
             <div class="col-4">
@@ -73,13 +84,14 @@
                                                         <select class="form-select form-select-sm" data-style="btn-info"
                                                             aria-label=".form-select-sm example" id="{{ loop.index0 }}"
                                                             name="ing_type">
-                                                            <option value="0" selected>Misc.</option>
-                                                            <option value="1">Produce</option>
-                                                            <option value="2">Meat</option>
-                                                            <option value="3">Coffee and Tea</option>
-                                                            <option value="4">Pasta</option>
-                                                            <option value="5">Frozen Food</option>
-                                                            <option value="6">Dairy</option>
+                                                            <option value="{{ ingredient.ing_type }}">{{ ingredient.ing_display }}</option>
+                                                            <option value="misc">Misc.</option>
+                                                            <option value="produce">Produce</option>
+                                                            <option value="meat">Meat</option>
+                                                            <option value="coffee_tea">Coffee and Tea</option>
+                                                            <option value="pasta">Pasta</option>
+                                                            <option value="frozen">Frozen Food</option>
+                                                            <option value="dairy_bread">Dairy</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -113,20 +125,23 @@
                     <thead class="table-info">
                         <tr>
                             <td class="border-top text-center align-middle" scope="col">
-                                <h4 class="mb-0">
-                                    <span class="text-primary align-middle fw-lighter mb-0">{{ recipe.recipe_name }}</span>
-                                    <span style="float: right;">
-                                        <button class="btn btn-primary btn-sm float-right shadow-none" type="submit"
+                            
+                                    <div class="row me-0 ms-0">
+                                        <div class="col p-0">
+                                    <input type="text" class="form-control form-control-sm w-100" id="title" name="recipe_title"
+                                        value="{{ recipe.recipe_name }}" />
+                                        </div>
+                                        <div class="col-5 d-flex justify-content-end">
+                                            <button class="btn btn-primary btn-sm float-right shadow-none me-1" type="submit"
                                             id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                                             <i class="fa-solid fa-floppy-disk"></i> Save
                                         </button>
-                                        <button class="btn btn-danger btn-sm float-right shadow-none" type="button"
+                                        <a href="/view_recipe/{{ recipe.uuid }}" class="btn btn-danger btn-sm float-right shadow-none" type="button"
                                             id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                                             <i class="fa fa-trash"></i> Discard Changes
-                                        </button>
-                                    </form>
-                                    </span>
-                                </h4>
+                                        </a>
+                                        </div>
+                
                                 <div style="clear:both;"></div>
                             </td>
                         </tr>
@@ -147,6 +162,7 @@
                         </tr>
                     </tbody>
                 </table>
+            </form>
             </div>
         </div>
     </div>

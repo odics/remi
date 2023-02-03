@@ -48,6 +48,7 @@ class Ingredients(db.Model):
     recipe = db.Column(db.Integer, db.ForeignKey('recipe.uuid'))
     ingredient = db.Column(db.String())
     ing_type = db.Column(db.String(), default="misc")
+    ing_display = db.Column(db.String(), default="Misc.")
 
 
 class ShoppingList(db.Model):
