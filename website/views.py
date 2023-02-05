@@ -94,12 +94,13 @@ def add_recipe():
             session['instructions_json'] = recipe.instructions_json
             shopping_list = session.get('shopping_list', None)
 
-            return render_template("list_recipe.html", user=current_user, title=recipe.title, prep=recipe.prep,
+            return render_template("preview_test.html", user=current_user, title=recipe.title, prep=recipe.prep,
                                    cook=recipe.cook,
                                    rest=recipe.rest, total=recipe.total, servings=recipe.servings,
                                    ingredients=recipe.ingredients, instructions=recipe.instructions, image=recipe.image,
                                    ingredient_list=recipe.ingredient_list, shopping_list=shopping_list,
-                                   original_url=recipe.original_url, date_parsed=recipe.date_parsed, instructions_json=recipe.instructions_json)
+                                   original_url=recipe.original_url, date_parsed=recipe.date_parsed, 
+                                   instructions_json=json.loads(recipe.instructions_json))
 
     return render_template("add_recipe.html", user=current_user, shopping_list=shopping_list)
 
@@ -200,6 +201,105 @@ def save_recipe_to_db():
     flash('Recipe successfully added.', category='success')
     return redirect(url_for('views.home'))
 
+@views.route('/save_recipe_test', methods=['GET', 'POST'])
+@login_required
+def save_recipe_to_db_test():
+    user_id = session.get('user_id', None)
+    title = request.form.get('recipe_title')
+    prep = request.form.get('prep_time')
+    cook = request.form.get('cook_time')
+    rest = session.get('rest', None)
+    total = request.form.get('total')
+    servings = request.form.get('servings')
+    instructions = session.get('instructions', None)
+    image = session.get('image', None)
+    ingredient_list = session.get('ingredient_list', None)
+    ingredients = session.get('ingredients', None)
+    uuid = shortuuid.uuid()
+    original_url = session.get('original_url', None)
+    date_parsed = session.get('date_parsed', None)
+    instructions_json = session.get('instructions_json', None)
+
+    if request.method == 'POST':
+
+        category = request.form.get('recipe_category')
+        ingredient_list = request.form.getlist('ingredient_list')
+        ingredient_type = request.form.getlist('ing_type')
+
+        if category == "0":
+            recipe_category = "Breakfast"
+        elif category == "1":
+            recipe_category = "Lunch"
+        elif category == "2":
+            recipe_category = "Dinner"
+        elif category == "3":
+            recipe_category = "Dessert"
+        elif category == "4":
+            recipe_category = "Sides"
+        else:
+            recipe_category = "None"
+
+        for i in range(0, len(ingredient_list)):
+            print(ingredient_type[i])
+            print(ingredient_list[i])
+            if ingredient_type[i] == "misc":
+                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="misc", ing_display="Misc.")
+                db.session.add(ingredient)
+                db.session.commit()
+
+            if ingredient_type[i] == "produce":
+                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="produce", ing_display="Produce")
+                db.session.add(ingredient)
+                db.session.commit()
+
+            if ingredient_type[i] == "meat":
+                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="meat", ing_display="Meat")
+                db.session.add(ingredient)
+                db.session.commit()
+
+            if ingredient_type[i] == "coffee_tea":
+                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="coffee_tea", ing_display="Coffee and Tea")
+                db.session.add(ingredient)
+                db.session.commit()
+
+            if ingredient_type[i] == "pasta":
+                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="pasta", ing_display="Pasta")
+                db.session.add(ingredient)
+                db.session.commit()
+
+            if ingredient_type[i] == "frozen":
+                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="frozen", ing_display="Frozen Food")
+                db.session.add(ingredient)
+                db.session.commit()
+
+            if ingredient_type[i] == "dairy_bread":
+                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="dairy_bread", ing_display="Dairy and Bread")
+                db.session.add(ingredient)
+                db.session.commit()
+
+            if ingredient_type[i] == "7":
+                pass
+
+    new_recipe = Recipe(username=user_id, prep_time=prep, cook_time=cook, ingredients=ingredients,
+                        instructions=instructions, recipe_name=title, image=image, total_time=total, servings=servings,
+                        uuid=uuid, original_url=original_url, date_parsed=date_parsed, favorite=False,
+                        category=recipe_category, instructions_json=instructions_json)
+
+    tags = request.form.getlist('recipe_tags')
+
+    for tag in tags:
+        new_tag = Tag(tag_name=str(tag).upper())
+        new_recipe.tags.append(new_tag)
+
+        db.session.add(new_tag)
+        db.session.commit()
+
+    db.session.add(new_recipe)
+    db.session.commit()
+
+    flash('Recipe successfully added.', category='success')
+    return redirect(url_for('views.home'))
+
 
 @views.route('/delete_recipe', methods=['POST'])
 @login_required
@@ -276,7 +376,7 @@ def view_recipe(recipe_uuid):
     ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()
     instructions_json = json.loads(recipe.instructions_json)
 
-    return render_template("test_view.html", recipe=recipe, ingredients=ingredients, user=current_user,
+    return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
                            shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json)
 
 
@@ -318,15 +418,19 @@ def edit_recipe(recipe_uuid):
                 ingredient_update.ing_display = "Meat"
 
             elif ing_type[i] == "coffee_tea":
+                ingredient_update.ing_type = ing_type[i]
                 ingredient_update.ing_display = "Coffee and Tea"
 
             elif ing_type[i] == "pasta":
+                ingredient_update.ing_type = ing_type[i]
                 ingredient_update.ing_display = "Pasta"
 
             elif ing_type[i] == "frozen":
+                ingredient_update.ing_type = ing_type[i]
                 ingredient_update.ing_display = "Frozen Food"
 
             elif ing_type[i] == "dairy_bread":
+                ingredient_update.ing_type = ing_type[i]
                 ingredient_update.ing_display = "Dairy"
 
             db.session.commit()
