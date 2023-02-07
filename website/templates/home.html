@@ -81,13 +81,14 @@
                         <a class="btn btn-secondary" href="/all_recipes"><i class="fa-regular fa-file-lines fa-lg me-2"></i> All Recipes</a>
                         <button class="btn btn-secondary"><i class="fa-solid fa-star fa-lg me-2"></i> Favorites</button>
                         <a class="btn btn-secondary" href="/random_recipe"><i class="fa-solid fa-dice fa-lg me-2"></i> Random Recipe</a>
-                        <form class="input-group w-50 my-auto d-none d-sm-flex">
+                        <form method="POST" action="/search" class="input-group w-50 my-auto d-none d-sm-flex">
                             <input
                                     autocomplete="off"
                                     type="search"
                                     class="form-control rounded form-control-sm me-3"
                                     placeholder="Enter keyword"
                                     style="min-width: 125px;"
+                                    name="search_query"
                             />
                             <select class="form-select rounded form-select-sm" data-style="btn-info"
                                     id="recipe_category" name="recipe_category">
@@ -113,6 +114,7 @@
         </div>
     </div>
     <div class="row">
+        {% if recipes %}
         {% for recipe in recipes %}
         <div class="d-flex justify-content-between col-lg-4 col-md-3 col-sm-6">
             <div class="card mb-4 shadow-2 border" style="border-radius:4px;">
@@ -157,6 +159,12 @@
             </div>
         </div>
         {% endfor %}
+        {% else %}
+        <div class="d-flex">
+            <span class="fw-lighter">Oops, you don't have any favorite recipes yet. Make sure to mark your favorites by clicking the star
+            icon on the recipe image.</span>
+        </div>
+        {% endif %}
     </div>
 </div>
 

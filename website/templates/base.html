@@ -57,10 +57,10 @@
                 </div>
             </div>
             <div class="navbar-nav flex-row d-none d-md-flex">
-                <form class="input-group w-auto my-auto d-none d-sm-flex">
-                    <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search Recipes"
+                <form method="POST" action="/search" class="input-group w-auto my-auto d-none d-sm-flex">
+                    <input autocomplete="off" type="search" name="search_query" class="form-control rounded" placeholder="Search Recipes"
                         style="min-width: 125px;" />
-                    <button class="btn btn-link"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                    <button class="btn btn-link" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                 </form>
             </div>
             <div class="d-flex align-items-center">

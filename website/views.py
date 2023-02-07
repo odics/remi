@@ -60,14 +60,23 @@ def home():
     shopping_list = ShoppingList.query.count()
     session['shopping_list'] = shopping_list
 
-    # test_search = "%peas%"
-    # test_result = Ingredients.query.filter(Ingredients.ingredient.like(test_search)).all()
-    
-    # print(test_result)
-
     return render_template("home.html", user=current_user, recipes=recipes, shopping_list=shopping_list,
                            favorite_total=favorite_total, total_recipes=total_recipes,
                            popular_category=popular_category)
+
+
+@views.route('/search', methods=['GET', 'POST'])
+@login_required
+def search_recipes():
+    query_for_title = request.form.get('search_query')
+    search_query = "%" + request.form.get('search_query') + "%"
+    search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
+    search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
+
+    for result in search_results:
+        print (result)
+
+    return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, count=search_count))
 
 
 @views.route('/add_recipe', methods=['GET', 'POST'])
