@@ -67,16 +67,44 @@ def home():
 
 @views.route('/search', methods=['GET', 'POST'])
 @login_required
-def search_recipes():
-    query_for_title = request.form.get('search_query')
-    search_query = "%" + request.form.get('search_query') + "%"
-    search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
-    search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
+def search_recipes():  
+    if request.form.get('search_query'):
+        search_query = "%" + request.form.get('search_query') + "%"
+        query_for_title = request.form.get('search_query')
+        session['session_title'] = query_for_title
 
-    for result in search_results:
-        print (result)
+    else:
+        search_query = session.get('session_query', None)
+        query_for_title = session.get('session_title')
 
-    return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, count=search_count))
+    shopping_list = session.get('shopping_list', None)
+
+    if request.form.get('sort_method'):
+        category = request.form.get('sort_method')
+        if category == "all":
+            search_query = session.get('session_query', None)
+            query_for_title = session.get('session_title', None)
+
+            search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
+            search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
+
+            return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
+            count=search_count, shopping_list=shopping_list))
+        
+        else:
+            search_query = session.get('session_query', None)
+            query_for_title = session.get('session_title', None)
+
+            search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).filter_by(username=current_user.id, category=category).all()
+            search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
+            return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
+            count=search_count, shopping_list=shopping_list))
+    else:
+        search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
+        search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
+
+        return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
+        count=search_count, shopping_list=shopping_list))
 
 
 @views.route('/add_recipe', methods=['GET', 'POST'])
