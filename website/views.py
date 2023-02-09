@@ -42,7 +42,7 @@ def home():
     # recipes = Recipe.query.filter_by(username=current_user.id, favorite=True).all()
 
     # Query the last three added recipes:
-    recipes = Recipe.query.order_by(desc(Recipe.id)).limit(3)
+    recipes = Recipe.query.filter_by(username=current_user.id).order_by(desc(Recipe.id)).limit(3)
 
     # Get a count of all the favorites:
     favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
