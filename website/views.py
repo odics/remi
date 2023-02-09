@@ -1,3 +1,4 @@
+import shortuuid
 from flask import Blueprint, render_template, request, flash, session, redirect, url_for, jsonify
 from sqlalchemy import func, desc, select
 from flask_login import login_required, current_user
@@ -5,11 +6,10 @@ import json
 from .models import Recipe, Ingredients, ShoppingList, Tag
 from recipe_parser import recipe_parser
 from . import db
-import shortuuid
 
 views = Blueprint('views', __name__)
 
-
+# List all available recipes in the database. 
 @views.route('/all_recipes', methods=['GET', 'POST'])
 @login_required
 def all_recipes():
@@ -34,6 +34,7 @@ def all_recipes():
     return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
 
 
+# Home page.
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -65,6 +66,7 @@ def home():
                            popular_category=popular_category)
 
 
+# Search for a recipe based on title and category.
 @views.route('/search', methods=['GET', 'POST'])
 @login_required
 def search_recipes():  
@@ -100,6 +102,7 @@ def search_recipes():
 
             search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).filter_by(username=current_user.id, category=category).all()
             search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
+
             return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
             count=search_count, shopping_list=shopping_list))
     else:
@@ -110,6 +113,7 @@ def search_recipes():
         count=search_count, shopping_list=shopping_list))
 
 
+# Import and preview a recipe before saving to database. 
 @views.route('/add_recipe', methods=['GET', 'POST'])
 @login_required
 def add_recipe():
@@ -150,6 +154,7 @@ def add_recipe():
     return render_template("add_recipe.html", user=current_user, shopping_list=shopping_list)
 
 
+# Save a recipe after importing from URL
 @views.route('/save_recipe', methods=['GET', 'POST'])
 @login_required
 def save_recipe_to_db_test():
@@ -248,6 +253,7 @@ def save_recipe_to_db_test():
     return redirect(url_for('views.home'))
 
 
+# Delete a recipe and remain on current page.
 @views.route('/delete_recipe', methods=['POST'])
 @login_required
 def delete_recipe():
@@ -266,6 +272,7 @@ def delete_recipe():
     return jsonify({})
 
 
+# Delete a recipe and go to the home page after.
 @views.route('/delete_recipe_go_home', methods=['POST'])
 @login_required
 def delete_recipe_go_home():
@@ -284,6 +291,7 @@ def delete_recipe_go_home():
     return redirect(url_for('views.home'))
 
 
+# Pull a random recipe from the database.
 @views.route('/random_recipe', methods=['POST', 'GET'])
 @login_required
 def random_recipe():
@@ -304,7 +312,7 @@ def random_recipe():
                            shopping_list=shopping_list, view_id=recipe.uuid)
 
 
-
+# View a specific recipe in detail. 
 @views.route('/view_recipe/<recipe_uuid>', methods=['POST', 'GET'])
 @login_required
 def view_recipe(recipe_uuid):
@@ -462,6 +470,7 @@ def remove_favorite():
     return jsonify({})
 
 
+# Show current shopping cart.
 @views.route('/cart', methods=['POST', 'GET'])
 @login_required
 def cart():
@@ -522,6 +531,7 @@ def cart():
                            coffee_to_copy=coffee_to_copy)
 
 
+# Remove an item from the shopping list/cart.
 @views.route('/delete_item', methods=['POST'])
 @login_required
 def delete_item():
@@ -534,6 +544,7 @@ def delete_item():
     return jsonify({})
 
 
+# Clear all items from the shopping list/cart. 
 @views.route('/clear_cart', methods=['POST'])
 @login_required
 def clear_cart():

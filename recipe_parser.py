@@ -106,6 +106,7 @@ def recipe_parser(url):
         print("Failed to retrieve LD+JSON data from " + url)
         return 1
 
+
     # Store all ingredients with HTML formatting in a single variable. Used for recipe preview before it is
     # saved to the database.
     joined_ingredients = ""
@@ -217,8 +218,12 @@ def recipe_parser(url):
             for item in recipe_json:
                 if isinstance(item, dict) and "prepTime" in item.keys():
                     prep_time = get_time(item.get('prepTime'))
+                else:
+                    prep_time = "Not specified."
                 if isinstance(item, dict) and "cookTime" in item.keys():
                     cook_time = get_time(item.get('cookTime'))
+                else:
+                    cook_time = "Not specified. "
         elif recipe_json['@graph'][7].get('@context') == "https://schema.org/":
             cook_time = get_time(recipe_json['@graph'][7]['cookTime'])
             prep_time = get_time(recipe_json['@graph'][7]['prepTime'])
