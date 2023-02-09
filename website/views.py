@@ -72,6 +72,7 @@ def search_recipes():
         search_query = "%" + request.form.get('search_query') + "%"
         query_for_title = request.form.get('search_query')
         session['session_title'] = query_for_title
+        session['session_query'] = search_query
 
     else:
         search_query = session.get('session_query', None)
@@ -81,6 +82,7 @@ def search_recipes():
 
     if request.form.get('sort_method'):
         category = request.form.get('sort_method')
+        print(category)
         if category == "all":
             search_query = session.get('session_query', None)
             query_for_title = session.get('session_title', None)
@@ -94,6 +96,7 @@ def search_recipes():
         else:
             search_query = session.get('session_query', None)
             query_for_title = session.get('session_title', None)
+            print(search_query)
 
             search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).filter_by(username=current_user.id, category=category).all()
             search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
