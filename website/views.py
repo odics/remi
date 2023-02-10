@@ -77,17 +77,35 @@ def home():
 def search_recipes():
     ''' Allows for searching for a recipe based on recipe title and category. '''
 
+    shopping_list = session.get('shopping_list', None)
+
     if request.form.get('search_query'):
         search_query = "%" + request.form.get('search_query') + "%"
         query_for_title = request.form.get('search_query')
         session['session_title'] = query_for_title
         session['session_query'] = search_query
 
-    else:
+    elif session.get('session_query', None):
         search_query = session.get('session_query', None)
         query_for_title = session.get('session_title')
 
-    shopping_list = session.get('shopping_list', None)
+    else:
+        category = request.form.get('sort_method')
+
+        if category == "all":
+            search_results = Recipe.query.filter_by(username=current_user.id).all()
+            search_count = Recipe.query.filter_by(username=current_user.id).count()
+
+            query_for_title = "all categories"
+
+            return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results,
+            count=search_count, shopping_list=shopping_list))
+        else:
+            search_results = Recipe.query.filter_by(username=current_user.id, category=category).all()
+            search_count = Recipe.query.filter_by(username=current_user.id, category=category).count()
+
+            return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results,
+            count=search_count, shopping_list=shopping_list))
 
     if request.form.get('sort_method'):
         category = request.form.get('sort_method')
@@ -96,9 +114,10 @@ def search_recipes():
             search_query = session.get('session_query', None)
             query_for_title = session.get('session_title', None)
 
-            search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
-            search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
+            search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query), Recipe.username==current_user.id).all()
+            search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query), Recipe.username==current_user.id).count()
 
+            session.pop('session_query', None)
             return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
             count=search_count, shopping_list=shopping_list))
         
@@ -107,15 +126,19 @@ def search_recipes():
             query_for_title = session.get('session_title', None)
             print(search_query)
 
-            search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).filter_by(username=current_user.id, category=category).all()
-            search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
-
+            search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query), 
+            Recipe.username==current_user.id).filter_by(username=current_user.id, category=category).all()
+            search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query), Recipe.username==current_user.id).count()
+            
+            session.pop('session_query', None)
             return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
             count=search_count, shopping_list=shopping_list))
+            
     else:
         search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
         search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
 
+        session.pop('session_query', None)
         return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
         count=search_count, shopping_list=shopping_list))
 
