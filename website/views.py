@@ -299,6 +299,17 @@ def delete_recipe_go_home():
     return redirect(url_for('views.home'))
 
 
+@views.route('/favorites', methods=['GET'])
+@login_required
+def show_favorites():
+    ''' Show all favorite recipes. '''
+    shopping_list = ShoppingList.query.count()
+    fav_recipe = Recipe.query.filter_by(username=current_user.id, favorite=True).all()
+    print(fav_recipe)
+
+    return render_template("favorite_recipes.html", recipes=fav_recipe, user=current_user, shopping_list=shopping_list)
+
+
 @views.route('/random_recipe', methods=['POST', 'GET'])
 @login_required
 def random_recipe():
@@ -350,6 +361,7 @@ def edit_recipe(recipe_uuid):
     ''' Edits and updates an existing recipe. '''
 
     if request.method == 'POST':
+        tags = request.form.getlist('edited_tags')
         recipe_title = request.form.get('recipe_title')
         recipe_id = request.form.get('recipe_id')
 
@@ -414,6 +426,13 @@ def edit_recipe(recipe_uuid):
         recipe_update.total_time = recipe_total_time
         recipe_update.servings = recipe_servings
         recipe_update.category = recipe_category
+
+        if tags:
+            for tag in tags:
+                new_tag = Tag(tag_name=str(tag).upper())
+                recipe_update.tags.append(new_tag)
+
+                db.session.add(new_tag)
 
         db.session.commit()
 

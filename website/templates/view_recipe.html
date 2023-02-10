@@ -82,10 +82,10 @@
     </form>
     <hr>
     {% for recipe_tag in recipe.tags %}
-    <span class="align-middle text-primary border border-info rounded p-1 m-1 fw-light" style="font-size:12px">
-        <b>{{ recipe_tag.tag_name }}</b>
-        <a href="javascript:delete_tag({{ recipe_tag.id }}, '{{ view_id }}', {{ recipe.id }});"><span
-                class="text-primary"><i class="fa-solid fa-xmark fa-md"></i></span></a>
+    <span class="align-middle badge rounded-pill border-primary badge-secondary fw-lighter" style="font-size:12px">
+        {{ recipe_tag.tag_name }}
+        <a class="pb-0 m-0" href="javascript:delete_tag({{ recipe_tag.id }}, '{{ view_id }}', {{ recipe.id }});"><span
+                class="text-primary mb-0"><i class="fa-solid fa-xmark fa-md"></i></span></a>
     </span>
     {% endfor %}
 </div>

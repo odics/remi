@@ -4,51 +4,61 @@
 {% block content %}
 <br>
 <form method="POST">
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card shadow-2 border" style="border-radius:4px;">
-                <div class="card-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col text-center">
-                                <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
-                                        <b>Prep:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="prep_time"
-                                        value="{{ recipe.prep_time }}" /></span>
-                            </div>
-                            <div class="col text-center">
-                                <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
-                                        <b>Cook:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="cook_time"
-                                        value="{{ recipe.cook_time }}" /></span>
-                            </div>
-                            <div class="col text-center">
-                                <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
-                                        <b>Total:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="total_time"
-                                        value="{{ recipe.total_time }}" /></span>
-                            </div>
-                            <div class="col text-center">
-                                <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i>
-                                        <b>Servings:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="servings"
-                                        value="{{ recipe.servings }}" /></span>
-                            </div>
-                            <div class="col text-center">
-                                <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i>
-                                        <b>Category:</b></span>  <select value="1" class="form-select form-select-sm" data-style="btn-info" id="recipe_category" name="recipe_category">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow-2 border" style="border-radius:4px;">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <span class="fw-lighter"><span class="text-primary"><i
+                                                class="fa-solid fa-clock"></i>
+                                            <b>Prep:</b></span><input type="text"
+                                            class="form-control form-control-sm w-100" id="title" name="prep_time"
+                                            value="{{ recipe.prep_time }}" /></span>
+                                </div>
+                                <div class="col text-center">
+                                    <span class="fw-lighter"><span class="text-primary"><i
+                                                class="fa-solid fa-clock"></i>
+                                            <b>Cook:</b></span><input type="text"
+                                            class="form-control form-control-sm w-100" id="title" name="cook_time"
+                                            value="{{ recipe.cook_time }}" /></span>
+                                </div>
+                                <div class="col text-center">
+                                    <span class="fw-lighter"><span class="text-primary"><i
+                                                class="fa-solid fa-clock"></i>
+                                            <b>Total:</b></span><input type="text"
+                                            class="form-control form-control-sm w-100" id="title" name="total_time"
+                                            value="{{ recipe.total_time }}" /></span>
+                                </div>
+                                <div class="col text-center">
+                                    <span class="fw-lighter"><span class="text-primary"><i
+                                                class="fa fa-cutlery fa-lg"></i>
+                                            <b>Servings:</b></span><input type="text"
+                                            class="form-control form-control-sm w-100" id="title" name="servings"
+                                            value="{{ recipe.servings }}" /></span>
+                                </div>
+                                <div class="col text-center">
+                                    <span class="fw-lighter"><span class="text-primary"><i
+                                                class="fa fa-cutlery fa-lg"></i>
+                                            <b>Category:</b></span> <select value="1" class="form-select form-select-sm"
+                                            data-style="btn-info" id="recipe_category" name="recipe_category">
                                             <option value="{{ recipe.category }}">{{ recipe.category }}</option>
                                             <option value="Breakfast">Breakfast</option>
                                             <option value="Lunch">Lunch</option>
                                             <option value="Dinner">Dinner</option>
                                             <option value="Dessert">Dessert</option>
                                             <option value="Sides">Sides</option>
-                                </select></span>
+                                        </select></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <br>
+        <br>
         <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
         <div class="row">
             <div class="col-4">
@@ -77,14 +87,15 @@
                                                         id="ingredient" name="ingredient_list"
                                                         value="{{ ingredient.ingredient }}" />
                                                     <input type="hidden" name="ingredient_id"
-                                                                value="{{ ingredient.id }}" />
+                                                        value="{{ ingredient.id }}" />
                                                 </div>
                                                 <div class="col-3 pl-1 pe-0">
                                                     <div class="form-outline">
                                                         <select class="form-select form-select-sm" data-style="btn-info"
                                                             aria-label=".form-select-sm example" id="{{ loop.index0 }}"
                                                             name="ing_type">
-                                                            <option value="{{ ingredient.ing_type }}">{{ ingredient.ing_display }}</option>
+                                                            <option value="{{ ingredient.ing_type }}">{{
+                                                                ingredient.ing_display }}</option>
                                                             <option value="misc">Misc.</option>
                                                             <option value="produce">Produce</option>
                                                             <option value="meat">Meat</option>
@@ -102,70 +113,86 @@
                                 </tbody>
                             </table>
                             <div class="col text-center">
-    {% for recipe_tag in recipe.tags %}
-    <span class="align-middle text-primary border border-info rounded p-1 m-1 fw-light" style="font-size:12px">
-        <b>{{ recipe_tag.tag_name }}</b>
-        <a href="javascript:delete_tag({{ recipe_tag.id }}, '{{ view_id }}', {{ recipe.id }});"><span
-                class="text-primary"><i class="fa-solid fa-xmark fa-md"></i></span></a>
-    </span>
-    {% endfor %}
-</div>
-<br>
-</div>
-</div>
-</div>
-</div>
-<div class="col-8">
-    <div class="card text-left bg-light mb-10" style="border-radius:4px;">
-        <div class="card shadow-2 border" style="border-radius:4px;">
-            <div class="card-header border-0 text-center">
-            </div>
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush table-sm">
-                    <thead class="table-info">
-                        <tr>
-                            <td class="border-top text-center align-middle" scope="col">
-                        
-                                    <div class="row me-0 ms-0">
-                                        <div class="col p-0">
-                                    <input type="text" class="form-control form-control-sm w-100" id="title" name="recipe_title"
-                                        value="{{ recipe.recipe_name }}" style="text-align:center"/>
-                                        </div>
-                                        <div class="col-auto d-flex justify-content-end pe-0">
-                                            <button class="btn btn-primary btn-sm float-right shadow-none me-1" type="submit"
-                                            id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-floppy-disk"></i> Save
-                                        </button>
-                                        <a href="/view_recipe/{{ recipe.uuid }}" class="btn btn-danger btn-sm float-right shadow-none" type="button"
-                                            id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa fa-trash"></i> Discard Changes
-                                        </a>
-                                        </div>
-                
-                                <div style="clear:both;"></div>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <span class="fw-lighter">
-                                    {% for key, value in instructions_json.items() %}
-                                    <div class="row me-0 ms-0">
-                                        <div class="col p-0">
-                                            <textarea class="form-control mb-2" id="instructions" name="instructions" rows="3">{{ value }}</textarea>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
+                                {% for recipe_tag in recipe.tags %}
+                                <span class="align-middle text-primary border border-info rounded p-1 m-1 fw-light"
+                                    style="font-size:12px">
+                                    <b>{{ recipe_tag.tag_name }}</b>
+                                    <a
+                                        href="javascript:delete_tag({{ recipe_tag.id }}, '{{ view_id }}', {{ recipe.id }});"><span
+                                            class="text-primary"><i class="fa-solid fa-xmark fa-md"></i></span></a>
                                 </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+                                {% endfor %}
+                            </div>
+                            <div class="col m-2">
+                                <select class="recipe-tags form-control form-select form-select-sm"
+                                                 data-control="select2" multiple="multiple"
+                                                 data-select2-tags="true" id="recipe_tags" name="edited_tags">
+                                    <option value="fast">fast</option>
+                                    <option value="easy">easy</option>
+                                    <option value="crock pot">crock pot</option>
+                                </select>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="col-8">
+                <div class="card text-left bg-light mb-10" style="border-radius:4px;">
+                    <div class="card shadow-2 border" style="border-radius:4px;">
+                        <div class="card-header border-0 text-center">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush table-sm">
+                                <thead class="table-info">
+                                    <tr>
+                                        <td class="border-top text-center align-middle" scope="col">
+
+                                            <div class="row me-0 ms-0">
+                                                <div class="col p-0">
+                                                    <input type="text" class="form-control form-control-sm w-100"
+                                                        id="title" name="recipe_title" value="{{ recipe.recipe_name }}"
+                                                        style="text-align:center" />
+                                                </div>
+                                                <div class="col-auto d-flex justify-content-end pe-0">
+                                                    <button class="btn btn-primary btn-sm float-right shadow-none me-1"
+                                                        type="submit" id="dropdownMenuButton" data-mdb-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="fa-solid fa-floppy-disk"></i> Save
+                                                    </button>
+                                                    <a href="/view_recipe/{{ recipe.uuid }}"
+                                                        class="btn btn-danger btn-sm float-right shadow-none"
+                                                        type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="fa fa-trash"></i> Discard Changes
+                                                    </a>
+                                                </div>
+
+                                                <div style="clear:both;"></div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="fw-lighter">
+                                                {% for key, value in instructions_json.items() %}
+                                                <div class="row me-0 ms-0">
+                                                    <div class="col p-0">
+                                                        <textarea class="form-control mb-2" id="instructions"
+                                                            name="instructions" rows="3">{{ value }}</textarea>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+</form>
+</div>
+</div>
+</div>
 </div>
 <br>
 </div>
