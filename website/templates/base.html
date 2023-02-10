@@ -251,6 +251,67 @@
         });
     </script>
 
+<script>
+
+    function add_ingredient() {
+    
+        var ingredients = document.getElementById('ingredient_list');
+        var ingredient_type = document.getElementById('ingredient_type');
+        
+        var new_ingredient = document.createElement('input');
+        new_ingredient.setAttribute('type', 'text');
+        new_ingredient.setAttribute('name', 'ingredients');
+        new_ingredient.setAttribute('placeholder', 'Recipe Ingredient');
+        new_ingredient.setAttribute('class', 'form-control form-control-sm w-100 mt-2')
+
+        var new_ingredient_type = document.createElement('select');
+        new_ingredient_type.setAttribute('class', 'form-select form-select-sm ms-0 p-1');
+        new_ingredient_type.setAttribute('data-style', 'btn-info');
+        new_ingredient_type.setAttribute('name', 'ing_type');
+        new_ingredient_type.setAttribute('value', "HELLO");
+
+        var ing_type = document.createElement('option');
+        ing_type.value = "misc";
+        ing_type.text = "Misc.";
+        new_ingredient_type.appendChild(ing_type);
+
+        var ing_type = document.createElement('option');
+        ing_type.value = "produce";
+        ing_type.text = "Produce";
+        new_ingredient_type.appendChild(ing_type);
+
+        var ing_type = document.createElement('option');
+        ing_type.value = "meat";
+        ing_type.text = "Meat";
+        new_ingredient_type.appendChild(ing_type);
+
+        var ing_type = document.createElement('option');
+        ing_type.value = "Coffee and Tea";
+        ing_type.text = "coffee_tea";
+        new_ingredient_type.appendChild(ing_type);
+
+        var ing_type = document.createElement('option');
+        ing_type.value = "pasta";
+        ing_type.text = "Pasta";
+        new_ingredient_type.appendChild(ing_type);
+
+        var ing_type = document.createElement('option');
+        ing_type.value = "frozen";
+        ing_type.text = "Frozen Food";
+        new_ingredient_type.appendChild(ing_type);
+
+        var ing_type = document.createElement('option');
+        ing_type.value = "dairy_bread";
+        ing_type.text = "Dairy";
+        new_ingredient_type.appendChild(ing_type);
+
+        ingredient_type.appendChild(new_ingredient_type);
+
+        ingredients.appendChild(new_ingredient);
+    }
+    
+    </script>
+
 </body>
 
 </html>
