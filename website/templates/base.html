@@ -252,7 +252,6 @@
     </script>
 
 <script>
-
     function add_ingredient() {
     
         var ingredients = document.getElementById('ingredient_list');
@@ -262,10 +261,10 @@
         new_ingredient.setAttribute('type', 'text');
         new_ingredient.setAttribute('name', 'ingredients');
         new_ingredient.setAttribute('placeholder', 'Recipe Ingredient');
-        new_ingredient.setAttribute('class', 'form-control form-control-sm w-100 mt-2')
+        new_ingredient.setAttribute('class', 'form-control form-control-sm w-100 mt-2 pb-1')
 
         var new_ingredient_type = document.createElement('select');
-        new_ingredient_type.setAttribute('class', 'form-select form-select-sm ms-0 p-1');
+        new_ingredient_type.setAttribute('class', 'form-control form-control-sm ms-0 mt-2 pb-1');
         new_ingredient_type.setAttribute('data-style', 'btn-info');
         new_ingredient_type.setAttribute('name', 'ing_type');
         new_ingredient_type.setAttribute('value', "HELLO");
@@ -309,8 +308,20 @@
 
         ingredients.appendChild(new_ingredient);
     }
-    
-    </script>
+</script>
+
+<script>
+    function add_recipe_step() {
+        var instructions = document.getElementById('recipe_instructions');
+        var new_instruction = document.createElement('textarea');
+        new_instruction.setAttribute('name', 'instructions');
+        new_instruction.setAttribute('class', 'form-control mt-2');
+        new_instruction.setAttribute('rows', '3')
+        new_instruction.setAttribute('placeholder', 'Type your instructions here');
+
+        instructions.appendChild(new_instruction);
+    }
+</script>
 
 </body>
 

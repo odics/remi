@@ -73,7 +73,7 @@
                     <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                         <div class="row">
                             <div class="col mb-2">
-                                <div class="card shadow-2 border">
+                                <div class="card shadow-2 border mb-2">
                                     <div class="d-flex justify-content-between p-2">
                                         <div>
                                             <input type="text" class="form-control form-control-sm w-100" id="title"
@@ -106,14 +106,33 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col">
+                                <div class="card shadow-2 border p-2 mb-3">
+                                    <div class="d-flex">
+                                        <div class="flex-fill me-2">
+                                            <input type="text" class="form-control form-control-sm pb-1 w-100"
+                                                id="title" name="title" placeholder="Recipe title" />
+                                        </div>
+                                        <div class="me-2">
+                                            <button class="btn btn-primary btn-sm shadow-none "><i class="fa-solid fa-floppy-disk"></i> Save Recipe</button>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-danger btn-sm shadow-none"><i class="fa fa-trash"></i> Discard Changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-6">
                                 <div class="card shadow-2 border p-2">
                                     <div class="row">
                                         <div class="col" id="ingredient_list">
-                                            <input type="text" class="form-control form-control-sm w-100" id="ingredient" name="ingredient" placeholder="Recipe Ingredient" />
+                                            <input type="text" class="form-control form-control-sm pb-1 w-100"
+                                                id="ingredient" name="ingredient" placeholder="Recipe Ingredient" />
                                         </div>
-                                        <div class="col-4 ms-0 p-2" id="ingredient_type">
-                                            <select class="form-select form-select-sm ms-0" data-style="btn-info"
+                                        <div class="col-4 ms-0" id="ingredient_type">
+                                            <select class="form-control form-control-sm ms-0 pb-1" data-style="btn-info"
                                                 aria-label=".form-select-sm example" id="ing_type" name="ing_type">
                                                 <option value="misc">Misc.</option>
                                                 <option value="produce">Produce</option>
@@ -127,16 +146,20 @@
                                     </div>
                                     <div class="row">
                                         <div class="d-grid">
-                                            <button class="btn btn-primary shadow-none mt-2" onclick="add_ingredient()">Add Ingredient</button>
+                                            <button class="btn btn-primary shadow-none mt-2"
+                                                onclick="add_ingredient()"><i class="fa-solid fa-plus"></i> Add Ingredient</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="card shadow-2 border p-2">
-                                    <textarea class="form-control" id="instructions" name="instructions"
-                                        rows="3"></textarea>
-                                    <button class="btn btn-primary shadow-none mt-2">Add Recipe Step</button>
+                                    <div id="recipe_instructions">
+                                        <textarea class="form-control" id="instructions" name="instructions"
+                                            rows="3" placeholder="Type your instructions here"></textarea>
+                                    </div>
+                                        <button class="btn btn-primary shadow-none mt-2" onclick="add_recipe_step()"><i class="fa-solid fa-plus"></i> Add
+                                        Recipe Step</button>
                                 </div>
                             </div>
                         </div>
