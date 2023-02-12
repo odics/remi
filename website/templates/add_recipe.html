@@ -126,13 +126,13 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="card shadow-2 border p-2">
-                                    <div class="row">
-                                        <div class="col" id="ingredient_list">
-                                            <input type="text" class="form-control form-control-sm pb-1 w-100"
+                                    <div class="d-flex justify-content-between">
+                                        <div class="col flex-fill me-2" id="ingredient_list">
+                                            <input type="text" class="form-control form-control-sm pb-1"
                                                 id="ingredient" name="ingredient" placeholder="Recipe Ingredient" />
                                         </div>
-                                        <div class="col-4 ms-0" id="ingredient_type">
-                                            <select class="form-control form-control-sm ms-0 pb-1" data-style="btn-info"
+                                        <div class="col flex-fill me-0" id="ingredient_type">
+                                            <select class="form-control form-control-sm ms-0 me-0 pb-1" data-style="btn-info"
                                                 aria-label=".form-select-sm example" id="ing_type" name="ing_type">
                                                 <option value="misc">Misc.</option>
                                                 <option value="produce">Produce</option>
@@ -142,6 +142,11 @@
                                                 <option value="frozen">Frozen Food</option>
                                                 <option value="dairy_bread">Dairy</option>
                                             </select>
+                                        </div>
+                                        <div class="col d-flex flex-column ms-0 p-0 justify-content-end" id="delete_button">
+                                            <button onclick="remove_added_ingredient()" type="button"
+                                            class="btn btn-link btn-sm"><span class="text-danger"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -154,10 +159,17 @@
                             </div>
                             <div class="col-6">
                                 <div class="card shadow-2 border p-2">
-                                    <div id="recipe_instructions">
+                                    <div class="d-flex">
+                                    <div class="flex-fill" id="recipe_instructions">
                                         <textarea class="form-control" id="instructions" name="instructions"
                                             rows="3" placeholder="Type your instructions here"></textarea>
                                     </div>
+                                    <div class="d-flex flex-column align-items-stretch" id="recipe_delete_button">
+                                        <button onclick="remove_added_step()" type="button"
+                                            class="btn btn-link btn-sm d-flex align-items-stretch align-items-center"><span class="text-danger align-items-center"><i
+                                            class="fa-solid fa-xmark fa-lg"></i></span></button>
+                                    </div>
+                                </div>
                                         <button class="btn btn-primary shadow-none mt-2" onclick="add_recipe_step()"><i class="fa-solid fa-plus"></i> Add
                                         Recipe Step</button>
                                 </div>

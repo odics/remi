@@ -256,7 +256,13 @@
     
         var ingredients = document.getElementById('ingredient_list');
         var ingredient_type = document.getElementById('ingredient_type');
-        
+        var delete_button = document.getElementById('delete_button')
+
+        var new_delete_button = document.createElement('button');
+        new_delete_button.setAttribute('class', 'btn btn-link btn-sm mt-2');
+        new_delete_button.setAttribute('onclick', 'remove_added_ingredient()')
+        new_delete_button.innerHTML = '<span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span>'
+
         var new_ingredient = document.createElement('input');
         new_ingredient.setAttribute('type', 'text');
         new_ingredient.setAttribute('name', 'ingredients');
@@ -305,7 +311,7 @@
         new_ingredient_type.appendChild(ing_type);
 
         ingredient_type.appendChild(new_ingredient_type);
-
+        delete_button.appendChild(new_delete_button)
         ingredients.appendChild(new_ingredient);
     }
 </script>
@@ -319,7 +325,30 @@
         new_instruction.setAttribute('rows', '3')
         new_instruction.setAttribute('placeholder', 'Type your instructions here');
 
+        var button_to_add = document.getElementById('recipe_delete_button');
+        var new_delete_button = document.createElement('button');
+
+        new_delete_button.setAttribute('class', 'btn btn-link btn-sm mt-2');
+        new_delete_button.setAttribute('onclick', 'remove_added_step()')
+        new_delete_button.innerHTML = '<span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span>'
+
+
         instructions.appendChild(new_instruction);
+        button_to_add.appendChild(new_delete_button);
+    }
+</script>
+
+<script>
+    function remove_added_ingredient() {
+        var ingredient_to_delete = document.getElementById('ingredient_list');
+        var ingredient_type_to_delete = document.getElementById('ingredient_type');
+        var button_to_delete = document.getElementById('delete_button');
+
+
+        
+        ingredient_to_delete.removeChild(ingredient_to_delete.lastChild);
+        ingredient_type_to_delete.removeChild(ingredient_type_to_delete.lastChild);
+        button_to_delete.removeChild(button_to_delete.lastChild);
     }
 </script>
 
