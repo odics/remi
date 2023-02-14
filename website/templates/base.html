@@ -16,6 +16,8 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.dark.min.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet"
@@ -259,9 +261,9 @@
         var delete_button = document.getElementById('delete_button')
 
         var new_delete_button = document.createElement('button');
-        new_delete_button.setAttribute('class', 'btn btn-link btn-sm mt-2');
+        new_delete_button.setAttribute('class', 'btn btn-danger shadow-none btn-sm mt-2');
         new_delete_button.setAttribute('onclick', 'remove_added_ingredient()')
-        new_delete_button.innerHTML = '<span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span>'
+        new_delete_button.innerHTML = '<i class="fa-solid fa-xmark fa-lg"></i>'
 
         var new_ingredient = document.createElement('input');
         new_ingredient.setAttribute('type', 'text');
@@ -318,23 +320,14 @@
 
 <script>
     function add_recipe_step() {
-        var instructions = document.getElementById('recipe_instructions');
-        var new_instruction = document.createElement('textarea');
-        new_instruction.setAttribute('name', 'instructions');
-        new_instruction.setAttribute('class', 'form-control mt-2');
-        new_instruction.setAttribute('rows', '3')
-        new_instruction.setAttribute('placeholder', 'Type your instructions here');
+        var instructions = document.getElementById('add_container');
+        var new_instruction = document.createElement('div');
 
-        var button_to_add = document.getElementById('recipe_delete_button');
-        var new_delete_button = document.createElement('button');
+        new_instruction.setAttribute('class', 'instructions');
 
-        new_delete_button.setAttribute('class', 'btn btn-link btn-sm mt-2');
-        new_delete_button.setAttribute('onclick', 'remove_added_step()')
-        new_delete_button.innerHTML = '<span class="text-danger"><i class="fa-solid fa-xmark fa-lg"></i></span>'
-
+        new_instruction.innerHTML = '<div class="add_container"><div class="flex-fill" id="recipe_instructions"><textarea class="form-control" id="instructions" name="instructions" rows="3" placeholder="Type your instructions here"></textarea></div><div class="delete_button"><button onclick="remove_added_step()" type="button" class="btn btn-outline btn-danger btn-sm shadow-none"><i class="fa-solid fa-xmark fa-lg"></i></button></div></div>'
 
         instructions.appendChild(new_instruction);
-        button_to_add.appendChild(new_delete_button);
     }
 </script>
 
@@ -349,6 +342,13 @@
         ingredient_to_delete.removeChild(ingredient_to_delete.lastChild);
         ingredient_type_to_delete.removeChild(ingredient_type_to_delete.lastChild);
         button_to_delete.removeChild(button_to_delete.lastChild);
+    }
+</script>
+
+<script>
+    function remove_added_step() {
+        var step_to_delete = document.getElementById('add_container');
+        step_to_delete.removeChild(step_to_delete.lastChild);
     }
 </script>
 
