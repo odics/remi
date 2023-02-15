@@ -72,6 +72,28 @@ def home():
                            popular_category=popular_category)
 
 
+@views.route('/create_recipe', methods=['GET', 'POST'])
+@login_required
+def create_recipe():
+    ''' Creates a recipe from user-provided information. '''
+
+    prep_time = request.form.get('prep_time')
+    total_time = request.form.get('total_time')
+    cook_time = request.form.get('cook_time')
+    servings = request.form.get('servings')
+    recipe_category = request.form.get('recipe_category')
+    recipe_title = request.form.get('recipe_title')
+
+    ingredients = request.form.getlist('ingredients')
+    ing_type = request.form.getlist('ing_type')
+    instructions = request.form.getlist('instructions')
+
+    uuid = shortuuid.uuid()
+
+    flash('Recipe successfully created.', category='success')
+    return redirect(url_for('views.home'))
+
+
 @views.route('/search', methods=['GET', 'POST'])
 @login_required
 def search_recipes():

@@ -3,6 +3,7 @@
 
 {% block content %}
 <br>
+<form method="POST" action="/create_recipe">
 <div class="row justify-content-center">
     <div class="col-10">
         <div class="card shadow-2 border">
@@ -81,15 +82,15 @@
                                         </div>
                                         <div>
                                             <input type="text" class="form-control form-control-sm w-100" id="title"
-                                                name="prep_time" placeholder="Specify cook time" />
+                                                name="cook_time" placeholder="Specify cook time" />
                                         </div>
                                         <div>
                                             <input type="text" class="form-control form-control-sm w-100" id="title"
-                                                name="prep_time" placeholder="Specify total time" />
+                                                name="total_time" placeholder="Specify total time" />
                                         </div>
                                         <div>
                                             <input type="text" class="form-control form-control-sm w-100" id="title"
-                                                name="prep_time" placeholder="Specify serving amount" />
+                                                name="servings" placeholder="Specify serving amount" />
                                         </div>
                                         <div>
                                             <select value="1" class="form-select form-select-sm" data-style="btn-info"
@@ -111,10 +112,10 @@
                                     <div class="d-flex">
                                         <div class="flex-fill me-2">
                                             <input type="text" class="form-control form-control-sm pb-1 w-100"
-                                                id="title" name="title" placeholder="Recipe title" />
+                                                id="title" name="recipe_title" placeholder="Recipe title" />
                                         </div>
                                         <div class="me-2">
-                                            <button class="btn btn-primary btn-sm shadow-none "><i
+                                            <button type="submit" class="btn btn-primary btn-sm shadow-none "><i
                                                     class="fa-solid fa-floppy-disk"></i> Save Recipe</button>
                                         </div>
                                         <div>
@@ -130,8 +131,8 @@
                                 <div class="card shadow-2 border p-2">
                                     <div class="d-flex justify-content-between">
                                         <div class="col flex-fill me-2" id="ingredient_list">
-                                            <input type="text" class="form-control form-control-sm pb-1" id="ingredient"
-                                                name="ingredient" placeholder="Recipe Ingredient" />
+                                            <input type="text" class="form-control form-control-sm pb-1" id="ingredients"
+                                                name="ingredients" placeholder="Recipe Ingredient" />
                                         </div>
                                         <div class="col flex-fill me-0" id="ingredient_type">
                                             <select class="form-control form-control-sm ms-0 me-0 pb-1"
@@ -155,7 +156,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="d-grid">
-                                            <button class="btn btn-primary shadow-none mt-2"
+                                            <button type="button" class="btn btn-primary shadow-none mt-2"
                                                 onclick="add_ingredient()"><i class="fa-solid fa-plus"></i> Add
                                                 Ingredient</button>
                                         </div>
@@ -177,7 +178,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                    <button class="btn btn-primary shadow-none mt-2" onclick="add_recipe_step()"><i
+                                    <button type="button" class="btn btn-primary shadow-none mt-2" onclick="add_recipe_step()"><i
                                             class="fa-solid fa-plus"></i> Add
                                         Recipe Step</button>
                                 </div>
@@ -189,4 +190,5 @@
         </div>
     </div>
 </div>
+</form>
 {% endblock %}
