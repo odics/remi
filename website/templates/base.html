@@ -226,12 +226,16 @@
 
     <script>
         function delete_tag(tag_id, view_id, recipe_id) {
-            var recipe_url = "view_recipe?recipe_uuid=" + view_id
+            var recipe_url = view_id
             fetch('/delete_tag', {
                 method: 'POST',
                 body: JSON.stringify({ tag_id: tag_id, recipe_id: recipe_id })
             }).then((_res) => {
-                window.location.href = recipe_url;
+                var currentScrollPosition = $(window).scrollTop();
+                location.reload();
+                setTimeout(function () {
+                    $(window).scrollTop(currentScrollPosition);
+                }, 100);
             });
         }
     </script>
@@ -252,6 +256,16 @@
             });
         });
     </script>
+
+<script>
+    $(document).ready(function () {
+        $('.recipe-tags2').select2({
+            theme: 'bootstrap-5',
+            placeholder: "Tag your recipe here...",
+            width: 'resolve'
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function () {

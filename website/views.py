@@ -87,6 +87,7 @@ def create_recipe():
     ingredient_list = request.form.getlist('ingredients')
     ingredient_type = request.form.getlist('ing_type')
     instructions = request.form.getlist('instructions')
+    tags = request.form.getlist('custom_recipe_tags')
 
     instructions_json = {}
 
@@ -139,6 +140,13 @@ def create_recipe():
     new_recipe = Recipe(username=current_user.id, prep_time=prep_time, cook_time=cook_time, 
                         recipe_name=recipe_title, total_time=total_time, servings=servings,category=recipe_category, 
                         uuid=uuid, favorite=False, instructions_json=instructions_json, image="custom_recipe.png")
+
+    for tag in tags:
+        new_tag = Tag(tag_name=str(tag).upper())
+        new_recipe.tags.append(new_tag)
+
+        db.session.add(new_tag)
+        db.session.commit()
 
     db.session.add(new_recipe)
     db.session.commit()
