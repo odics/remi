@@ -254,6 +254,15 @@
     </script>
 
 <script>
+    $(document).ready(function () {
+        $('.recipe-tags2').select2({
+            theme: 'bootstrap-5',
+            placeholder: "Tag your recipe here..."
+        });
+    });
+</script>
+
+<script>
     function add_ingredient() {
     
         var ingredients = document.getElementById('ingredient_list');

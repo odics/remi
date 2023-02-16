@@ -138,7 +138,7 @@ def create_recipe():
 
     new_recipe = Recipe(username=current_user.id, prep_time=prep_time, cook_time=cook_time, 
                         recipe_name=recipe_title, total_time=total_time, servings=servings,category=recipe_category, 
-                        uuid=uuid, favorite=False, instructions_json=instructions_json, image="placeholder.jpg")
+                        uuid=uuid, favorite=False, instructions_json=instructions_json, image="custom_recipe.png")
 
     db.session.add(new_recipe)
     db.session.commit()
@@ -367,8 +367,10 @@ def delete_recipe():
     recipe_uuid = recipe_uuid.get('recipe_id')
 
     recipe = db.session.query(Recipe).filter(Recipe.uuid == recipe_uuid).first()
-    image_file_name = "./website/static/" + recipe.image
-    os.remove(image_file_name)
+
+    if recipe.image != "custom_recipe.png":
+        image_file_name = "./website/static/" + recipe.image
+        os.remove(image_file_name)
 
     db.session.delete(recipe)
 
@@ -390,8 +392,9 @@ def delete_recipe_go_home():
 
     recipe = db.session.query(Recipe).filter(Recipe.uuid == recipe_uuid).first()
 
-    image_file_name = "./website/static/" + recipe.image
-    os.remove(image_file_name)
+    if recipe.image != "custom_recipe.png":
+        image_file_name = "./website/static/" + recipe.image
+        os.remove(image_file_name)
 
     db.session.delete(recipe)
 
