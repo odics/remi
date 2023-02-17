@@ -26,6 +26,12 @@
     gap: .5rem;
 }
 
+.home_container {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    gap: .5rem;
+}
+
 .hidden_cart {
     display: none
 }
@@ -39,6 +45,12 @@
   }
 
   .grid_container2 {
+    display: grid;
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
+
+  .home_container {
     display: grid;
     grid-template-columns: none;
     grid-template-rows: auto;

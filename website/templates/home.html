@@ -76,21 +76,32 @@
         <div class="col">
             <div class="card shadow-1 p-3 border" style="border-radius:4px;">
                 <div class="row">
-                    <div class="col d-flex justify-content-between">
+                    <div class="home_container">
+                        <div style="display: grid;">
                         <a class="btn btn-primary shadow-none" href="/add_recipe"><i class="fa-solid fa-pen-to-square"></i> Add Recipe</a>
+                        </div>
+                        <div style="display: grid;">
                         <a class="btn btn-secondary" href="/all_recipes"><i class="fa-regular fa-file-lines fa-lg me-2"></i> All Recipes</a>
-                        <a href="/favorites" class="btn btn-secondary"><i class="fa-solid fa-star fa-lg me-2"></i> Favorites</button>
+                        </div>
+                        <div style="display: grid;">
+                        <a href="/favorites" class="btn btn-secondary"><i class="fa-solid fa-star fa-lg me-2"></i> Favorites</a>
+                        </div>
+                        <div style="display: grid;">
                         <a class="btn btn-secondary" href="/random_recipe"><i class="fa-solid fa-dice fa-lg me-2"></i> Random Recipe</a>
-                        <form method="POST" action="/search" class="input-group w-50 my-auto d-none d-sm-flex">
+                        </div>
+                        <div style="display: grid;">
+                        <form method="POST" action="/search">
                             <input
                                     autocomplete="off"
                                     type="search"
-                                    class="form-control rounded form-control-sm me-3"
+                                    class="form-control rounded"
                                     placeholder="Enter keyword"
                                     style="min-width: 125px;"
                                     name="search_query"
                             />
-                            <select class="form-select rounded form-select-sm" data-style="btn-info"
+                        </div>
+                        <div style="display: grid;">
+                            <select class="form-control" data-style="btn-info"
                                     id="recipe_category" name="sort_method">
                                 <option value="7" disabled>Select Category</option>
                                 <option value="all">All Categories</option>
@@ -100,8 +111,11 @@
                                 <option value="Dessert">Dessert</option>
                                 <option value="Sides">Sides</option>
                             </select>
-                            <button class="btn btn-link btn-lg"><i class="fa-solid fa-magnifying-glass"></i> Search
+                        </div>
+                        <div style="display: grid;">
+                            <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i> Search
                             </button>
+                        </div>
                         </form>
                     </div>
                 </div>

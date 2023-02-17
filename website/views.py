@@ -677,7 +677,7 @@ def cart():
         for item in shopping_items_coffee:
             coffee_to_copy = coffee_to_copy + "- " + item.shopping_item + "\n"
 
-    return render_template("cart_test.html", user=current_user, shopping_list=shopping_list, pasta=shopping_items_pasta,
+    return render_template("cart.html", user=current_user, shopping_list=shopping_list, pasta=shopping_items_pasta,
                            produce=shopping_items_produce, misc=shopping_items_misc, dairy=shopping_items_dairy,
                            meat=shopping_items_meat, frozen=shopping_items_frozen, coffee=shopping_items_coffee,
                            pasta_to_copy=pasta_to_copy, produce_to_copy=produce_to_copy,misc_to_copy=misc_to_copy,
