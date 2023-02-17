@@ -26,6 +26,10 @@
     gap: .5rem;
 }
 
+.hidden_cart {
+    display: none
+}
+
 @media only screen and (max-width: 480px) {
   /* For mobile phones: */
   .grid_container {
@@ -38,5 +42,13 @@
     display: grid;
     grid-template-columns: none;
     grid-template-rows: auto;
+  }
+
+  .hidden_cart {
+    display: block;
+  }
+
+  .visible_cart {
+    display: none;
   }
 }
