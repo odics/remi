@@ -13,3 +13,30 @@
     border-radius: 4px; 
     border-color: #bfd8e0;
 }
+
+.grid_container {
+    display: grid;
+    grid-template-columns: 1fr 15% auto;
+    gap: .5rem;
+}
+
+.grid_container2 {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .5rem;
+}
+
+@media only screen and (max-width: 480px) {
+  /* For mobile phones: */
+  .grid_container {
+    display: grid;
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
+
+  .grid_container2 {
+    display: grid;
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
+}
