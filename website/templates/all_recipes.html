@@ -2,35 +2,30 @@
 %}
 <br />
 <div class="container">
-  <div class="row mb-2">
-    <div class="col">
+  <div class="all_recipes_header">
+    <div>
       <h1 class="display-6 text-primary mb-0" style="font-size: 1.5rem">
         {{ page_title }}
       </h1>
     </div>
-    <div class="col d-flex justify-content-end">
+    <div>
       <form method="POST">
-        <div class="input-group input-group-sm w-100 text-end">
-          <select
-            class="form-select rounded"
-            id="sort_method"
-            name="sort_method"
-          >
-            <option value="all">All Categories</option>
-            <option value="Breakfast">Breakfast</option>
-            <option value="Lunch">Lunch</option>
-            <option value="Dinner">Dinner</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Sides">Sides</option>
-          </select>
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-link">
-              <i class="fa-solid fa-arrow-down-short-wide"></i> Filter Recipes
-            </button>
-          </div>
+        <select class="form-select rounded form-select-sm" id="sort_method" name="sort_method">
+          <option value="all">All Categories</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Sides">Sides</option>
+        </select>
+      </div>
+        <div style="display: grid">
+          <button type="submit" class="btn btn-primary btn-sm shadow-none">
+            <i class="fa-solid fa-arrow-down-short-wide"></i> Filter Recipes
+          </button>
         </div>
       </form>
-    </div>
+    
   </div>
   <div class="row">
     <div class="col">

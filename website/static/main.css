@@ -54,6 +54,13 @@
   grid-template-columns: 1fr 25%;
 }
 
+.all_recipes_header {
+  display: grid;
+  gap: .5rem;
+  margin-bottom: .5rem;
+  grid-template-columns: 1fr 10% 15%;
+}
+
 @media only screen and (max-width: 480px) {
   /* For mobile phones: */
   .grid_container {
@@ -111,6 +118,14 @@
   .add_recipe_button {
     display: grid;
     gap: .5rem;
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
+
+  .all_recipes_header {
+    display: grid;
+    gap: .5rem;
+    margin-bottom: .5rem;
     grid-template-columns: none;
     grid-template-rows: auto;
   }
