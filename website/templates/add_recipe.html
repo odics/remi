@@ -42,8 +42,8 @@ content %}
               role="tabpanel"
               aria-labelledby="ex1-tab-1"
             >
-              <div class="row">
-                <div class="col">
+              <div class="add_recipe_container">
+                <div>
                   <div class="custom_card shadow-none p-2">
                     <h4 class="mb-0">
                       <span class="fw-lighter">Recipe Importer</span>
@@ -56,10 +56,10 @@ content %}
                     </span>
                   </div>
                 </div>
-                <div class="col-6">
+                <div>
                   <form method="POST">
-                    <div class="row">
-                      <div class="col">
+                    <div class="add_recipe_button">
+                      <div>
                         <input
                           type="text"
                           id="recipe_url"
@@ -68,7 +68,7 @@ content %}
                           placeholder="Enter Recipe URL"
                         />
                       </div>
-                      <div class="col-4">
+                      <div style="display: grid;">
                         <button
                           type="submit"
                           class="btn btn-primary shadow-none"
@@ -79,7 +79,7 @@ content %}
                     </div>
                     <div class="row">
                       <div class="col mt-3">
-                        <span class="fw-lighter">
+                        <span class="add_recipe_span fw-lighter">
                           Some examples:
                           <ul>
                             <li>http://allrecipes.com</li>

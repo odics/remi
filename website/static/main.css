@@ -42,6 +42,18 @@
     gap: 1rem;
 }
 
+.add_recipe_container {
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.add_recipe_button {
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: 1fr 25%;
+}
+
 @media only screen and (max-width: 480px) {
   /* For mobile phones: */
   .grid_container {
@@ -67,7 +79,7 @@
     grid-template-columns: none;
     grid-template-rows: auto; 
     gap: 1rem;
-}
+  }
 
   .hidden_cart {
     display: block;
@@ -79,5 +91,27 @@
 
   .view_card {
     display: none;
+  }
+
+  .custom_card {
+    display: none; 
+  }
+
+  .add_recipe_span {
+    display: none; 
+  }
+
+  .add_recipe_container {
+    display: grid;
+    gap: .5rem;
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
+
+  .add_recipe_button {
+    display: grid;
+    gap: .5rem;
+    grid-template-columns: none;
+    grid-template-rows: auto;
   }
 }
