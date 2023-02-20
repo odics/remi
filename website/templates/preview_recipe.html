@@ -8,36 +8,36 @@
         <div class="col">
             <div class="card shadow-3-strong" style="border-radius:3px;">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col">
+                    <div class="recipe_info_grid">
+                        <div>
                             <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
                                 <b>Prep:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="prep_time"
                                 value="{{ prep }}" /></span>                        </div>
-                        <div class="col">
+                        <div>
                             <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
                                 <b>Cook:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="cook_time"
                                 value="{{ cook }}" /></span>                        </div>
-                        <div class="col">
+                        <div>
                             <span class="fw-lighter"><span class="text-primary"><i class="fa-solid fa-clock"></i>
                                 <b>Total:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="total_time"
                                 value="{{ total }}" /></span>                        </div>
-                        <div class="col">
+                        <div>
                             <span class="fw-lighter"><span class="text-primary"><i class="fa fa-cutlery fa-lg"></i>
                                 <b>Servings:</b></span><input type="text" class="form-control form-control-sm w-100" id="title" name="servings"
                                 value="{{ servings }}" /></span>                        </div>
-                        <div class="col text-right p-0">
-                            <button type="submit" form="ing" class="btn btn-primary btn-sm" role="button"><i
+                        <div style="display:grid;">
+                            <button type="submit" form="ing" class="btn btn-primary btn-sm mb-2 shadow-none" role="button"><i
                                     class="fa-solid fa-floppy-disk"></i> Save Recipe
                             </button>
 
-                            <button type="button" class="btn btn-danger btn-sm me-0" data-toggle="modal"
+                            <button type="button" class="btn btn-danger btn-sm me-0 shadow-none" data-toggle="modal"
                                     data-target="#myModal"><i class="fa fa-trash"></i> Discard
                             </button>
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-10">
+                    <div class="recipe_tags_grid">
+                        <div>
                         <select class="recipe-tags form-control form-select form-select-sm"
                                                  data-control="select2" multiple="multiple"
                                                  data-select2-tags="true" id="recipe_tags" name="recipe_tags">
@@ -46,8 +46,9 @@
                             <option value="crock pot">crock pot</option>
                         </select>
                         </div>
-                        <div class="col-2">
-                                <select class="form-select form-select-sm" data-style="btn-info" id="recipe_category" name="recipe_category">
+                        <div>
+                                <select class="form-select form-select-sm" data-style="btn-info" id="recipe_category" name="recipe_category"
+                                style="width:100%;">
                                             <option>Select Category</option>
                                             <option value="0">Breakfast</option>
                                             <option value="1">Lunch</option>
@@ -62,8 +63,8 @@
         </div>
     </div>
     <br>
-    <div class="row">
-        <div class="col-4">
+    <div class="ingredient_instruction_grid">
+        <div>
             <div class="card text-left bg-light" style="border-radius:3px;">
                 <div class="card shadow-3-strong" style="border-radius:3px;">
                     <div class="card-header border-0 text-center">
@@ -113,7 +114,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-8">
+        <div>
             <div class="card text-left bg-light" style="border-radius:3px;">
                 <div class="card shadow-3-strong" style="border-radius:3px;">
                     <div class="card-header border-0 text-center">
@@ -151,7 +152,7 @@
     </div>
 </div>
 </div>
- 
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

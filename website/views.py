@@ -448,9 +448,10 @@ def random_recipe():
 
     recipe = Recipe.query.filter_by(username=current_user.id).group_by(func.random()).first()
     ingredients = Ingredients.query.filter_by(uuid=recipe.uuid).all()
+    instructions_json = json.loads(recipe.instructions_json)
 
-    return render_template("random_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
-                           shopping_list=shopping_list, view_id=recipe.uuid)
+    return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
+                           shopping_list=shopping_list, view_id=recipe.uuid, instructions_json=instructions_json)
 
 
 @views.route('/view_recipe/<recipe_uuid>', methods=['POST', 'GET'])
