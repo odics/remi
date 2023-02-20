@@ -20,7 +20,7 @@
         </select>
       </div>
         <div style="display: grid">
-          <button type="submit" class="btn btn-primary btn-sm shadow-none">
+          <button type="submit" class="btn btn-secondary btn-sm shadow-none">
             <i class="fa-solid fa-arrow-down-short-wide"></i> Filter Recipes
           </button>
         </div>
@@ -83,15 +83,15 @@
             }}</span
           >
           <span class="badge badge-info"
-            ><i class="fa-solid fa-clock fa-sm"></i> Total: 30 mins</span
+            ><i class="fa-solid fa-clock fa-sm"></i> Total: {{ recipe.total_time }}</span
           >
           <span class="badge badge-info"
-            ><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span
+            ><i class="fa fa-cutlery fa-sm"></i> Servings: {{ recipe.servings }}</span
           >
           <hr />
           <a
             href="view_recipe/{{ recipe.uuid }}"
-            class="btn btn-secondary btn-sm shadow-none"
+            class="btn btn-primary btn-sm shadow-none"
             ><i class="fa fa-book"></i> Vew
           </a>
           <a
