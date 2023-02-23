@@ -2,59 +2,55 @@
 %} {% block content %}
 <br />
 <form method="POST">
-  <div class="container mt-0">
-    <div class="row mb-3">
-      <div class="col">
-        <div class="view_card card shadow-2 border" style="border-radius: 4px">
-          <div class="card-body">
-            <div class="row">
-              <div class="col text-center">
-                <span class="fw-lighter"
-                  ><span class="text-primary"
-                    ><i class="fa-solid fa-clock"></i> <b>Prep:</b></span
-                  >
-                  {{ recipe.prep_time }}</span
-                >
-              </div>
-              <div class="col text-center">
-                <span class="fw-lighter"
-                  ><span class="text-primary"
-                    ><i class="fa-solid fa-clock"></i> <b>Cook:</b></span
-                  >
-                  {{ recipe.cook_time }}</span
-                >
-              </div>
-              <div class="col text-center">
-                <span class="fw-lighter"
-                  ><span class="text-primary"
-                    ><i class="fa-solid fa-clock"></i> <b>Total:</b></span
-                  >
-                  {{ recipe.total_time }}</span
-                >
-              </div>
-              <div class="col text-center">
-                <span class="fw-lighter"
-                  ><span class="text-primary"
-                    ><i class="fa fa-cutlery fa-lg"></i> <b>Servings:</b></span
-                  >
-                  {{ recipe.servings }}</span
-                >
-              </div>
-              <div class="col text-center">
-                <span class="fw-lighter"
-                  ><span class="text-primary"
-                    ><i class="fa fa-cutlery fa-lg"></i> <b>Category:</b></span
-                  >
-                  {{ recipe.category }}</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="main-container">
+<div class="home-menu-view">
+  <div>
+    <span class="fa-span"><i class="fa-solid fa-clock"></i></span> <span class="view-span">Prep:</span>
+    {{ recipe.prep_time }}
+  </div>
+  <div>
+    <span class="fa-span"><i class="fa-solid fa-clock"></i></span> <span class="view-span">Cook:</span>
+    {{ recipe.cook_time }}
+  </div>
+  <div>
+    <span class="fa-span"><i class="fa-solid fa-clock"></i></span> <span class="view-span">Total:</span>
+    {{ recipe.total_time }}
+  </div>
+  <div>
+    <span class="fa-span"><i class="fa fa-cutlery fa-lg"></i></span> <span class="view-span">Servings:</span>
+    {{ recipe.servings }}
+  </div>
+  <div class="col text-center">
+    <span class="fa-span"><i class="fa fa-cutlery fa-lg"></i></span> <span class="view-span">Category:</span>
+    {{ recipe.category }}
+  </div>
+</div>
+<div class="view-container">
+  <div>
+  <div class="recipe-card">
+    Ingredients
+  </div>
+  {% for ingredient in ingredients %}
+  <div class="ingredient-list">
+    <div>
+      {{ ingredient.ingredient }}
+      <input type="hidden" name="category" value="{{ ingredient.ing_type }}" />
     </div>
-    
-    <div class="view_container mt-0">
+    <div>
+      <input type="checkbox" value="{{ ingredient.ingredient }}" id="ingredients" name="ingredients" checked />
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+  <div>
+    <div class="recipe-card">
+      Instructions
+    </div>
+  </div>
+</div>
+
+<!-- <div class="view_container mt-0">
       <div>
         <div class="card text-left bg-light mt-0" style="border-radius: 4px">
           <div class="card shadow-2 border" style="border-radius: 4px">
@@ -222,8 +218,8 @@
       </div>
     </div>
   </div>
-</form>
-<div
+</form> -->
+<!-- <div
   class="modal fade"
   id="delete_recipe_go_home"
   tabindex="-1"
@@ -254,5 +250,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 {% endblock %}

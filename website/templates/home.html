@@ -1,10 +1,8 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
-
-{% block content %}
-<br>
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<br />
 <div class="container">
-    <!-- <div class="row">
+  <!-- <div class="row">
         <div class="col">
             <h1 class="display-6 text-primary" style="font-size:1.5rem">Hello, {{ user.first_name }}</h1>
         </div>
@@ -67,134 +65,165 @@
             </div>
         </div>
     </div> -->
-    <div class="row">
-        <div class="col">
-            <h1 class="display-6 text-primary" style="font-size:1.5rem">Welcome, {{ user.first_name }}.</h1>
-        </div>
-    </div>
-    <div class="row mb-4">
-        <div class="col">
-            <div class="card shadow-1 p-3 border" style="border-radius:4px;">
-                <div class="row">
-                    <div class="home_container">
-                        <div style="display: grid;">
-                        <a class="btn btn-primary shadow-none" href="/add_recipe"><i class="fa-solid fa-pen-to-square"></i> Add Recipe</a>
-                        </div>
-                        <div style="display: grid;">
-                        <a class="btn btn-secondary" href="/all_recipes"><i class="fa-regular fa-file-lines fa-lg me-2"></i> All Recipes</a>
-                        </div>
-                        <div style="display: grid;">
-                        <a href="/favorites" class="btn btn-secondary"><i class="fa-solid fa-star fa-lg me-2"></i> Favorites</a>
-                        </div>
-                        <div style="display: grid;">
-                        <a class="btn btn-secondary" href="/random_recipe"><i class="fa-solid fa-dice fa-lg me-2"></i> Random Recipe</a>
-                        </div>
-                        <div style="display: grid;">
-                        <form method="POST" action="/search">
-                            <input
-                                    autocomplete="off"
-                                    type="search"
-                                    class="form-control rounded"
-                                    placeholder="Enter keyword"
-                                    style="min-width: 125px;"
-                                    name="search_query"
-                            />
-                        </div>
-                        <div style="display: grid;">
-                            <select class="form-control" data-style="btn-info"
-                                    id="recipe_category" name="sort_method">
-                                <option value="7" disabled>Select Category</option>
-                                <option value="all">All Categories</option>
-                                <option value="Breakfast">Breakfast</option>
-                                <option value="Lunch">Lunch</option>
-                                <option value="Dinner">Dinner</option>
-                                <option value="Dessert">Dessert</option>
-                                <option value="Sides">Sides</option>
-                            </select>
-                        </div>
-                        <div style="display: grid;">
-                            <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i> Search
-                            </button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col">
-            <h1 class="display-6 text-primary" style="font-size:1.5rem">Recently added recipes</h1>
-        </div>
-    </div>
-    <div class="row">
-        {% if recipes %}
+  <div class="main-container">
+    <h1 class="display-6 text-primary" style="font-size: 1.5rem">
+      Welcome, {{ user.first_name }}.
+    </h1>
+
+    <form class="home-menu">
+      <div>
+        <a href="/add_recipe" class="primary-button">
+          <i class="fa-regular fa-pen-to-square"></i> Add Recipe
+        </a>
+      </div>
+      <div>
+        <a href="/all_recipes" class="primary-button">
+          <i class="fa-regular fa-file-lines"></i> All Recipes
+        </a>
+      </div>
+      <div>
+        <a href="/favorites" class="primary-button">
+          <i class="fa-solid fa-heart"></i> Favorites
+        </a>
+      </div>
+      <div>
+        <a href="/random_recipe" class="primary-button">
+          <i class="fa-solid fa-dice"></i> Random Recipe
+        </a>
+      </div>
+      <div>
+        <input type="text" class="text-input" placeholder="Enter Keyword" />
+      </div>
+      <div>
+        <select
+          class="select-input"
+          data-style="btn-info"
+          id="recipe_category"
+          name="sort_method"
+        >
+          <option value="7" disabled>Select Category</option>
+          <option value="all">All Categories</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Sides">Sides</option>
+        </select>
+      </div>
+      <div>
+        <form method="POST" action="/search">
+          <button class="primary-button" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+          </button>
+        </form>
+      </div>
+      <h1>Recently Added Recipes:</h1>
+      <div class="card-container">
+        {% if recipes %} 
         {% for recipe in recipes %}
-        <div class="d-flex justify-content-between col-lg-4 col-md-3 col-sm-6">
-            <div class="card mb-4 shadow-2 border" style="border-radius:4px;">
-                <img class="card-img-top" src="{{ url_for('static', filename=recipe.image) }}" style="width: 100%;height: 15vw;object-fit: cover;
-            border-top-left-radius:4px; border-top-right-radius:4px">
-                {% if recipe.favorite == True %}
-                <button class="btn btn-secondary btn-sm" onclick="remove_favorite('{{ recipe.id }}')"
-                        style="position:absolute; top: 10px; right: 10px">
-                    <i class="fa-solid fa-star fa-xl text-danger"></i>
-                </button>
-                {% else %}
-                <button class="btn btn-secondary btn-sm" onclick="add_favorite('{{ recipe.id }}')"
-                        style="position:absolute; top: 10px; right: 10px">
-                    <i class="fa-regular fa-star fa-xl text-danger"></i>
-                </button>
-                {% endif %}
-                <div class="card-body text-center rounded-4">
-                    <h5 class="card-title"><span class=" text-primary fw-lighter">{{ recipe.recipe_name }}</span></h5>
-                    <hr/>
-                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> {{ recipe.category }}</span>
-                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Prep: {{ recipe.prep_time }}</span>
-                    <span class="badge badge-info"><i
-                            class="fa-solid fa-clock fa-sm"></i> Cook: {{ recipe.cook_time }}</span></span>
-                    <span class="badge badge-info"><i
-                            class="fa-solid fa-clock fa-sm"></i> Total: {{ recipe.total_time }}</span></span>
-                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: {{ recipe.servings }}</span></span>
-                    <hr/>
-                    <a href="/view_recipe/{{ recipe.uuid }}" class="btn btn-primary btn-sm shadow-none"><i
-                            class="fa fa-book"></i> Vew
-                    </a>
-                    <a href="/edit_recipe/{{ recipe.uuid }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i>
-                        Edit
-                    </a>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm shadow-none" data-mdb-toggle="modal"
-                            data-mdb-target="#delete_recipe" data-recipe-title="{{ recipe.recipe_name }}"
-                            data-recipe-uuid="{{ recipe.uuid }}"><i class="fa fa-trash"></i>
-                        Delete
-                    </button>
-                </div>
+        <div class="card">
+          <img
+            src="{{ url_for('static', filename=recipe.image) }}"
+            style="
+              width: 100%;
+              height: 15vw;
+              object-fit: cover;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 8px;
+            "
+          />
+          {% if recipe.favorite == True %}
+          <button
+            class="favorite"
+            onclick="remove_favorite('{{ recipe.id }}')"
+            style="position: absolute; top: 10px; right: 10px"
+          >
+            <i class="fa-solid fa-star fa-xl text-danger"></i>
+          </button>
+          {% else %}
+          <button
+            class="favorite"
+            onclick="add_favorite('{{ recipe.id }}')"
+            style="position: absolute; top: 10px; right: 10px"
+          >
+            <i class="fa-regular fa-star fa-xl text-danger"></i>
+          </button>
+          {% endif %}
+          <div class="card-title">{{ recipe.recipe_name }}</div>
+          <div class="recipe-info">
+            <div class="pill">
+              <i class="fa-solid fa-utensils"></i> {{ recipe.category }}
             </div>
+
+            <div class="pill">
+              <i class="fa-solid fa-clock"></i> Prep: {{ recipe.prep_time }}
+            </div>
+
+            <div class="pill">
+              <i class="fa-solid fa-clock"></i> Cook: {{ recipe.cook_time }}
+            </div>
+
+            <div class="pill">
+              <i class="fa-solid fa-clock"></i> Total: {{ recipe.total_time }}
+            </div>
+
+            <div class="pill">
+              <i class="fa-solid fa-utensils"></i> Servings: {{ recipe.servings
+              }}
+            </div>
+          </div>
+          <div class="card-body">
+            <a href="/view_recipe/{{ recipe.uuid }}" class="primary-button">
+              <i class="fa-brands fa-readme"></i> View
+            </a>
+
+            <a href="/edit_recipe/{{ recipe.uuid }}" class="primary-button">
+              <i class="fa-solid fa-pen-to-square"></i> Edit
+            </a>
+
+            <a href="" class="primary-button">
+              <i class="fa-solid fa-trash"></i> Delete
+            </a>
+          </div>
         </div>
         {% endfor %}
-        {% else %}
-        <div class="d-flex">
-            <span class="fw-lighter">Oops, you don't have any favorite recipes yet. Make sure to mark your favorites by clicking the star
-            icon on the recipe image.</span>
-        </div>
         {% endif %}
-    </div>
+      </div>
+    </form>
+  </div>
 </div>
 
-<div class="modal fade" id="delete_recipe" tabindex="-1" aria-labelledby="delete_recipe_modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">Are you sure you want to delete this recipe?</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
+<!-- <div
+  class="modal fade"
+  id="delete_recipe"
+  tabindex="-1"
+  aria-labelledby="delete_recipe_modal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-mdb-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">Are you sure you want to delete this recipe?</div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-mdb-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
-</div>
+  </div>
+</div> -->
 
 {% endblock %}

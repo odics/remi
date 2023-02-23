@@ -1,395 +1,397 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
     <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" /> -->
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.dark.min.css') }}"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='main.css') }}"
+    />
 
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+    />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;400&family=Oxygen&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
     <title>{% block title %}Home{% endblock %}</title>
-</head>
+  </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-        <div class="container">
-            <div class="d-flex">
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <a class="navbar-brand" href="#">ReMI</a>
-                    <ul class="navbar-nav mr-auto">
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="btn btn-link px-3 me-2" id="home" href="/"><i class="fa-solid fa-house-user"></i>
-                                Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-link px-3 me-2" id="add_recipe" href="/add_recipe"><i
-                                    class="fa-solid fa-pen-to-square"></i> Add Recipe</a>
-                        </li>
-                        <li class="hidden_cart nav-item">
-                            <a class="btn btn-link px-3 me-2" id="add_recipe" href="/cart"><i class="fa-sharp fa-solid fa-cart-shopping"></i> Shopping List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-link px-3 me-2" id="logout" href="/logout"><i
-                                    class="fa-solid fa-right-from-bracket"></i> Log Out</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item active">
-                            <a class="nav-link" id="login" href="/login">Login<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="signUp" href="/sign-up">Sign Up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="home" href="/">Home</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-            <div class="navbar-nav flex-row d-none d-md-flex">
-                <form method="POST" action="/search" class="input-group w-auto my-auto d-none d-sm-flex">
-                    <input autocomplete="off" type="search" name="search_query" class="form-control rounded" placeholder="Search Recipes"
-                        style="min-width: 125px;" />
-                    <button class="btn btn-link" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-                </form>
-            </div>
-            <div class="visible_cart d-flex align-items-center">
-                <a href="/cart" class="visible_cart btn btn-primary shadow-none position-relative">
-                    <i class="fa-sharp fa-solid fa-cart-shopping fa-xl"></i>
-                    {% if shopping_list %}
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger">
-                        {{ shopping_list }}
-                        <span class="visually-hidden">unread messages</span>
-                    </span>
-                    {% endif %}
-                </a>
-            </div>
+  <body>
+    <nav class="navbar">
+      <div class="logo">R•E•M•I</div>
+      <ul class="nav-links">
+        {% if user.is_authenticated %}
+        <li><i class="fa-solid fa-house"></i> Home</li>
+        <li><i class="fa-regular fa-pen-to-square"></i> Add Recipe</li>
+        <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+        {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" id="login" href="/login"
+            >Login<span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="signUp" href="/sign-up">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="home" href="/">Home</a>
+        </li>
+        {% endif %}
+      </ul>
+      <div class="search">
+        <form method="POST" action="/search">
+          <input type="text" placeholder="Search Recipes" class="text-input" name="search_query"/>
+          <button class="search-button">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+          </button>
+        </form>
+      </div>
+      <div class="shopping-cart">
+        <a href="/cart"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
+        {% if shopping_list %}
+        <div class="shopping-badge">
+          {{ shopping_list }}
         </div>
+        {% endif %}
+      </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    {% if category == 'error' %}
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
     <div class="alert alert-danger alert-dismissable fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-        </button>
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     {% else %}
-    <div class="alert alert-warning alert-dismissible" role="alert" data-mdb-color="success">
-        {{ message }}
-        <button type="button" class="btn-close" data-mdb-dismiss="alert"></button>
+    <div
+      class="alert alert-warning alert-dismissible"
+      role="alert"
+      data-mdb-color="success"
+    >
+      {{ message }}
+      <button type="button" class="btn-close" data-mdb-dismiss="alert"></button>
     </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+    {% endif %} {% endfor %} {% endif %} {% endwith %} {% block content %} {%
+    endblock %}
 
- 
-        {% block content %}
-        {% endblock %}
-   
-
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+    ></script>
 
     <script>
-        $('#delete_recipe').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var title = button.data('recipe-title') // Extract info from data-* attributes
-            var recipe = button.data('recipe-uuid')
-            var modal = $(this)
+      $("#delete_recipe").on("show.bs.modal", function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var title = button.data("recipe-title"); // Extract info from data-* attributes
+        var recipe = button.data("recipe-uuid");
+        var modal = $(this);
 
-            var new_html = '<button type="button" class="btn btn-secondary btn-sm" data-mdb-dismiss="modal">Close</button><button class="btn btn-danger btn-sm" onclick="delete_recipe(\'' + recipe + '\')\"><i class="fa fa-trash"></i> Delete Recipe</button>'
+        var new_html =
+          '<button type="button" class="btn btn-secondary btn-sm" data-mdb-dismiss="modal">Close</button><button class="btn btn-danger btn-sm" onclick="delete_recipe(\'' +
+          recipe +
+          '\')"><i class="fa fa-trash"></i> Delete Recipe</button>';
 
-            modal.find('.modal-title').text('Delete ' + title + '?')
-            modal.find('.modal-footer').html(new_html)
-        })
+        modal.find(".modal-title").text("Delete " + title + "?");
+        modal.find(".modal-footer").html(new_html);
+      });
     </script>
 
     <script>
-        $('#delete_recipe_go_home').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var title = button.data('recipe-title') // Extract info from data-* attributes
-            var recipe = button.data('recipe-uuid')
-            var modal = $(this)
+      $("#delete_recipe_go_home").on("show.bs.modal", function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var title = button.data("recipe-title"); // Extract info from data-* attributes
+        var recipe = button.data("recipe-uuid");
+        var modal = $(this);
 
-            var new_html = '<button type="button" class="btn btn-secondary btn-sm" data-mdb-dismiss="modal">Close</button><button class="btn btn-danger btn-sm" onclick="delete_recipe_go_home(\'' + recipe + '\')\"><i class="fa fa-trash"></i> Delete Recipe</button>'
+        var new_html =
+          '<button type="button" class="btn btn-secondary btn-sm" data-mdb-dismiss="modal">Close</button><button class="btn btn-danger btn-sm" onclick="delete_recipe_go_home(\'' +
+          recipe +
+          '\')"><i class="fa fa-trash"></i> Delete Recipe</button>';
 
-            modal.find('.modal-title').text('Delete ' + title + '?')
-            modal.find('.modal-footer').html(new_html)
-        })
+        modal.find(".modal-title").text("Delete " + title + "?");
+        modal.find(".modal-footer").html(new_html);
+      });
     </script>
 
     <script>
-        function delete_recipe(recipe_id) {
-            fetch('/delete_recipe', {
-                method: 'POST',
-                body: JSON.stringify({ recipe_id: recipe_id })
-            }).then((_res) => {
-                var currentScrollPosition = $(window).scrollTop();
-                location.reload();
-                setTimeout(function () {
-                    $(window).scrollTop(currentScrollPosition);
-                }, 100);
-            });
-        }
-    </script>
-
-    <script>
-        function delete_recipe_go_home(recipe_id) {
-            fetch('/delete_recipe_go_home', {
-                method: 'POST',
-                body: JSON.stringify({ recipe_id: recipe_id })
-            }).then((_res) => {
-                window.location.href = "/";
-            });
-        }
-    </script>
-
-    <script>
-        function clear_cart(user_id) {
-            fetch('/clear_cart', {
-                method: 'POST',
-                body: JSON.stringify({ user_id: user_id })
-            }).then((_res) => {
-                window.location.href = "/cart";
-            });
-        }
-    </script>
-
-    <script>
-        function delete_shopping_item(item_id) {
-            fetch('/delete_item', {
-                method: 'POST',
-                body: JSON.stringify({ item_id: item_id })
-            }).then((_res) => {
-                var currentScrollPosition = $(window).scrollTop();
-                location.reload();
-                setTimeout(function () {
-                    $(window).scrollTop(currentScrollPosition);
-                }, 100);
-            });
-        }
-    </script>
-
-    <script>
-        function add_favorite(recipe_id) {
-            fetch('/add_favorite', {
-                method: 'POST',
-                body: JSON.stringify({ recipe_id: recipe_id })
-            }).then((_res) => {
-                var currentScrollPosition = $(window).scrollTop();
-                location.reload();
-                setTimeout(function () {
-                    $(window).scrollTop(currentScrollPosition);
-                }, 100);
-            });
-        }
-    </script>
-
-    <script>
-        function remove_favorite(recipe_id) {
-            fetch('/remove_favorite', {
-                method: 'POST',
-                body: JSON.stringify({ recipe_id: recipe_id })
-            }).then((_res) => {
-                var currentScrollPosition = $(window).scrollTop();
-                location.reload();
-                setTimeout(function () {
-                    $(window).scrollTop(currentScrollPosition);
-                }, 100);
-            });
-        }
-    </script>
-
-    <script>
-        function delete_tag(tag_id, view_id, recipe_id) {
-            var recipe_url = view_id
-            fetch('/delete_tag', {
-                method: 'POST',
-                body: JSON.stringify({ tag_id: tag_id, recipe_id: recipe_id })
-            }).then((_res) => {
-                var currentScrollPosition = $(window).scrollTop();
-                location.reload();
-                setTimeout(function () {
-                    $(window).scrollTop(currentScrollPosition);
-                }, 100);
-            });
-        }
-    </script>
-
-    <script>
-        function copyShopping(list_to_copy) {
-            var copyText = $(list_to_copy).data();
-
-            navigator.clipboard.writeText(copyText.copy);
-        }
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('.recipe-tags').select2({
-                theme: 'bootstrap-5',
-                placeholder: "Tag your recipe here..."
-            });
+      function delete_recipe(recipe_id) {
+        fetch("/delete_recipe", {
+          method: "POST",
+          body: JSON.stringify({ recipe_id: recipe_id }),
+        }).then((_res) => {
+          var currentScrollPosition = $(window).scrollTop();
+          location.reload();
+          setTimeout(function () {
+            $(window).scrollTop(currentScrollPosition);
+          }, 100);
         });
+      }
     </script>
 
-<script>
-    $(document).ready(function () {
-        $('.recipe-tags2').select2({
-            theme: 'bootstrap-5',
-            placeholder: "Tag your recipe here... start typing to create tags",
-            width: 'resolve'
+    <script>
+      function delete_recipe_go_home(recipe_id) {
+        fetch("/delete_recipe_go_home", {
+          method: "POST",
+          body: JSON.stringify({ recipe_id: recipe_id }),
+        }).then((_res) => {
+          window.location.href = "/";
         });
-    });
-</script>
+      }
+    </script>
 
-<script>
-    $(document).ready(function () {
-        $('.recipe-tags2').select2({
-            theme: 'bootstrap-5',
-            placeholder: "Tag your recipe here... start typing to create tags"
+    <script>
+      function clear_cart(user_id) {
+        fetch("/clear_cart", {
+          method: "POST",
+          body: JSON.stringify({ user_id: user_id }),
+        }).then((_res) => {
+          window.location.href = "/cart";
         });
-    });
-</script>
+      }
+    </script>
 
-<script>
-    function add_ingredient() {
-    
-        var ingredients = document.getElementById('ingredient_list');
-        var ingredient_type = document.getElementById('ingredient_type');
-        var delete_button = document.getElementById('delete_button')
+    <script>
+      function delete_shopping_item(item_id) {
+        fetch("/delete_item", {
+          method: "POST",
+          body: JSON.stringify({ item_id: item_id }),
+        }).then((_res) => {
+          var currentScrollPosition = $(window).scrollTop();
+          location.reload();
+          setTimeout(function () {
+            $(window).scrollTop(currentScrollPosition);
+          }, 100);
+        });
+      }
+    </script>
 
-        var new_delete_button = document.createElement('button');
-        new_delete_button.setAttribute('class', 'btn btn-danger shadow-none btn-sm mt-2');
-        new_delete_button.setAttribute('onclick', 'remove_added_ingredient()')
-        new_delete_button.innerHTML = '<i class="fa-solid fa-xmark fa-lg"></i>'
+    <script>
+      function add_favorite(recipe_id) {
+        fetch("/add_favorite", {
+          method: "POST",
+          body: JSON.stringify({ recipe_id: recipe_id }),
+        }).then((_res) => {
+          var currentScrollPosition = $(window).scrollTop();
+          location.reload();
+          setTimeout(function () {
+            $(window).scrollTop(currentScrollPosition);
+          }, 100);
+        });
+      }
+    </script>
 
-        var new_ingredient = document.createElement('input');
-        new_ingredient.setAttribute('type', 'text');
-        new_ingredient.setAttribute('name', 'ingredients');
-        new_ingredient.setAttribute('placeholder', 'Recipe Ingredient');
-        new_ingredient.setAttribute('class', 'form-control form-control-sm w-100 mt-2 pb-1')
+    <script>
+      function remove_favorite(recipe_id) {
+        fetch("/remove_favorite", {
+          method: "POST",
+          body: JSON.stringify({ recipe_id: recipe_id }),
+        }).then((_res) => {
+          var currentScrollPosition = $(window).scrollTop();
+          location.reload();
+          setTimeout(function () {
+            $(window).scrollTop(currentScrollPosition);
+          }, 100);
+        });
+      }
+    </script>
 
-        var new_ingredient_type = document.createElement('select');
-        new_ingredient_type.setAttribute('class', 'form-control form-control-sm ms-0 mt-2 pb-1');
-        new_ingredient_type.setAttribute('data-style', 'btn-info');
-        new_ingredient_type.setAttribute('name', 'ing_type');
-        new_ingredient_type.setAttribute('value', "HELLO");
+    <script>
+      function delete_tag(tag_id, view_id, recipe_id) {
+        var recipe_url = view_id;
+        fetch("/delete_tag", {
+          method: "POST",
+          body: JSON.stringify({ tag_id: tag_id, recipe_id: recipe_id }),
+        }).then((_res) => {
+          var currentScrollPosition = $(window).scrollTop();
+          location.reload();
+          setTimeout(function () {
+            $(window).scrollTop(currentScrollPosition);
+          }, 100);
+        });
+      }
+    </script>
 
-        var ing_type = document.createElement('option');
+    <script>
+      function copyShopping(list_to_copy) {
+        var copyText = $(list_to_copy).data();
+
+        navigator.clipboard.writeText(copyText.copy);
+      }
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $(".recipe-tags").select2({
+          theme: "bootstrap-5",
+          placeholder: "Tag your recipe here...",
+        });
+      });
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $(".recipe-tags2").select2({
+          theme: "bootstrap-5",
+          placeholder: "Tag your recipe here... start typing to create tags",
+          width: "resolve",
+        });
+      });
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $(".recipe-tags2").select2({
+          theme: "bootstrap-5",
+          placeholder: "Tag your recipe here... start typing to create tags",
+        });
+      });
+    </script>
+
+    <script>
+      function add_ingredient() {
+        var ingredients = document.getElementById("ingredient_list");
+        var ingredient_type = document.getElementById("ingredient_type");
+        var delete_button = document.getElementById("delete_button");
+
+        var new_delete_button = document.createElement("button");
+        new_delete_button.setAttribute(
+          "class",
+          "btn btn-danger shadow-none btn-sm mt-2"
+        );
+        new_delete_button.setAttribute("onclick", "remove_added_ingredient()");
+        new_delete_button.innerHTML = '<i class="fa-solid fa-xmark fa-lg"></i>';
+
+        var new_ingredient = document.createElement("input");
+        new_ingredient.setAttribute("type", "text");
+        new_ingredient.setAttribute("name", "ingredients");
+        new_ingredient.setAttribute("placeholder", "Recipe Ingredient");
+        new_ingredient.setAttribute(
+          "class",
+          "form-control form-control-sm w-100 mt-2 pb-1"
+        );
+
+        var new_ingredient_type = document.createElement("select");
+        new_ingredient_type.setAttribute(
+          "class",
+          "form-control form-control-sm ms-0 mt-2 pb-1"
+        );
+        new_ingredient_type.setAttribute("data-style", "btn-info");
+        new_ingredient_type.setAttribute("name", "ing_type");
+        new_ingredient_type.setAttribute("value", "HELLO");
+
+        var ing_type = document.createElement("option");
         ing_type.value = "misc";
         ing_type.text = "Misc.";
         new_ingredient_type.appendChild(ing_type);
 
-        var ing_type = document.createElement('option');
+        var ing_type = document.createElement("option");
         ing_type.value = "produce";
         ing_type.text = "Produce";
         new_ingredient_type.appendChild(ing_type);
 
-        var ing_type = document.createElement('option');
+        var ing_type = document.createElement("option");
         ing_type.value = "meat";
         ing_type.text = "Meat";
         new_ingredient_type.appendChild(ing_type);
 
-        var ing_type = document.createElement('option');
+        var ing_type = document.createElement("option");
         ing_type.value = "coffee_tea";
         ing_type.text = "Coffee and Tea";
         new_ingredient_type.appendChild(ing_type);
 
-        var ing_type = document.createElement('option');
+        var ing_type = document.createElement("option");
         ing_type.value = "pasta";
         ing_type.text = "Pasta";
         new_ingredient_type.appendChild(ing_type);
 
-        var ing_type = document.createElement('option');
+        var ing_type = document.createElement("option");
         ing_type.value = "frozen";
         ing_type.text = "Frozen Food";
         new_ingredient_type.appendChild(ing_type);
 
-        var ing_type = document.createElement('option');
+        var ing_type = document.createElement("option");
         ing_type.value = "dairy_bread";
         ing_type.text = "Dairy";
         new_ingredient_type.appendChild(ing_type);
 
         ingredient_type.appendChild(new_ingredient_type);
-        delete_button.appendChild(new_delete_button)
+        delete_button.appendChild(new_delete_button);
         ingredients.appendChild(new_ingredient);
-    }
-</script>
+      }
+    </script>
 
-<script>
-    function add_recipe_step() {
-        var instructions = document.getElementById('add_container');
-        var new_instruction = document.createElement('div');
+    <script>
+      function add_recipe_step() {
+        var instructions = document.getElementById("add_container");
+        var new_instruction = document.createElement("div");
 
-        new_instruction.setAttribute('class', 'instructions');
+        new_instruction.setAttribute("class", "instructions");
 
-        new_instruction.innerHTML = '<div class="add_container"><div class="flex-fill" id="recipe_instructions"><textarea class="form-control" id="instructions" name="instructions" rows="3" placeholder="Type your instructions here"></textarea></div><div class="delete_button"><button onclick="remove_added_step()" type="button" class="btn btn-outline btn-danger btn-sm shadow-none"><i class="fa-solid fa-xmark fa-lg"></i></button></div></div>'
+        new_instruction.innerHTML =
+          '<div class="add_container"><div class="flex-fill" id="recipe_instructions"><textarea class="form-control" id="instructions" name="instructions" rows="3" placeholder="Type your instructions here"></textarea></div><div class="delete_button"><button onclick="remove_added_step()" type="button" class="btn btn-outline btn-danger btn-sm shadow-none"><i class="fa-solid fa-xmark fa-lg"></i></button></div></div>';
 
         instructions.appendChild(new_instruction);
-    }
-</script>
+      }
+    </script>
 
-<script>
-    function remove_added_ingredient() {
-        var ingredient_to_delete = document.getElementById('ingredient_list');
-        var ingredient_type_to_delete = document.getElementById('ingredient_type');
-        var button_to_delete = document.getElementById('delete_button');
+    <script>
+      function remove_added_ingredient() {
+        var ingredient_to_delete = document.getElementById("ingredient_list");
+        var ingredient_type_to_delete =
+          document.getElementById("ingredient_type");
+        var button_to_delete = document.getElementById("delete_button");
 
-
-        
         ingredient_to_delete.removeChild(ingredient_to_delete.lastChild);
-        ingredient_type_to_delete.removeChild(ingredient_type_to_delete.lastChild);
+        ingredient_type_to_delete.removeChild(
+          ingredient_type_to_delete.lastChild
+        );
         button_to_delete.removeChild(button_to_delete.lastChild);
-    }
-</script>
+      }
+    </script>
 
-<script>
-    function remove_added_step() {
-        var step_to_delete = document.getElementById('add_container');
+    <script>
+      function remove_added_step() {
+        var step_to_delete = document.getElementById("add_container");
         step_to_delete.removeChild(step_to_delete.lastChild);
-    }
-</script>
-
-</body>
-
+      }
+    </script>
+  </body>
 </html>
