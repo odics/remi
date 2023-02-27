@@ -10,6 +10,10 @@ import os
 
 views = Blueprint('views', __name__)
 
+@views.route('/test')
+def new_layout():
+    return render_template('test.html')
+
 @views.route('/cart_test')
 def cart_test():
     return render_template('cart_test.html', user=current_user)

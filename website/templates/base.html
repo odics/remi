@@ -44,7 +44,10 @@
 
   <body>
     <nav class="navbar">
-      <div class="logo">R•E•M•I</div>
+      <!-- <div class="logo">R•E•M•I</div> -->
+      <div class="logo">
+        <img src="{{ url_for('static', filename="logo.png") }}">
+      </div>
       <ul class="nav-links">
         {% if user.is_authenticated %}
         <li><i class="fa-solid fa-house"></i> Home</li>
@@ -65,7 +68,7 @@
         {% endif %}
       </ul>
       <div class="search">
-        <form method="POST" action="/search">
+        <form method="POST" action="/search" style="display: flex;">
           <input type="text" placeholder="Search Recipes" class="text-input" name="search_query"/>
           <button class="search-button">
             <i class="fa-solid fa-magnifying-glass"></i> Search

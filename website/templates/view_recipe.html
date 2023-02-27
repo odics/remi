@@ -3,54 +3,74 @@
 <br />
 <form method="POST">
   <div class="main-container">
-<div class="home-menu-view">
-  <div>
-    <span class="fa-span"><i class="fa-solid fa-clock"></i></span> <span class="view-span">Prep:</span>
-    {{ recipe.prep_time }}
-  </div>
-  <div>
-    <span class="fa-span"><i class="fa-solid fa-clock"></i></span> <span class="view-span">Cook:</span>
-    {{ recipe.cook_time }}
-  </div>
-  <div>
-    <span class="fa-span"><i class="fa-solid fa-clock"></i></span> <span class="view-span">Total:</span>
-    {{ recipe.total_time }}
-  </div>
-  <div>
-    <span class="fa-span"><i class="fa fa-cutlery fa-lg"></i></span> <span class="view-span">Servings:</span>
-    {{ recipe.servings }}
-  </div>
-  <div class="col text-center">
-    <span class="fa-span"><i class="fa fa-cutlery fa-lg"></i></span> <span class="view-span">Category:</span>
-    {{ recipe.category }}
-  </div>
-</div>
-<div class="view-container">
-  <div>
-  <div class="recipe-card">
-    Ingredients
-  </div>
-  {% for ingredient in ingredients %}
-  <div class="ingredient-list">
-    <div>
-      {{ ingredient.ingredient }}
-      <input type="hidden" name="category" value="{{ ingredient.ing_type }}" />
+    <div class="home-menu-view">
+      <div>
+        <span class="fa-span"><i class="fa-solid fa-clock"></i></span>
+        <span class="view-span">Prep:</span>
+        {{ recipe.prep_time }}
+      </div>
+      <div>
+        <span class="fa-span"><i class="fa-solid fa-clock"></i></span>
+        <span class="view-span">Cook:</span>
+        {{ recipe.cook_time }}
+      </div>
+      <div>
+        <span class="fa-span"><i class="fa-solid fa-clock"></i></span>
+        <span class="view-span">Total:</span>
+        {{ recipe.total_time }}
+      </div>
+      <div>
+        <span class="fa-span"><i class="fa fa-cutlery fa-lg"></i></span>
+        <span class="view-span">Servings:</span>
+        {{ recipe.servings }}
+      </div>
+      <div class="col text-center">
+        <span class="fa-span"><i class="fa fa-cutlery fa-lg"></i></span>
+        <span class="view-span">Category:</span>
+        {{ recipe.category }}
+      </div>
     </div>
-    <div>
-      <input type="checkbox" value="{{ ingredient.ingredient }}" id="ingredients" name="ingredients" checked />
-    </div>
-  </div>
-  {% endfor %}
-</div>
+    <div class="view-container">
+      <div>
+        <div class="recipe-card">Ingredients</div>
+        {% for ingredient in ingredients %}
+        <div class="ingredient-list">
+          <div>
+            {{ ingredient.ingredient }}
+            <input
+              type="hidden"
+              name="category"
+              value="{{ ingredient.ing_type }}"
+            />
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              value="{{ ingredient.ingredient }}"
+              id="ingredients"
+              name="ingredients"
+              checked
+            />
+          </div>
+        </div>
+        {% endfor %}
+      </div>
 
-  <div>
-    <div class="recipe-card">
-      Instructions
-    </div>
-  </div>
-</div>
+      <div>
+        <div class="recipe-card">{{ recipe.recipe_name }}</div>
 
-<!-- <div class="view_container mt-0">
+        {% for key,value in instructions_json.items() %}
+        <div class="instructions-list">
+          <div class="instructions-counter">{{ loop.index }}.</div>
+          <div class="instruction-block">
+            {{ value }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- <div class="view_container mt-0">
       <div>
         <div class="card text-left bg-light mt-0" style="border-radius: 4px">
           <div class="card shadow-2 border" style="border-radius: 4px">
@@ -219,7 +239,7 @@
     </div>
   </div>
 </form> -->
-<!-- <div
+    <!-- <div
   class="modal fade"
   id="delete_recipe_go_home"
   tabindex="-1"
@@ -251,4 +271,6 @@
     </div>
   </div>
 </div> -->
-{% endblock %}
+    {% endblock %}
+  </div>
+</form>
