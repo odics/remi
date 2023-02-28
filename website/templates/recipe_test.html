@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='test.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;400&family=Oxygen&family=Quicksand:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Varela&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto:wght@300&family=Varela&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;300&display=swap");
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0"
+    />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">R•E•M•I</div>
+      <div class="nav-grid">
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-home"></i></span>
+          <span class="nav-text">Home</span>
+          <span class="nav-other"></span>
+        </div>
+        <div class="dropdown">
+          <div class="nav-layout">
+            <span class="nav-icon"
+              ><i class="fa-solid fa-pen-to-square"></i
+            ></span>
+            <span class="nav-text">Add Recipe</span>
+            <span class="nav-other"
+              ><i class="fa-solid fa-angle-down"></i
+            ></span>
+          </div>
+          <div class="menu-items">
+            <ul class="menu-list">
+              <li><a class="menu-link" href="#">Import Recipe</a></li>
+              <li><a class="menu-link" href="#">Create Recipe</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-rectangle-list"></i
+          ></span>
+          <span class="nav-text">All Recipes</span>
+          <span class="nav-other"><span class="pill">132</span></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-heart"></i></span>
+          <span class="nav-text">Favorites</span>
+          <span class="nav-other"><span class="pill">82</span></span>
+        </div>
+        <div class="nav-divider">
+          <hr />
+        </div>
+        <div class="nav-layout-search">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></span>
+          <span class="nav-text"
+            ><input class="search-recipes" placeholder="Search recipes"
+          /></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-tags"></i></span>
+          <span class="nav-text">Recipe Tags</span>
+          <span class="nav-other"></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-cart-shopping"></i
+          ></span>
+          <span class="nav-text">Cart</span>
+          <span class="nav-other"><span class="pill">12</span></span>
+        </div>
+      </div>
+      <div class="bottom-wrapper">
+        <div class="nav-layout">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-right-from-bracket"></i
+          ></span>
+          <span class="nav-text">Logout</span>
+          <span class="nav-other"></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+          <span class="nav-text">Settings</span>
+          <span class="nav-other"></span>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="view-recipe">
+        <div class="ingredient-list">
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              ½ cup sugar
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              2 Tbsp. fish sauce
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              2 garlic cloves, crushed
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              1 tsp. freshly ground black pepper, plus more
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              4 ½"-thick bone-in pork rib chops (about 2 lb.)
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              Kosher salt
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              Vegetable oil (for brushing)
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              Lime wedges (for serving)
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+        </div>
+        <div class="recipe-instructions">
+          <div class="counter">1.</div>
+          <div class="step">
+            <div class="recipe-info">
+              <img class="instruction-img"
+            src="https://remi.severlinh.com/static/EasiestChickenAdobo.jpg">
+            <!-- <div class="recipe-stats">
+             HELLO
+            </div>
+            <div class="recipe-stats">
+              HELLO
+             </div> -->
+            </div>
+            Bring ½ cup sugar and 2 Tbsp. water to a boil in a medium saucepan
+            over medium-high heat, stirring with a heatproof rubber spatula
+            until sugar is dissolved. Cook, undisturbed, until caramel is
+            golden, about 5 minutes. Immediately remove pan from heat and pour
+            in 2 Tbsp. fish sauce and another 2 Tbsp. water; mixture will bubble
+            vigorously at first and may seize up (don’t worry, it will smooth
+            out again in the next step). Add 2 garlic cloves, crushed, and 1
+            tsp. freshly ground black pepper. Return pan to medium heat and
+            cook, stirring often, until caramel is smooth, about 2 minutes. Set
+            caramel sauce aside.
+          </div>
+          <div class="counter">2.</div>
+          <div class="step">
+            Prepare a grill for medium-high heat; oil grate. Pat 4 ½"-thick
+            bone-in pork rib chops (about 2 lb.) dry with paper towels and
+            season generously with kosher salt and pepper; lightly brush with
+            vegetable oil. Grill chops, turning every 2 minutes or so, until
+            golden and nearly cooked through (an instant-read thermometer
+            inserted into thickest part of chops should register 130°), 6–8
+            minutes.
+          </div>
+          <div class="counter">3.</div>
+          <div class="step">
+            Brush pork chops lightly with reserved caramel sauce and continue to
+            grill, turning and brushing often, just until deeply browned and
+            beginning to char in a few places, about 1 minute longer. Transfer
+            to a platter and let rest 5 minutes.
+          </div>
+          <div class="counter">4.</div>
+          <div class="step">
+            Drizzle chops with any remaining caramel sauce. Serve with lime
+            wedges for squeezing over. Do ahead: Sauce can be made 3 days ahead.
+            Let cool; cover and chill. Bring to room temperature befo re using.
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
