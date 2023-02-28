@@ -33,6 +33,9 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto:wght@300&family=Varela&display=swap"
       rel="stylesheet"
     />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;300&display=swap");
+    </style>
     <title>Document</title>
   </head>
   <body>
@@ -74,135 +77,192 @@
           <span class="nav-other"><span class="pill">82</span></span>
         </div>
         <div class="nav-divider">
-        <hr>
+          <hr />
         </div>
         <div class="nav-layout-search">
-            <span class="nav-icon"><i class="fa-solid fa-magnifying-glass"></i></i></span>
-            <span class="nav-text"><input class="search-recipes" placeholder="Search recipes"></span>
+          <span class="nav-icon"
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></span>
+          <span class="nav-text"
+            ><input class="search-recipes" placeholder="Search recipes"
+          /></span>
         </div>
         <div class="nav-layout">
-            <span class="nav-icon"><i class="fa-solid fa-cart-shopping"></i></span>
-            <span class="nav-text">Cart</span>
-            <span class="nav-other"><span class="pill">12</span></span>
+          <span class="nav-icon"><i class="fa-solid fa-tags"></i></span>
+          <span class="nav-text">Recipe Tags</span>
+          <span class="nav-other"></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-cart-shopping"></i
+          ></span>
+          <span class="nav-text">Cart</span>
+          <span class="nav-other"><span class="pill">12</span></span>
         </div>
       </div>
       <div class="bottom-wrapper">
-      <div class="nav-layout">
-        <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+        <div class="nav-layout">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-right-from-bracket"></i
+          ></span>
           <span class="nav-text">Logout</span>
           <span class="nav-other"></span>
-      </div>
-      <div class="nav-layout">
-        <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
           <span class="nav-text">Settings</span>
           <span class="nav-other"></span>
-      </div>
-    </div>
-      <!-- <div class="logo">R•E•M•I</div>
-      <ul class="nav-list">
-        <li class="nav-item">
-          <div class="nav-layout">
-            <span class="nav-icon"><i class="fa-solid fa-home fa-lg"></i></span>
-            <span class="nav-text">Home</span>
-            <span class="nav-other"></span>
-          </div>
-        </li>
-        <div class="dropdown">
-          <li class="nav-item">
-            <div class="nav-layout">
-              <span class="nav-icon"
-                ><i class="fa-solid fa-pen-to-square fa-lg"></i
-              ></span>
-              <span class="nav-text">Add Recipe</span>
-              <span class="nav-other"></span>
-            </div>
-          </li>
-          <div class="dropdown-items">
-            <ul>
-              <li>Item 1</li>
-              <li>Item 2</li>
-            </ul>
-          </div>
         </div>
-        <li class="nav-item">
-          <div class="nav-layout">
-            <span class="nav-icon"
-              ><i class="fa-solid fa-rectangle-list fa-lg"></i
-            ></span>
-            <span class="nav-text">All Recipes</span>
-            <span class="nav-other"><span class="pill">132</span></span>
-          </div>
-        </li>
-        <li class="nav-divider">
-          <hr />
-        </li>
-        <li class="nav-item">
-          <div class="nav-layout">
-            <span class="nav-icon"
-              ><i class="fa-solid fa-cart-shopping fa-lg"></i
-            ></span>
-            <span class="nav-text">Cart</span>
-            <span class="nav-other"><span class="pill">7 Items</span></span>
-          </div>
-        </li>
-        <li class="nav-item">
-          <div class="nav-layout">
-            <span class="nav-icon"
-              ><i class="fa-solid fa-magnifying-glass fa-lg"></i
-            ></span>
-            <span class="nav-text"
-              ><input
-                class="search-recipes"
-                type="text"
-                placeholder="Search Recipes"
-            /></span>
-            <span class="nav-other"></span>
-          </div>
-        </li>
-      </ul>
-      <ul class="settings-user">
-        <li class="settings">
-          <a href="#" class="nav-icon"
-            ><i class="fa-solid fa-user"></i
-            ><span class="nav-text"> Welcome, User.</span></a
-          >
-        </li>
-        <li class="settings">
-          <a href="#" class="nav-icon"
-            ><i class="fa-solid fa-gear"></i
-            ><span class="nav-text">Settings</span></a
-          >
-        </li>
-      </ul> -->
+      </div>
     </nav>
 
     <main>
-        <div class="body-wrapper">
-            <div class="recipe-card">
-
-            </div>
-            <div class="recipe-card">
-                
-            </div>
-            <div class="recipe-card">
-                
-            </div>
-            <div class="recipe-card">
-                
-            </div>
-            <div class="recipe-card">
-                
-            </div>
-            <div class="recipe-card">
-                
-            </div>
-            <div class="recipe-card">
-                
-            </div>
-            <div class="recipe-card">
-                
-            </div>
+      <div class="page-title">
+        <div class="title">Recently Added recipes</div>
+        <div class="sort-control">
+          <select
+            id="recipe_category"
+            name="sort_method"
+            class="select-category"
+          >
+            <option value="select">Select Category</option>
+            <option value="alldd">All Categories</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Dessert">Dessert</option>
+            <option value="Sides">Sides</option>
+          </select>
+          <button class="button-primary">
+            <i class="fa-solid fa-arrow-down-wide-short"></i> Sort Recipes
+          </button>
         </div>
+      </div>
+      <div class="body-wrapper">
+        {% for recipe in recipes %}
+        <a class="card-link" href="view_recipe/{{ recipe.uuid }}">
+          <div class="recipe-card">
+            <div class="recipe-details">
+              <div class="recipe-detail-tag">
+                <div class="recipe-tag">
+                  <i class="fa-solid fa-utensils"></i
+                  ><span class="tag-text">{{ recipe.category }}</span>
+                </div>
+              </div>
+              <div class="recipe-detail-tag">
+                <div class="recipe-tag">
+                  <i class="fa-solid fa-pizza-slice"></i
+                  ><span class="tag-text">{{ recipe.servings }}</span>
+                </div>
+              </div>
+              <div class="recipe-detail-tag">
+                <div class="recipe-tag">
+                  <i class="fa-solid fa-clock"></i
+                  ><span class="tag-text">{{ recipe.total_time }}</span>
+                </div>
+              </div>
+            </div>
+            <img
+              src="{{ url_for('static', filename=recipe.image) }}"
+              style="
+                width: 100%;
+                height: 15vw;
+                object-fit: cover;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                margin: 0;
+              "
+            />
+            <div class="recipe-control2">
+              <div class="delete"><i class="fa-solid fa-trash"></i></div>
+              <button class="favorite">
+                <i class="fa-regular fa-heart"></i>
+              </button>
+            </div>
+            <div class="card-title">{{ recipe.recipe_name }}</div>
+          </div>
+        </a>
+        {% endfor %}
+        <div class="recipe-card">
+          <div class="recipe-details">
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-utensils"></i
+                ><span class="tag-text"></span>
+              </div>
+            </div>
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-pizza-slice"></i
+                ><span class="tag-text"></span>
+              </div>
+            </div>
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-clock"></i><span class="tag-text"></span>
+              </div>
+            </div>
+          </div>
+          <img
+            src="https://remi.severlinh.com/static/CucumberYogurtSalad.jpg"
+            style="
+              width: 100%;
+              height: 15vw;
+              object-fit: cover;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 8px;
+            "
+          />
+          <div class="recipe-control"></div>
+          <div class="recipe-control2">
+            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+            <button class="favorite">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+          </div>
+          <div class="card-title">Delicious Yogurt Salad</div>
+        </div>
+        <div class="recipe-card">
+          <div class="recipe-details">
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-utensils"></i
+                ><span class="tag-text">Dinner</span>
+              </div>
+            </div>
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-pizza-slice"></i
+                ><span class="tag-text">6 Servings</span>
+              </div>
+            </div>
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-clock"></i
+                ><span class="tag-text">30 minutes</span>
+              </div>
+            </div>
+          </div>
+          <img
+            src="https://remi.severlinh.com/static/EasiestChickenAdobo.jpg"
+            style="
+              width: 100%;
+              height: 15vw;
+              object-fit: cover;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 8px;
+            "
+          />
+          <div class="recipe-control"></div>
+          <div class="recipe-control2">
+            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+            <button class="favorite">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+          </div>
+          <div class="card-title">Easiest Chicken Adobo</div>
+        </div>
+      </div>
     </main>
   </body>
 </html>

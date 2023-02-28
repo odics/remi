@@ -12,7 +12,25 @@ views = Blueprint('views', __name__)
 
 @views.route('/test')
 def new_layout():
-    return render_template('test.html')
+    shopping_list = ShoppingList.query.count()
+    session['shopping_list'] = shopping_list
+
+    if request.method == 'POST':
+        sort_method = request.form.get('sort_method')
+        if sort_method == "all":
+            page_title = "Showing all recipes"
+
+            recipes = Recipe.query.filter_by(username=current_user.id)
+            return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
+        else:
+            page_title = "Showing all " + sort_method.lower() + " recipes"
+
+            recipes = Recipe.query.filter_by(username=current_user.id, category=sort_method)
+            return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
+
+    recipes = Recipe.query.filter_by(username=current_user.id).all()
+    page_title = "Showing all recipes"
+    return render_template("test.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
 
 @views.route('/cart_test')
 def cart_test():
