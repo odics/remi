@@ -338,7 +338,7 @@ hr {
     padding-left: 4rem;
     color: var(--nav-items-color);
     padding-right: 4rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     padding-bottom: .5rem;
     font-family: 'Barlow', sans-serif;
     text-transform: uppercase;
@@ -467,7 +467,7 @@ hr {
 
 .favorite {
     background-color: var(--recipe-tag-background);
-    padding: 6px;
+    padding: 1px;
     border: none;
     border-radius: 5px;
     margin: .5rem;
@@ -483,7 +483,7 @@ hr {
 
 .delete {
     background-color: var(--recipe-tag-background);
-    padding: 6px;
+    padding: 1px;
     border: none;
     border-radius: 5px;
     margin: .5rem;
@@ -494,7 +494,7 @@ hr {
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
     letter-spacing: 2px;
-    font-size: .8rem;
+    font-size: .5rem;
     color: var(--nav-items-color);
     z-index: 9999;
 }
