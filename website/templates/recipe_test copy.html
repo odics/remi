@@ -124,21 +124,58 @@
     <main>
       <div class="view-recipe">
         <div class="ingredient-list">
-          {% for ingredient in ingredients %}
           <div class="ingredient-wrapper">
-            <div class="ingredient">{{ ingredient.ingredient }}<input
-              type="hidden"
-              name="category"
-              value="{{ ingredient.ing_type }}"
-            /></div>
+            <div class="ingredient">½ cup sugar</div>
             <div class="ingredient-check">
-              <input type="checkbox" value="{{ ingredient.ingredient }}"
-              id="ingredients"
-              name="ingredients"
-              checked/>
+              <input type="checkbox" />
             </div>
           </div>
-          {% endfor %}
+          <div class="ingredient-wrapper">
+            <div class="ingredient">2 Tbsp. fish sauce</div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">2 garlic cloves, crushed</div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              1 tsp. freshly ground black pepper, plus more
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">
+              4 ½"-thick bone-in pork rib chops (about 2 lb.)
+            </div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">Kosher salt</div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">Vegetable oil (for brushing)</div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div class="ingredient-wrapper">
+            <div class="ingredient">Lime wedges (for serving)</div>
+            <div class="ingredient-check">
+              <input type="checkbox" />
+            </div>
+          </div>
           <img
             class="instruction-img"
             src="https://remi.severlinh.com/static/EasiestChickenAdobo.jpg"
@@ -146,7 +183,7 @@
         </div>
         <div class="recipe-instructions">
           <div class="recipe-menu-wrapper">
-            <div class="recipe-title">{{ recipe.recipe_name }}</div>
+            <div class="recipe-title">Easiest Chicken Adobo</div>
             <div class="recipe-dropdown">
               <div class="recipe-menu" onclick="menutoggle()">
                 <i class="fa-solid fa-angle-down fa-xl"></i>
@@ -178,12 +215,42 @@
               </div>
             </div>
           </div>
-          {% for key,value in instructions_json.items() %}
-          <div class="counter"><span class="number">{{ loop.index }}.</span></div>
+          <div class="counter"><span class="number">1.</span></div>
           <div class="step">
-            {{ value }}
+            Bring ½ cup sugar and 2 Tbsp. water to a boil in a medium saucepan
+            over medium-high heat, stirring with a heatproof rubber spatula
+            until sugar is dissolved. Cook, undisturbed, until caramel is
+            golden, about 5 minutes. Immediately remove pan from heat and pour
+            in 2 Tbsp. fish sauce and another 2 Tbsp. water; mixture will bubble
+            vigorously at first and may seize up (don’t worry, it will smooth
+            out again in the next step). Add 2 garlic cloves, crushed, and 1
+            tsp. freshly ground black pepper. Return pan to medium heat and
+            cook, stirring often, until caramel is smooth, about 2 minutes. Set
+            caramel sauce aside.
           </div>
-          {% endfor %}
+          <div class="counter"><span class="number">2.</span></div>
+          <div class="step">
+            Prepare a grill for medium-high heat; oil grate. Pat 4 ½"-thick
+            bone-in pork rib chops (about 2 lb.) dry with paper towels and
+            season generously with kosher salt and pepper; lightly brush with
+            vegetable oil. Grill chops, turning every 2 minutes or so, until
+            golden and nearly cooked through (an instant-read thermometer
+            inserted into thickest part of chops should register 130°), 6–8
+            minutes.
+          </div>
+          <div class="counter"><span class="number">3.</span></div>
+          <div class="step">
+            Brush pork chops lightly with reserved caramel sauce and continue to
+            grill, turning and brushing often, just until deeply browned and
+            beginning to char in a few places, about 1 minute longer. Transfer
+            to a platter and let rest 5 minutes.
+          </div>
+          <div class="counter"><span class="number">4.</span></div>
+          <div class="step">
+            Drizzle chops with any remaining caramel sauce. Serve with lime
+            wedges for squeezing over. Do ahead: Sauce can be made 3 days ahead.
+            Let cool; cover and chill. Bring to room temperature befo re using.
+          </div>
         </div>
       </div>
     </main>
