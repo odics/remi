@@ -499,7 +499,7 @@ def view_recipe(recipe_uuid):
     ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()
     instructions_json = json.loads(recipe.instructions_json)
 
-    return render_template("recipe_test.html", recipe=recipe, ingredients=ingredients, user=current_user,
+    return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
                            shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json)
 
 

@@ -22,10 +22,6 @@
     <!-- MDB -->
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" /> -->
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.dark.min.css') }}"> -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='main.css') }}"
-    />
 
     <link
       rel="stylesheet"
@@ -39,53 +35,126 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;400&family=Oxygen&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='test.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;400&family=Oxygen&family=Quicksand:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Varela&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto:wght@300&family=Varela&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;300&display=swap");
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0" />
     <title>{% block title %}Home{% endblock %}</title>
   </head>
 
   <body>
     <nav class="navbar">
-      <!-- <div class="logo">R•E•M•I</div> -->
-      <div class="logo">
-        <img src="{{ url_for('static', filename="logo.png") }}">
-      </div>
-      <ul class="nav-links">
-        {% if user.is_authenticated %}
-        <li><i class="fa-solid fa-house"></i> Home</li>
-        <li><i class="fa-regular fa-pen-to-square"></i> Add Recipe</li>
-        <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
-        {% else %}
-        <li class="nav-item active">
-          <a class="nav-link" id="login" href="/login"
-            >Login<span class="sr-only">(current)</span></a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="signUp" href="/sign-up">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="home" href="/">Home</a>
-        </li>
-        {% endif %}
-      </ul>
-      <div class="search">
-        <form method="POST" action="/search" style="display: flex;">
-          <input type="text" placeholder="Search Recipes" class="text-input" name="search_query"/>
-          <button class="search-button">
-            <i class="fa-solid fa-magnifying-glass"></i> Search
-          </button>
-        </form>
-      </div>
-      <div class="shopping-cart">
-        <a href="/cart"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
-        {% if shopping_list %}
-        <div class="shopping-badge">
-          {{ shopping_list }}
+      <div class="logo">R•E•M•I</div>
+      <div class="nav-grid">
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-home"></i></span>
+          <a class="menu-link" href="/"><span class="nav-text">Home</span></a>
+          <span class="nav-other"></span>
         </div>
-        {% endif %}
+        <div class="dropdown">
+          <div class="nav-layout">
+            <span class="nav-icon"
+              ><i class="fa-solid fa-pen-to-square"></i
+            ></span>
+            <span class="nav-text">Add Recipe</span>
+            <span class="nav-other"
+              ><i class="fa-solid fa-angle-down"></i
+            ></span>
+          </div>
+          <div class="menu-items">
+            <ul class="menu-list">
+              <li><a class="menu-link" href="/add_recipe">Import Recipe</a></li>
+              <li><a class="menu-link" href="#">Create Recipe</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-rectangle-list"></i
+          ></span>
+          <span class="nav-text">All Recipes</span>
+          <span class="nav-other"><span class="pill">132</span></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-heart"></i></span>
+          <span class="nav-text">Favorites</span>
+          <span class="nav-other"><span class="pill">82</span></span>
+        </div>
+        <div class="nav-divider">
+          <hr />
+        </div>
+        <div class="nav-layout-search">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></span>
+          <span class="nav-text"
+            ><input class="search-recipes" placeholder="Search recipes"
+          /></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-tags"></i></span>
+          <span class="nav-text">Recipe Tags</span>
+          <span class="nav-other"></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-cart-shopping"></i
+          ></span>
+          <span class="nav-text">Cart</span>
+          {% if shopping_list %}
+          <span class="nav-other"><span class="pill">{{ shopping_list }}</span></span>
+          {% else %}
+          <span class="nav-other"><span class="pill">0</span></span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="bottom-wrapper">
+        <div class="nav-layout">
+          <span class="nav-icon"
+            ><i class="fa-solid fa-right-from-bracket"></i
+          ></span>
+          <span class="nav-text">Logout</span>
+          <span class="nav-other"></span>
+        </div>
+        <div class="nav-layout">
+          <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+          <span class="nav-text">Settings</span>
+          <span class="nav-other"></span>
+        </div>
       </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    <main>
+    <!-- {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %} {% if category ==
     'error' %}
     <div class="alert alert-danger alert-dismissable fade show" role="alert">
@@ -103,9 +172,10 @@
       {{ message }}
       <button type="button" class="btn-close" data-mdb-dismiss="alert"></button>
     </div>
-    {% endif %} {% endfor %} {% endif %} {% endwith %} {% block content %} {%
-    endblock %}
-
+    {% endif %} {% endfor %} {% endif %} {% endwith %}  -->
+    {% block content %} 
+    {% endblock %}
+  </main>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
