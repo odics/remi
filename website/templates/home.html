@@ -19,7 +19,7 @@ content %}
 </div>
 <div class="body-wrapper">
   {% for recipe in recipes %}
-  <a class="card-link" href="view_recipe/{{ recipe.uuid }}">
+  
     <div class="recipe-card">
       <div class="recipe-details">
         <div class="recipe-detail-tag">
@@ -53,15 +53,22 @@ content %}
         "
       />
       <div class="recipe-control2">
-        <div class="delete">
+        <button class="delete" onclick="add_favorite('{{ recipe.id }}')">
           <i class="material-symbols-outlined">delete</i>
-        </div>
-        <button class="favorite">
-          <i class="material-symbols-outlined">favorite</i>
         </button>
+        {% if recipe.favorite == True %}
+        <button class="favorite-active" onclick="remove_favorite('{{ recipe.id }}')">
+          <i class="fa-solid fa-heart fa-lg"></i>
+        </button>
+        {% else %}
+        <button class="favorite" onclick="add_favorite('{{ recipe.id }}')">
+          <i class="fa-regular fa-heart fa-lg"></i>
+        </button>
+        {% endif %}
       </div>
+      <a class="card-link" href="view_recipe/{{ recipe.uuid }}">
       <div class="card-title">{{ recipe.recipe_name }}</div>
+    </a>
     </div>
-  </a>
   {% endfor %} {% endblock %}
 </div>
