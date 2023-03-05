@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block title %}{{ recipe.recipe_name }}{% endblock
 %} {% block content %}
+<form method="POST">
 <div class="view-recipe">
   <div class="ingredient-list">
     <img
@@ -73,8 +74,8 @@
                 Favorites
               </li>
               <li class="item">
-                <i class="fa-solid fa-cart-shopping nav-icon"></i> Generate
-                Shopping List
+                <button><i class="fa-solid fa-cart-shopping nav-icon"></i> Generate
+                Shopping List</button>
               </li>
               <li>
                 <hr class="divider" />
@@ -104,6 +105,7 @@
     
   </div>
 </div>
+</form>
 <script>
   function menutoggle() {
     var x = document.getElementById("dropdown-menu");
