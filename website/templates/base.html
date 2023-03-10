@@ -175,6 +175,15 @@
     {% endif %} {% endfor %} {% endif %} {% endwith %}  -->
     {% block content %} 
     {% endblock %}
+    <div class="modal-container" id="modal-container">
+      <div class="modal">
+        <p id="modal-inner-text"></p>
+        <div>
+          <button class="modal-delete" id="confirm-delete">Delete Recipe</button>
+          <button class="button-primary" id="close" onclick="close_modal()">Close</button>
+        </div>
+      </div>
+    </div>
   </main>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"

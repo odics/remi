@@ -90,7 +90,7 @@
               <li class="item">
                 <i class="fa-regular fa-pen-to-square nav-icon"></i> Edit Recipe
               </li>
-              <li class="item">
+              <li onclick="delete_recipe(this);" class="item" data-recipe-id = "{{ recipe.uuid }}" data-recipe-title="{{ recipe.recipe_name }}">
                 <i class="fa-solid fa-trash-can nav-icon"></i> Delete Recipe
               </li>
             </ul>

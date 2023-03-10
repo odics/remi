@@ -1,68 +1,81 @@
 {% extends "base.html" %} {% block title %}Add Recipe{% endblock %} {% block
-    content %}
-    <div class="page-title">
-      <div class="title">Recently Added recipes</div>
-      <div class="sort-control">
-        <select id="recipe_category" name="sort_method" class="select-category">
-          <option value="select">Select Category</option>
-          <option value="alldd">All Categories</option>
-          <option value="Breakfast">Breakfast</option>
-          <option value="Lunch">Lunch</option>
-          <option value="Dinner">Dinner</option>
-          <option value="Dessert">Dessert</option>
-          <option value="Sides">Sides</option>
-        </select>
-        <button class="button-primary sort">
-          <i class="fa-solid fa-arrow-down-wide-short"></i> Sort Recipes
-        </button>
-      </div>
-    </div>
-    <div class="body-wrapper">
-      {% for recipe in recipes %}
-      <a class="card-link" href="view_recipe/{{ recipe.uuid }}">
-        <div class="recipe-card">
-          <div class="recipe-details">
-            <div class="recipe-detail-tag">
-              <div class="recipe-tag">
-                <i class="fa-solid fa-utensils"></i
-                ><span class="tag-text">{{ recipe.category }}</span>
-              </div>
-            </div>
-            <div class="recipe-detail-tag">
-              <div class="recipe-tag">
-                <i class="fa-solid fa-pizza-slice"></i
-                ><span class="tag-text">{{ recipe.servings }}</span>
-              </div>
-            </div>
-            <div class="recipe-detail-tag">
-              <div class="recipe-tag">
-                <i class="fa-solid fa-clock"></i
-                ><span class="tag-text">{{ recipe.total_time }}</span>
-              </div>
-            </div>
+content %}
+<div class="page-title">
+  <div class="title">Recently Added recipes</div>
+  <div class="sort-control">
+    <select id="recipe_category" name="sort_method" class="select-category">
+      <option value="select">Select Category</option>
+      <option value="alldd">All Categories</option>
+      <option value="Breakfast">Breakfast</option>
+      <option value="Lunch">Lunch</option>
+      <option value="Dinner">Dinner</option>
+      <option value="Dessert">Dessert</option>
+      <option value="Sides">Sides</option>
+    </select>
+    <button class="button-primary sort">
+      <i class="fa-solid fa-arrow-down-wide-short"></i> Sort Recipes
+    </button>
+  </div>
+</div>
+<div class="body-wrapper">
+  {% for recipe in recipes %}
+    <div class="recipe-card">
+      <div class="recipe-details">
+        <div class="recipe-detail-tag">
+          <div class="recipe-tag">
+            <i class="fa-solid fa-utensils"></i
+            ><span class="tag-text">{{ recipe.category }}</span>
           </div>
-          <img
-            src="{{ url_for('static', filename=recipe.image) }}"
-            style="
-              width: 100%;
-              height: 15vw;
-              object-fit: cover;
-              border-top-left-radius: 8px;
-              border-top-right-radius: 8px;
-              margin: 0;
-            "
-          />
-          <div class="recipe-control2">
-            <div class="delete">
-              <i class="material-symbols-outlined">delete</i>
-            </div>
-            <button class="favorite">
-              <i class="material-symbols-outlined">favorite</i>
-            </button>
-          </div>
-          <div class="card-title">{{ recipe.recipe_name }}</div>
         </div>
+        <div class="recipe-detail-tag">
+          <div class="recipe-tag">
+            <i class="fa-solid fa-pizza-slice"></i
+            ><span class="tag-text">{{ recipe.servings }}</span>
+          </div>
+        </div>
+        <div class="recipe-detail-tag">
+          <div class="recipe-tag">
+            <i class="fa-solid fa-clock"></i
+            ><span class="tag-text">{{ recipe.total_time }}</span>
+          </div>
+        </div>
+      </div>
+      <img
+        src="{{ url_for('static', filename=recipe.image) }}"
+        style="
+          width: 100%;
+          height: 15vw;
+          object-fit: cover;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+          margin: 0;
+        "
+      />
+      <div class="recipe-control2">
+        <button
+          class="delete"
+          onclick="delete_recipe(this)"
+          data-recipe-title="{{recipe.recipe_name}}"
+          data-recipe-id="{{ recipe.uuid }}"
+        >
+          <i class="material-symbols-outlined">delete</i>
+        </button>
+        {% if recipe.favorite == True %}
+        <button
+          class="favorite-active"
+          onclick="remove_favorite('{{ recipe.id }}')"
+        >
+          <i class="fa-solid fa-heart fa-lg"></i>
+        </button>
+        {% else %}
+        <button class="favorite" onclick="add_favorite('{{ recipe.id }}')">
+          <i class="fa-regular fa-heart fa-lg"></i>
+        </button>
+        {% endif %}
+      </div>
+      <a class="card-link" href="view_recipe/{{ recipe.uuid }}">
+        <div class="card-title">{{ recipe.recipe_name }}</div>
       </a>
-      {% endfor %} {% endblock %}
     </div>
-    
+    {% endfor %} {% endblock %}
+</div>
