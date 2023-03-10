@@ -53,7 +53,7 @@ content %}
         "
       />
       <div class="recipe-control2">
-        <button class="delete" onclick="add_favorite('{{ recipe.id }}')">
+        <button class="delete" onclick="delete_recipe(this)" data-recipe-title="{{recipe.recipe_name}}" data-recipe-id="{{ recipe.uuid }}">
           <i class="material-symbols-outlined">delete</i>
         </button>
         {% if recipe.favorite == True %}
@@ -70,5 +70,15 @@ content %}
       <div class="card-title">{{ recipe.recipe_name }}</div>
     </a>
     </div>
-  {% endfor %} {% endblock %}
+  {% endfor %} 
+  <div class="modal-container" id="modal-container">
+    <div class="modal">
+      <p id="modal-inner-text"></p>
+      <div>
+        <button class="modal-delete" id="confirm-delete">Delete Recipe</button>
+        <button class="button-primary" id="close" onclick="close_modal()">Close</button>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
 </div>

@@ -428,6 +428,8 @@ def delete_recipe_go_home():
     ''' Delete a recipe and go to the home page after doing so. '''
     recipe_uuid = json.loads(request.data)
     recipe_uuid = recipe_uuid.get('recipe_id')
+    print("UUID HERE")
+    print(recipe_uuid)
 
     recipe = db.session.query(Recipe).filter(Recipe.uuid == recipe_uuid).first()
 

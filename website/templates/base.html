@@ -466,5 +466,28 @@
         step_to_delete.removeChild(step_to_delete.lastChild);
       }
     </script>
+
+    <script>
+
+var modal = document.getElementById("modal-container");
+
+var close_btn = document.getElementById("close");
+
+var recipe_title = btn.dataset.recipeTitle;
+
+function close_modal() {
+  modal.style.display = "none";
+}
+
+function delete_recipe(e) {
+  var recipe_id = e.dataset.recipeId;
+  var delete_button = document.getElementById("confirm-delete");
+  delete_button.setAttribute("onClick", 'delete_recipe_go_home("' + recipe_id + '");');
+  var modal_text = document.getElementById("modal-inner-text");
+  var recipe_title = e.dataset.recipeTitle;
+  modal.style.display = "block";
+  modal_text.innerText = "Are you sure you want to delete " + recipe_title + "?";
+}
+    </script>
   </body>
 </html>

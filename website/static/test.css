@@ -8,6 +8,10 @@
 
 }
 
+body {
+    position: relative; 
+}
+
 :root {
     --nav-background: #D9E2EC;
     --main-background: white;
@@ -23,6 +27,7 @@
     --secondary-button: #D9E2EC;
     --recipe-tag-background: #f0f4f8e5;
     --instructions-background: #f0f4f8c7;
+    --modal-delete: #AB091E;
 
 }
 
@@ -246,6 +251,7 @@ hr.divider {
     background-color: var(--nav-background);
     border: none;
     transition: 200ms ease-in-out;
+    letter-spacing: 2px;
     color: var(--nav-text-color);
 }
 
@@ -1047,4 +1053,57 @@ margin-bottom: .5rem;
 
 .tag-text {
     padding-left: .5rem;
+}
+
+.modal-container {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    width: 400px; 
+  }
+
+  .modal div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: end;
+  }
+
+  .modal p {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .modal-delete {
+    background-color: var(--modal-delete);
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    display: block;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start;  
 }
