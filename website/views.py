@@ -64,7 +64,15 @@ def all_recipes():
 
     recipes = Recipe.query.filter_by(username=current_user.id).all()
     page_title = "Showing all recipes"
-    return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
+
+     # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+    # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
+    return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list, 
+    page_title=page_title, total_recipes=total_recipes, favorite_total=favorite_total)
 
 
 @views.route('/', methods=['GET', 'POST'])
@@ -407,9 +415,9 @@ def delete_recipe():
 
     recipe = db.session.query(Recipe).filter(Recipe.uuid == recipe_uuid).first()
 
-    if recipe.image != "custom_recipe.png":
-        image_file_name = "./website/static/" + recipe.image
-        os.remove(image_file_name)
+    # if recipe.image != "custom_recipe.png":
+    #     image_file_name = "./website/static/" + recipe.image
+    #     os.remove(image_file_name)
 
     db.session.delete(recipe)
 
@@ -433,9 +441,9 @@ def delete_recipe_go_home():
 
     recipe = db.session.query(Recipe).filter(Recipe.uuid == recipe_uuid).first()
 
-    if recipe.image != "custom_recipe.png":
-        image_file_name = "./website/static/" + recipe.image
-        os.remove(image_file_name)
+    # if recipe.image != "custom_recipe.png":
+    #     image_file_name = "./website/static/" + recipe.image
+    #     os.remove(image_file_name)
 
     db.session.delete(recipe)
 

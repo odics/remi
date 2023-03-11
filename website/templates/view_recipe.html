@@ -69,26 +69,27 @@
             style="display: none"
           >
             <ul>
-              <li class="item">
+              {% if recipe.favorite == True %}
+              <li class="item"  onclick="remove_favorite('{{ recipe.id }}')">
+                <i class="fa-solid fa-heart nav-icon"></i> Remove From
+                Favorites
+              </li>
+              {% else %}
+              <li class="item" onclick="add_favorite('{{ recipe.id }}')">
                 <i class="fa-solid fa-heart nav-icon"></i> Add Recipe to
                 Favorites
               </li>
+              {% endif %}
               <li class="item">
                 <button><i class="fa-solid fa-cart-shopping nav-icon"></i> Generate
                 Shopping List</button>
               </li>
-              <li>
-                <hr class="divider" />
+              <li class="item">
+                <a href="{{ recipe.original_url }}" target="#"><i class="fa-solid fa-link nav-icon"></i> Link to Original
+                Recipe</a>
               </li>
               <li class="item">
-                <i class="fa-solid fa-link nav-icon"></i> Link to Original
-                Recipe
-              </li>
-              <li>
-                <hr class="divider" />
-              </li>
-              <li class="item">
-                <i class="fa-regular fa-pen-to-square nav-icon"></i> Edit Recipe
+                <a href="/edit_recipe/{{ recipe.uuid }}"><i class="fa-regular fa-pen-to-square nav-icon"></i> Edit Recipe</a>
               </li>
               <li onclick="delete_recipe(this);" class="item" data-recipe-id = "{{ recipe.uuid }}" data-recipe-title="{{ recipe.recipe_name }}">
                 <i class="fa-solid fa-trash-can nav-icon"></i> Delete Recipe

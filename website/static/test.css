@@ -216,6 +216,14 @@ main {
     font-size: .8rem;
 }
 
+.recipe-dropdown-content a {
+    color: var(--nav-text-color);
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 2px;
+    font-size: .8rem;
+}
+
 .recipe-dropdown-content li {
     list-style: none;
     margin: 5px;
@@ -949,6 +957,18 @@ margin-bottom: .5rem;
     align-items: center;
     justify-content: center;
     color: #464041;
+}
+
+.favorite:hover {
+    cursor: pointer;
+}
+
+.favorite-active:hover {
+    cursor: pointer;
+}
+
+.delete:hover {
+    cursor: pointer;
 }
 
 .favorite-active {
