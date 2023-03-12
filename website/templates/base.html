@@ -498,5 +498,16 @@ function delete_recipe(e) {
   modal_text.innerText = "Are you sure you want to delete " + recipe_title + "?";
 }
     </script>
+
+<script>
+  var flashAlert = document.getElementById("alert");
+  var flashMessage = document.getElementById("alert-close");
+
+  flashMessage.onclick = function() {
+    flashAlert.style.display = "none";
+  }
+  
+</script>
+
   </body>
 </html>

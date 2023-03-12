@@ -732,6 +732,30 @@ margin-bottom: .5rem;
     justify-content: center;
 }
 
+.alert-success {
+    margin-left: 4rem;
+    margin-right: 4rem;
+    border-radius: 10px;
+    border-left: 4px solid #0C6B58;
+    border-right: 4px solid #0C6B58;
+    margin-top: 1rem;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    background-color: #8EEDC7;
+    color: #0C6B58;
+}
+
+.alert-close {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    color: #0C6B58;
+}
+
 .sort-control {
     padding: .5rem;
     padding-right: 0;
