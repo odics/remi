@@ -406,7 +406,7 @@ def save_recipe_to_db():
     return redirect(url_for('views.home'))
 
 
-@views.route('/delete_recipe', methods=['POST'])
+@views.route('/delete_recipe', methods=['GET', 'POST'])
 @login_required
 def delete_recipe():
     ''' Delete a recipe and remain on current page. '''
@@ -430,15 +430,12 @@ def delete_recipe():
     return jsonify({})
 
 
-@views.route('/delete_recipe_go_home', methods=['POST'])
+@views.route('/delete_recipe_go_home/<recipe_id>', methods=['GET', 'POST'])
 @login_required
-def delete_recipe_go_home():
+def delete_recipe_go_home(recipe_id):
     ''' Delete a recipe and go to the home page after doing so. '''
-    recipe_uuid = json.loads(request.data)
-    recipe_uuid = recipe_uuid.get('recipe_id')
-    print("UUID HERE")
-    print(recipe_uuid)
-
+    recipe_uuid = recipe_id
+  
     recipe = db.session.query(Recipe).filter(Recipe.uuid == recipe_uuid).first()
 
     # if recipe.image != "custom_recipe.png":
@@ -453,6 +450,8 @@ def delete_recipe_go_home():
 
     db.session.commit()
 
+    flash("Successfully deleted " + recipe.recipe_name + ".", category='success')
+    
     return redirect(url_for('views.home'))
 
 

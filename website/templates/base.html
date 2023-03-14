@@ -179,7 +179,7 @@
       <div class="modal">
         <p id="modal-inner-text"></p>
         <div>
-          <button class="modal-delete" id="confirm-delete">Delete Recipe</button>
+          <a class="modal-delete" id="delete-link" href="#">Delete Recipe</a>
           <button class="button-primary" id="close" onclick="close_modal()">Close</button>
         </div>
       </div>
@@ -254,7 +254,8 @@
           method: "POST",
           body: JSON.stringify({ recipe_id: recipe_id }),
         }).then((_res) => {
-          window.location.href = "/";
+          // window.location.href = "/";
+          console.log(_res);
         });
       }
     </script>
@@ -482,8 +483,6 @@ var modal = document.getElementById("modal-container");
 
 var close_btn = document.getElementById("close");
 
-var recipe_title = btn.dataset.recipeTitle;
-
 function close_modal() {
   modal.style.display = "none";
 }
@@ -497,7 +496,18 @@ function delete_recipe(e) {
   modal.style.display = "block";
   modal_text.innerText = "Are you sure you want to delete " + recipe_title + "?";
 }
-    </script>
+
+function new_delete(e) {
+  var recipe_id = e.dataset.recipeId;
+  var delete_link = document.getElementById("delete-link")
+  var modal_text = document.getElementById("modal-inner-text");
+  var recipe_title = e.dataset.recipeTitle;
+  modal.style.display = "block";
+  modal_text.innerText = "Are you sure you want to delete " + recipe_title + "?";
+
+  delete_link.setAttribute("href", "/delete_recipe_go_home/" + recipe_id)
+}
+</script>
 
 <script>
   var flashAlert = document.getElementById("alert");
@@ -506,7 +516,7 @@ function delete_recipe(e) {
   flashMessage.onclick = function() {
     flashAlert.style.display = "none";
   }
-  
+
 </script>
 
   </body>

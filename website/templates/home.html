@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Add Recipe{% endblock %} {% block
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block
 content %}
 {% with messages = get_flashed_messages(with_categories=true) %} {% if
   messages %} {% for category, message in messages %} {% if category ==
@@ -12,7 +12,7 @@ content %}
   {% else %}
   <div class="alert-success" id="alert">
     <i class="fa-solid fa-circle-info fa-2x"></i>
-    <p> {{ message }}</p>
+    <p>{{ message }}</p>
     <div class="alert-close" id="alert-close"><i class="fa-solid fa-circle-xmark fa-xl"></i></div>
   </div>
   {% endif %} {% endfor %} {% endif %} {% endwith %}
@@ -69,7 +69,7 @@ content %}
         "
       />
       <div class="recipe-control2">
-        <button class="delete" onclick="delete_recipe(this)" data-recipe-title="{{recipe.recipe_name}}" data-recipe-id="{{ recipe.uuid }}">
+        <button class="delete" onclick="new_delete(this)" data-recipe-title="{{recipe.recipe_name}}" data-recipe-id="{{ recipe.uuid }}">
           <i class="material-symbols-outlined">delete</i>
         </button>
         {% if recipe.favorite == True %}

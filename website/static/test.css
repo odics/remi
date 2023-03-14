@@ -665,8 +665,8 @@ margin-bottom: .5rem;
 .ing-heading {
     background-color: var(--nav-items-hover);
     font-family: 'Roboto', sans-serif;
-    border-bottom: 1px solid var(--nav-items-color);
-    border-top: 1px solid var(--nav-items-color);
+    border-bottom: 1px solid #03538871;
+    border-top: 1px solid #03538871;
     padding: .5rem;
     color: var(--nav-icon-color);
     text-transform: uppercase;
@@ -985,14 +985,18 @@ margin-bottom: .5rem;
 
 .favorite:hover {
     cursor: pointer;
+    color: #AB091E;
+
 }
 
 .favorite-active:hover {
     cursor: pointer;
+    color: #464041;
 }
 
 .delete:hover {
     cursor: pointer;
+    color: #AB091E;
 }
 
 .favorite-active {
@@ -1140,14 +1144,16 @@ margin-bottom: .5rem;
     border: none;
     border-radius: 5px;
     height: 30px;
-    display: block;
+    display: flex;
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
+    text-decoration: none;
     letter-spacing: 1px;
     font-size: .7rem;
     color: #D9E2EC;
     align-self: start;  
+    align-items: center;
 }
