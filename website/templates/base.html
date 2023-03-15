@@ -369,78 +369,9 @@
     </script>
 
     <script>
-      function add_ingredient() {
-        var ingredients = document.getElementById("ingredient_list");
-        var ingredient_type = document.getElementById("ingredient_type");
-        var delete_button = document.getElementById("delete_button");
+   
 
-        var new_delete_button = document.createElement("button");
-        new_delete_button.setAttribute(
-          "class",
-          "btn btn-danger shadow-none btn-sm mt-2"
-        );
-        new_delete_button.setAttribute("onclick", "remove_added_ingredient()");
-        new_delete_button.innerHTML = '<i class="fa-solid fa-xmark fa-lg"></i>';
-
-        var new_ingredient = document.createElement("input");
-        new_ingredient.setAttribute("type", "text");
-        new_ingredient.setAttribute("name", "ingredients");
-        new_ingredient.setAttribute("placeholder", "Recipe Ingredient");
-        new_ingredient.setAttribute(
-          "class",
-          "form-control form-control-sm w-100 mt-2 pb-1"
-        );
-
-        var new_ingredient_type = document.createElement("select");
-        new_ingredient_type.setAttribute(
-          "class",
-          "form-control form-control-sm ms-0 mt-2 pb-1"
-        );
-        new_ingredient_type.setAttribute("data-style", "btn-info");
-        new_ingredient_type.setAttribute("name", "ing_type");
-        new_ingredient_type.setAttribute("value", "HELLO");
-
-        var ing_type = document.createElement("option");
-        ing_type.value = "misc";
-        ing_type.text = "Misc.";
-        new_ingredient_type.appendChild(ing_type);
-
-        var ing_type = document.createElement("option");
-        ing_type.value = "produce";
-        ing_type.text = "Produce";
-        new_ingredient_type.appendChild(ing_type);
-
-        var ing_type = document.createElement("option");
-        ing_type.value = "meat";
-        ing_type.text = "Meat";
-        new_ingredient_type.appendChild(ing_type);
-
-        var ing_type = document.createElement("option");
-        ing_type.value = "coffee_tea";
-        ing_type.text = "Coffee and Tea";
-        new_ingredient_type.appendChild(ing_type);
-
-        var ing_type = document.createElement("option");
-        ing_type.value = "pasta";
-        ing_type.text = "Pasta";
-        new_ingredient_type.appendChild(ing_type);
-
-        var ing_type = document.createElement("option");
-        ing_type.value = "frozen";
-        ing_type.text = "Frozen Food";
-        new_ingredient_type.appendChild(ing_type);
-
-        var ing_type = document.createElement("option");
-        ing_type.value = "dairy_bread";
-        ing_type.text = "Dairy";
-        new_ingredient_type.appendChild(ing_type);
-
-        ingredient_type.appendChild(new_ingredient_type);
-        delete_button.appendChild(new_delete_button);
-        ingredients.appendChild(new_ingredient);
-      }
-
-    function add_ingredient_test() {
+    function add_ingredient() {
       var ingredient_container = document.getElementById("ingredient_list");
       var new_ingredient = document.createElement("div");
       new_ingredient.setAttribute("class", "cr-ingredient-wrapper");
@@ -450,7 +381,7 @@
       new_ingredient_textbox.setAttribute("name", "ingredient_list");
       new_ingredient_textbox.setAttribute("placeholder", "Enter ingredient.");
 
-      var new_ingredient_select = document.creatElement("select");
+      var new_ingredient_select = document.createElement("select");
       new_ingredient_select.setAttribute("class", "cr-ing-preview");
       new_ingredient_select.setAttribute("name", "ing_type")
       
@@ -489,24 +420,30 @@
         ing_type.text = "Dairy";
         new_ingredient_select.appendChild(ing_type);
 
-      // var new_ingredient_delete
+      var new_ingredient_delete = document.createElement("div");
+      new_ingredient_delete.setAttribute("class", "cr-delete");
 
+      var new_delete_button = document.createElement("i");
+      new_delete_button.setAttribute("class", "fa-solid fa-square-xmark fa-lg");
+      new_delete_button.setAttribute("onclick", "remove_added_ingredient()");
+      
+      new_ingredient_delete.appendChild(new_delete_button);
+      
 
       new_ingredient.appendChild(new_ingredient_textbox);
       new_ingredient.appendChild(new_ingredient_select);
+      new_ingredient.appendChild(new_ingredient_delete);
       ingredient_container.appendChild(new_ingredient);
     }
     </script>
 
     <script>
       function add_recipe_step() {
-        var instructions = document.getElementById("add_container");
+        var instructions = document.getElementById("instruction-container");
         var new_instruction = document.createElement("div");
-
-        new_instruction.setAttribute("class", "instructions");
-
-        new_instruction.innerHTML =
-          '<div class="add_container"><div class="flex-fill" id="recipe_instructions"><textarea class="form-control" id="instructions" name="instructions" rows="3" placeholder="Type your instructions here"></textarea></div><div class="delete_button"><button onclick="remove_added_step()" type="button" class="btn btn-outline btn-danger btn-sm shadow-none"><i class="fa-solid fa-xmark fa-lg"></i></button></div></div>';
+        new_instruction.setAttribute("style", "margin-top: .5rem;")
+  
+        new_instruction.innerHTML = '<div class="cr-step"><div><textarea class="text-area" id="instructions" name="instructions" rows="3" placeholder="Enter recipe step."></textarea></div><div><i class="fa-solid fa-square-xmark fa-lg"></i></div></div>'
 
         instructions.appendChild(new_instruction);
       }
@@ -529,7 +466,7 @@
 
     <script>
       function remove_added_step() {
-        var step_to_delete = document.getElementById("add_container");
+        var step_to_delete = document.getElementById("instruction-container");
         step_to_delete.removeChild(step_to_delete.lastChild);
       }
     </script>

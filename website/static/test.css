@@ -66,6 +66,7 @@ main {
     border-bottom: 1px solid;
     border-color: #D9E2EC;
     padding-bottom: .5rem;
+    margin-top: .5rem;
     align-items: center;
  }
 
@@ -116,7 +117,6 @@ main {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     color:rgba(68, 60, 104, 0.678);
-    margin-bottom: .5rem;
 }
 
 .recipe-instructions-preview {
