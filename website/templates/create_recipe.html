@@ -6,20 +6,16 @@
         <div class="custom-recipe-pic">
             Upload Custom Recipe Picture
         </div>
-        
+        <div id = "ingredient_list">
         <div class="cr-ingredient-wrapper">
           <div class="cr-ingredient">
             <input type="text" class="text-input"
-                id="ingredient" name="ingredient_list"
-                placeholder="Enter ingredient." /><input
-              type="hidden"
-              name="category"
-              value=""
-            />
+            id="ingredients" name="ingredient_list"
+                placeholder="Enter ingredient." />
           </div>
           <div class="cr-ingredient-check">
             <select class="cr-ing-preview" data-style="btn-info"
-            aria-label=".form-select-sm example" id=""
+            aria-label=".form-select-sm example" id="ing_type"
             name="ing_type">
             <option value="misc">Misc.</option>
             <option value="produce">Produce</option>
@@ -28,12 +24,12 @@
             <option value="pasta">Pasta</option>
             <option value="frozen">Frozen Food</option>
             <option value="dairy_bread">Dairy</option>
-        </select>  
+            </select>  
           </div>
-          <div class="cr-delete"><i class="fa-solid fa-square-xmark fa-lg"></i></div>
+          <div class="cr-delete"><i class="fa-solid fa-square-xmark fa-lg" onclick="remove_added_ingredient()"></i></div>
         </div>
-
-        <button class="cr-button-primary">Add Ingredient</button>
+      </div>
+        <button class="cr-button-primary" type="button" onclick="add_ingredient_test()">Add Ingredient</button>
        
     
       </div>
@@ -43,17 +39,17 @@
             
               <div class="recipe-icons">
                 <i class="fa-solid fa-clock fa-2x"></i>
-                <input type="text" placeholder="Enter prep time" class="text-input">
+                <input type="text" placeholder="Enter prep time" class="text-input" name="prep_time">
                 <span class="stat-title">Prep</span>
               </div>
               <div class="recipe-icons">
                 <i class="fa-solid fa-clock fa-2x"></i>
-                <input type="text" placeholder="Enter cook time" class="text-input">
+                <input type="text" placeholder="Enter cook time" class="text-input" name="cook_time">
                 <span class="stat-title">Cook</span>
               </div>
               <div class="recipe-icons">
                 <i class="fa-solid fa-clock fa-2x"></i>
-                <input type="text" placeholder="Enter total time" class="text-input">
+                <input type="text" placeholder="Enter total time" class="text-input" name="total_time">
                 <span class="stat-title">Total</span>
               </div>
               <div class="recipe-icons">
@@ -72,11 +68,12 @@
           
         </div>
         <div class="cr-grid-wrapper">
-          <div class="cr-menu-wrapper">
-            <div class="recipe-title"><input type="text" placeholder="Enter recipe title" class="text-input"></div>
+          <div class="recipe-title"><input type="text" placeholder="Enter recipe title" class="text-input" name="recipe_title"></div>
+          <div class="cr-step">
+            <div><textarea class="text-area" id="instructions" name="instructions" rows="3" placeholder="Enter recipe step."></textarea></div>
+            <div><i class="fa-solid fa-square-xmark fa-lg"></i></div>
           </div>
-          <div class="step"> <textarea class="text-area" id="instructions" name="instructions" rows="3" placeholder="Enter recipe step."></textarea></div>
-          <div class="cr-delete"><i class="fa-solid fa-square-xmark fa-lg"></i></div>
+          <div style="display: flex; align-items: end;"><button class="cr-button-instruction">Add Recipe Step</button></div>
         </div>
         
       </div>

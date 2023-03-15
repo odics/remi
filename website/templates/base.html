@@ -439,6 +439,63 @@
         delete_button.appendChild(new_delete_button);
         ingredients.appendChild(new_ingredient);
       }
+
+    function add_ingredient_test() {
+      var ingredient_container = document.getElementById("ingredient_list");
+      var new_ingredient = document.createElement("div");
+      new_ingredient.setAttribute("class", "cr-ingredient-wrapper");
+      
+      var new_ingredient_textbox = document.createElement("input");
+      new_ingredient_textbox.setAttribute("class", "text-input");
+      new_ingredient_textbox.setAttribute("name", "ingredient_list");
+      new_ingredient_textbox.setAttribute("placeholder", "Enter ingredient.");
+
+      var new_ingredient_select = document.creatElement("select");
+      new_ingredient_select.setAttribute("class", "cr-ing-preview");
+      new_ingredient_select.setAttribute("name", "ing_type")
+      
+      var ing_type = document.createElement("option");
+        ing_type.value = "misc";
+        ing_type.text = "Misc.";
+        new_ingredient_select.appendChild(ing_type);
+
+        var ing_type = document.createElement("option");
+        ing_type.value = "produce";
+        ing_type.text = "Produce";
+        new_ingredient_select.appendChild(ing_type);
+
+        var ing_type = document.createElement("option");
+        ing_type.value = "meat";
+        ing_type.text = "Meat";
+        new_ingredient_select.appendChild(ing_type);
+
+        var ing_type = document.createElement("option");
+        ing_type.value = "coffee_tea";
+        ing_type.text = "Coffee and Tea";
+        new_ingredient_select.appendChild(ing_type);
+
+        var ing_type = document.createElement("option");
+        ing_type.value = "pasta";
+        ing_type.text = "Pasta";
+        new_ingredient_select.appendChild(ing_type);
+
+        var ing_type = document.createElement("option");
+        ing_type.value = "frozen";
+        ing_type.text = "Frozen Food";
+        new_ingredient_select.appendChild(ing_type);
+
+        var ing_type = document.createElement("option");
+        ing_type.value = "dairy_bread";
+        ing_type.text = "Dairy";
+        new_ingredient_select.appendChild(ing_type);
+
+      // var new_ingredient_delete
+
+
+      new_ingredient.appendChild(new_ingredient_textbox);
+      new_ingredient.appendChild(new_ingredient_select);
+      ingredient_container.appendChild(new_ingredient);
+    }
     </script>
 
     <script>

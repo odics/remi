@@ -149,8 +149,6 @@ main {
     border-radius: 5px;
     padding: 1.5rem;
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-auto-flow: row;
     gap: .5rem;
     align-items: start;
 }
@@ -222,6 +220,12 @@ main {
     justify-content: end;
     margin-bottom: 1rem;
     position: relative;
+}
+
+.cr-step {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .5rem;
 }
 
 .recipe-menu-wrapper-preview {
@@ -988,6 +992,42 @@ margin-bottom: .5rem;
 }
 
 .button-primary {
+    background-color: var(--primary-button);
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    display: block;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start;  
+}
+
+.cr-button-primary {
+    background-color: var(--primary-button);
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    display: block;
+    width: 100%;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start;  
+    margin-top: .5rem;
+}
+
+.cr-button-instruction {
     background-color: var(--primary-button);
     border: none;
     border-radius: 5px;
