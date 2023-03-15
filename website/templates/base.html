@@ -425,7 +425,7 @@
 
       var new_delete_button = document.createElement("i");
       new_delete_button.setAttribute("class", "fa-solid fa-square-xmark fa-lg");
-      new_delete_button.setAttribute("onclick", "remove_added_ingredient()");
+      new_delete_button.setAttribute("onclick", "remove_added_ingredient(this)");
       
       new_ingredient_delete.appendChild(new_delete_button);
       
@@ -443,31 +443,33 @@
         var new_instruction = document.createElement("div");
         new_instruction.setAttribute("style", "margin-top: .5rem;")
   
-        new_instruction.innerHTML = '<div class="cr-step"><div><textarea class="text-area" id="instructions" name="instructions" rows="3" placeholder="Enter recipe step."></textarea></div><div><i class="fa-solid fa-square-xmark fa-lg"></i></div></div>'
+        new_instruction.innerHTML = '<div class="cr-step"><div><textarea class="text-area" id="instructions" name="instructions" rows="3" placeholder="Enter recipe step."></textarea></div><div><i class="fa-solid fa-square-xmark fa-lg" onclick="remove_added_step(this)"></i></div></div>'
 
         instructions.appendChild(new_instruction);
       }
     </script>
 
     <script>
-      function remove_added_ingredient() {
-        var ingredient_to_delete = document.getElementById("ingredient_list");
-        var ingredient_type_to_delete =
-          document.getElementById("ingredient_type");
-        var button_to_delete = document.getElementById("delete_button");
+      function remove_added_ingredient(ing) {
 
-        ingredient_to_delete.removeChild(ingredient_to_delete.lastChild);
-        ingredient_type_to_delete.removeChild(
-          ingredient_type_to_delete.lastChild
-        );
-        button_to_delete.removeChild(button_to_delete.lastChild);
+        ing.parentElement.parentElement.remove();
+        // var ingredient_to_delete = document.getElementById("ingredient_list");
+        // var ingredient_type_to_delete =
+        //   document.getElementById("ingredient_type");
+        // var button_to_delete = document.getElementById("delete_button");
+
+        // ingredient_to_delete.removeChild(ingredient_to_delete.lastChild);
+        // ingredient_type_to_delete.removeChild(
+        //   ingredient_type_to_delete.lastChild
+        // );
+        // button_to_delete.removeChild(button_to_delete.lastChild);
       }
     </script>
 
     <script>
-      function remove_added_step() {
-        var step_to_delete = document.getElementById("instruction-container");
-        step_to_delete.removeChild(step_to_delete.lastChild);
+      function remove_added_step(step) {
+      
+        step.parentElement.parentElement.remove();
       }
     </script>
 

@@ -26,10 +26,10 @@
             <option value="dairy_bread">Dairy</option>
             </select>  
           </div>
-          <div class="cr-delete"><i class="fa-solid fa-square-xmark fa-lg" onclick="remove_added_ingredient()"></i></div>
+          <div class="cr-delete"><i class="fa-solid fa-square-xmark fa-lg" onclick="remove_added_ingredient(this)"></i></div>
         </div>
       </div>
-        <button class="cr-button-primary" type="button" onclick="add_ingredient()">Add Ingredient</button>
+        <button class="cr-button-primary" type="button" onclick="add_ingredient()"><i class="fa-solid fa-circle-plus fa-lg"></i> Add Ingredient</button>
        
     
       </div>
@@ -70,10 +70,10 @@
           <div id="instruction-container">
           <div class="cr-step">
             <div><textarea class="text-area" id="instructions" name="instructions" rows="3" placeholder="Enter recipe step."></textarea></div>
-            <div><i class="fa-solid fa-square-xmark fa-lg" onclick="remove_added_step()"></i></div>
+            <div><i class="fa-solid fa-square-xmark fa-lg" onclick="remove_added_step(this)"></i></div>
           </div>
         </div>
-          <div style="display: flex; align-items: end;"><button type="button" onclick="add_recipe_step()" class="cr-button-instruction">Add Recipe Step</button></div>
+          <div style="display: flex; align-items: end;"><button type="button" onclick="add_recipe_step()" class="cr-button-instruction"><i class="fa-solid fa-circle-plus fa-lg"></i> Add Recipe Step</button></div>
         </div>
         
       </div>

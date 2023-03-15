@@ -70,6 +70,10 @@ main {
     align-items: center;
  }
 
+ .cr-delete {
+    color: #AB091E;
+ }
+
 .ingredient {
     font-family: 'Roboto', sans-serif;
     color: var(--nav-items-color);
@@ -226,6 +230,10 @@ main {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: .5rem;
+}
+
+.cr-step i {
+   color: #AB091E;
 }
 
 .recipe-menu-wrapper-preview {
