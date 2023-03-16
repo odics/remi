@@ -59,6 +59,21 @@ main {
    border-color: #D9E2EC;
 }
 
+.cr-ingredient-wrapper {
+    display: grid;
+    gap: .5rem;
+    grid-template-columns: 1fr auto auto;
+    border-bottom: 1px solid;
+    border-color: #D9E2EC;
+    padding-bottom: .5rem;
+    margin-top: .5rem;
+    align-items: center;
+ }
+
+ .cr-delete {
+    color: #AB091E;
+ }
+
 .ingredient {
     font-family: 'Roboto', sans-serif;
     color: var(--nav-items-color);
@@ -66,8 +81,19 @@ main {
     padding: .5rem;
 }
 
+.cr-ingredient {
+    font-family: 'Roboto', sans-serif;
+    color: var(--nav-items-color);
+    font-weight: 100;
+}
+
 .ingredient-check {
     padding: .5rem;
+}
+
+.cr-ingredient-check {
+    padding: 0;
+    padding-right: 0;
 }
 
 .recipe-instructions {
@@ -83,6 +109,18 @@ main {
     /* grid-auto-rows: max-content; */
     /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
 
+}
+
+.custom-recipe-pic {
+    display: flex;
+    border-radius: 10px;
+    height: 200px;
+    background: var(--instructions-background);
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    color:rgba(68, 60, 104, 0.678);
 }
 
 .recipe-instructions-preview {
@@ -108,6 +146,15 @@ main {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-auto-flow: row;
+}
+
+.cr-grid-wrapper {
+    background-color: var(--instructions-background);
+    border-radius: 5px;
+    padding: 1.5rem;
+    display: grid;
+    gap: .5rem;
+    align-items: start;
 }
 
 .instruction-img {
@@ -165,6 +212,28 @@ main {
     justify-content: end;
     margin-bottom: 1rem;
     position: relative;
+}
+
+.cr-menu-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .5rem;
+    width: 100%;
+    grid-column: 1 / span 2;
+    align-items:center;
+    justify-content: end;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.cr-step {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .5rem;
+}
+
+.cr-step i {
+   color: #AB091E;
 }
 
 .recipe-menu-wrapper-preview {
@@ -859,10 +928,36 @@ margin-bottom: .5rem;
     color: var(--nav-text-color);
 }
 
+.cr-ing-preview {
+    width: 50px;
+    height: 30px;
+    padding-left: 3px;
+    background-color: var(--search-input-color);
+    border: 1px solid;
+    border-color: rgb(191, 186, 205);
+    border-radius: 5px;
+    font-family: 'Oxygen', sans-serif;
+    font-size: .7rem;
+    color: var(--nav-text-color);
+}
+
 .ing-preview-category {
     width: 50px;
     height: 100%;
     margin-top: .5rem;
+    padding-left: 3px;
+    background-color: var(--search-input-color);
+    border: 1px solid;
+    border-color: rgb(191, 186, 205);
+    border-radius: 5px;
+    font-family: 'Oxygen', sans-serif;
+    font-size: .7rem;
+    color: var(--nav-text-color);
+}
+
+.cr-category {
+    width: 50px;
+    height: 100%;
     padding-left: 3px;
     background-color: var(--search-input-color);
     border: 1px solid;
@@ -905,6 +1000,69 @@ margin-bottom: .5rem;
 }
 
 .button-primary {
+    background-color: var(--primary-button);
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    display: block;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start;  
+}
+
+.cr-button-primary {
+    background-color: var(--primary-button);
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    display: block;
+    width: 100%;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start;  
+    margin-top: .5rem;
+}
+
+.cr-button-secondary {
+    background-color: var(--secondary-button);
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: var(--nav-items-color);
+    align-self: start;  
+    text-decoration: none;
+}
+
+.cr-button-menu {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: .5rem;
+}
+
+.cr-button-instruction {
     background-color: var(--primary-button);
     border: none;
     border-radius: 5px;

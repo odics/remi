@@ -1,0 +1,97 @@
+{% extends "base.html" %} {% block title %}Recipe Creator{% endblock
+    %} {% block content %}
+    <form method="POST">
+    <div class="view-recipe">
+      <div class="ingredient-list">
+        <div class="custom-recipe-pic">
+          <i class="fa-solid fa-bowl-rice fa-8x"></i>
+        </div>
+        <div id = "ingredient_list">
+        <div class="cr-ingredient-wrapper">
+          <div class="cr-ingredient">
+            <input type="text" class="text-input"
+            id="ingredients" name="ingredients"
+                placeholder="Enter ingredient." />
+          </div>
+          <div class="cr-ingredient-check">
+            <select class="cr-ing-preview" data-style="btn-info"
+            aria-label=".form-select-sm example" id="ing_type"
+            name="ing_type">
+            <option value="misc">Misc.</option>
+            <option value="produce">Produce</option>
+            <option value="meat">Meat</option>
+            <option value="coffee_tea">Coffee and Tea</option>
+            <option value="pasta">Pasta</option>
+            <option value="frozen">Frozen Food</option>
+            <option value="dairy_bread">Dairy</option>
+            </select>  
+          </div>
+          <div class="cr-delete"><i class="fa-solid fa-square-xmark fa-lg" onclick="remove_added_ingredient(this)"></i></div>
+        </div>
+      </div>
+        <button class="cr-button-primary" type="button" onclick="add_ingredient()"><i class="fa-solid fa-circle-plus fa-lg"></i> Add Ingredient</button>
+       
+    
+      </div>
+      <div class="recipe-instructions">
+        <div class="information-wrapper">
+              <div class="recipe-icons">
+                <i class="fa-solid fa-clock fa-2x"></i>
+                <input type="text" placeholder="Enter prep time" class="text-input" name="prep_time">
+                <span class="stat-title">Prep</span>
+              </div>
+              <div class="recipe-icons">
+                <i class="fa-solid fa-clock fa-2x"></i>
+                <input type="text" placeholder="Enter cook time" class="text-input" name="cook_time">
+                <span class="stat-title">Cook</span>
+              </div>
+              <div class="recipe-icons">
+                <i class="fa-solid fa-clock fa-2x"></i>
+                <input type="text" placeholder="Enter total time" class="text-input" name="total_time">
+                <span class="stat-title">Total</span>
+              </div>
+              <div class="recipe-icons">
+                <i class="fa-solid fa-utensils fa-2x"></i>
+                <select class="cr-category" data-style="btn-info" id="recipe_category" name="recipe_category" style="width:100%; height: 30px;">
+                    <option>Select Category</option>
+                    <option value="0">Breakfast</option>
+                    <option value="1">Lunch</option>
+                    <option value="2">Dinner</option>
+                    <option value="3">Dessert</option>
+                    <option value="4">Sides</option>
+        </select>
+                <span class="stat-title">Category</span>
+              </div>
+            
+          
+        </div>
+        <div class="cr-grid-wrapper" id="cr-grid-wrapper">
+          <div class="cr-button-menu">
+            <button class="button-primary"><i class="fa-solid fa-floppy-disk"></i> Save Recipe</button>
+            <a class="cr-button-secondary" href="/"><i class="fa-solid fa-xmark"></i> Cancel</a>
+          </div>
+          <div class="recipe-title"><input type="text" placeholder="Enter recipe title" class="text-input" name="recipe_title"></div>
+          <div id="instruction-container">
+          <div class="cr-step">
+            <div><textarea class="text-area" id="instructions" name="instructions" rows="3" placeholder="Enter recipe step."></textarea></div>
+            <div><i class="fa-solid fa-square-xmark fa-lg" onclick="remove_added_step(this)"></i></div>
+          </div>
+        </div>
+          <div style="display: flex; align-items: end;"><button type="button" onclick="add_recipe_step()" class="cr-button-instruction"><i class="fa-solid fa-circle-plus fa-lg"></i> Add Recipe Step</button></div>
+        </div>
+        
+      </div>
+    </div>
+    </form>
+    <script>
+      function menutoggle() {
+        var x = document.getElementById("dropdown-menu");
+        if (x.style.display === "none") {
+          x.style.display = "inline-block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>
+    {% endblock %}
+    

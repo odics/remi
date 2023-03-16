@@ -115,83 +115,107 @@ def home():
 @login_required
 def create_recipe():
     ''' Creates a recipe from user-provided information. '''
+    if request.method == 'GET':
 
-    prep_time = request.form.get('prep_time')
-    total_time = request.form.get('total_time')
-    cook_time = request.form.get('cook_time')
-    servings = request.form.get('servings')
-    recipe_category = request.form.get('recipe_category')
-    recipe_title = request.form.get('recipe_title')
+         # Get a count of all the favorites:
+        favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
 
-    ingredient_list = request.form.getlist('ingredients')
-    ingredient_type = request.form.getlist('ing_type')
-    instructions = request.form.getlist('instructions')
-    tags = request.form.getlist('custom_recipe_tags')
+        # Get a count of all the recipes:
+        total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-    instructions_json = {}
+        shopping_list = ShoppingList.query.count()
+        session['shopping_list'] = shopping_list
+        
+        return render_template("create_recipe.html", user=current_user, shopping_list=shopping_list, total_recipes=total_recipes, favorite_total=favorite_total)
+    
+    if request.method == 'POST':
+        prep_time = request.form.get('prep_time')
+        total_time = request.form.get('total_time')
+        cook_time = request.form.get('cook_time')
+        servings = request.form.get('servings')
+        recipe_category = request.form.get('recipe_category')
+        recipe_title = request.form.get('recipe_title')
 
-    for i in range(len(instructions)):
-        instructions_json[i] = instructions[i]
+        ingredient_list = request.form.getlist('ingredients')
+        ingredient_type = request.form.getlist('ing_type')
+        instructions = request.form.getlist('instructions')
+        tags = request.form.getlist('custom_recipe_tags')
 
-    instructions_json = json.dumps(instructions_json)
+        instructions_json = {}
 
-    uuid = shortuuid.uuid()
+        for i in range(len(instructions)):
+            instructions_json[i] = instructions[i]
 
-    for i in range(0, len(ingredient_list)):
-        if ingredient_type[i] == "misc":
-                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="misc", ing_display="Misc.")
-                db.session.add(ingredient)
-                db.session.commit()
+        instructions_json = json.dumps(instructions_json)
 
-        if ingredient_type[i] == "produce":
-                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="produce", ing_display="Produce")
-                db.session.add(ingredient)
-                db.session.commit()
+        uuid = shortuuid.uuid()
 
-        if ingredient_type[i] == "meat":
-                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="meat", ing_display="Meat")
-                db.session.add(ingredient)
-                db.session.commit()
+        for i in range(0, len(ingredient_list)):
+            if ingredient_type[i] == "misc":
+                    ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="misc", ing_display="Misc.")
+                    db.session.add(ingredient)
+                    db.session.commit()
 
-        if ingredient_type[i] == "coffee_tea":
-                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="coffee_tea", ing_display="Coffee and Tea")
-                db.session.add(ingredient)
-                db.session.commit()
+            if ingredient_type[i] == "produce":
+                    ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="produce", ing_display="Produce")
+                    db.session.add(ingredient)
+                    db.session.commit()
 
-        if ingredient_type[i] == "pasta":
-                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="pasta", ing_display="Pasta")
-                db.session.add(ingredient)
-                db.session.commit()
+            if ingredient_type[i] == "meat":
+                    ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="meat", ing_display="Meat")
+                    db.session.add(ingredient)
+                    db.session.commit()
 
-        if ingredient_type[i] == "frozen":
-                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="frozen", ing_display="Frozen Food")
-                db.session.add(ingredient)
-                db.session.commit()
+            if ingredient_type[i] == "coffee_tea":
+                    ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="coffee_tea", ing_display="Coffee and Tea")
+                    db.session.add(ingredient)
+                    db.session.commit()
 
-        if ingredient_type[i] == "dairy_bread":
-                ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="dairy_bread", ing_display="Dairy and Bread")
-                db.session.add(ingredient)
-                db.session.commit()
+            if ingredient_type[i] == "pasta":
+                    ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="pasta", ing_display="Pasta")
+                    db.session.add(ingredient)
+                    db.session.commit()
 
-        if ingredient_type[i] == "7":
-                pass
+            if ingredient_type[i] == "frozen":
+                    ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="frozen", ing_display="Frozen Food")
+                    db.session.add(ingredient)
+                    db.session.commit()
 
-    new_recipe = Recipe(username=current_user.id, prep_time=prep_time, cook_time=cook_time, 
-                        recipe_name=recipe_title, total_time=total_time, servings=servings,category=recipe_category, 
-                        uuid=uuid, favorite=False, instructions_json=instructions_json, image="custom_recipe.png")
+            if ingredient_type[i] == "dairy_bread":
+                    ingredient = Ingredients(uuid=uuid, ingredient=ingredient_list[i], ing_type="dairy_bread", ing_display="Dairy and Bread")
+                    db.session.add(ingredient)
+                    db.session.commit()
 
-    for tag in tags:
-        new_tag = Tag(tag_name=str(tag).upper())
-        new_recipe.tags.append(new_tag)
+            if ingredient_type[i] == "7":
+                    pass
+        
+        if recipe_category == "0":
+            recipe_category = "Breakfast"
+        elif recipe_category == "1":
+            recipe_category = "Lunch"
+        elif recipe_category == "2":
+            recipe_category = "Dinner"
+        elif recipe_category == "3":
+            recipe_category = "Dessert"
+        elif recipe_category == "4":
+            recipe_category = "Sides"
 
-        db.session.add(new_tag)
+        new_recipe = Recipe(username=current_user.id, prep_time=prep_time, cook_time=cook_time, 
+                            recipe_name=recipe_title, total_time=total_time, servings=servings,category=recipe_category, 
+                            uuid=uuid, favorite=False, instructions_json=instructions_json, image="custom_recipe.png")
+
+        for tag in tags:
+            new_tag = Tag(tag_name=str(tag).upper())
+            new_recipe.tags.append(new_tag)
+
+            db.session.add(new_tag)
+            db.session.commit()
+
+        db.session.add(new_recipe)
         db.session.commit()
 
-    db.session.add(new_recipe)
-    db.session.commit()
-
-    flash('Recipe successfully created.', category='success')
-    return redirect(url_for('views.home'))
+        flash('Recipe successfully created.', category='success')
+        return redirect(url_for('views.home'))
 
 
 @views.route('/search', methods=['GET', 'POST'])
