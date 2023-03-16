@@ -10,29 +10,6 @@ import os
 
 views = Blueprint('views', __name__)
 
-@views.route('/test')
-def new_layout():
-    shopping_list = ShoppingList.query.count()
-    session['shopping_list'] = shopping_list
-
-    if request.method == 'POST':
-        sort_method = request.form.get('sort_method')
-        if sort_method == "all":
-            page_title = "Showing all recipes"
-
-            recipes = Recipe.query.filter_by(username=current_user.id)
-            return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
-        else:
-            page_title = "Showing all " + sort_method.lower() + " recipes"
-
-            recipes = Recipe.query.filter_by(username=current_user.id, category=sort_method)
-            return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
-
-    recipes = Recipe.query.filter_by(username=current_user.id).all()
-    page_title = "Showing all recipes"
-    return render_template("test.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
-
-
 @views.route('/all_recipes', methods=['GET', 'POST'])
 @login_required
 def all_recipes():
@@ -210,74 +187,18 @@ def create_recipe():
         return redirect(url_for('views.home'))
 
 
-@views.route('/search', methods=['GET', 'POST'])
+@views.route('/search/<query>', methods=['GET', 'POST'])
 @login_required
-def search_recipes():
-    ''' Allows for searching for a recipe based on recipe title and category. '''
+def search_recipes(query):
+    ''' Allows for searching for a recipe based on recipe title. '''
 
     shopping_list = session.get('shopping_list', None)
+    search_query = "%" + query + "%"
 
-    if request.form.get('search_query'):
-        search_query = "%" + request.form.get('search_query') + "%"
-        query_for_title = request.form.get('search_query')
-        session['session_title'] = query_for_title
-        session['session_query'] = search_query
+    search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
+    search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
 
-    elif session.get('session_query', None):
-        search_query = session.get('session_query', None)
-        query_for_title = session.get('session_title')
-
-    else:
-        category = request.form.get('sort_method')
-
-        if category == "all":
-            search_results = Recipe.query.filter_by(username=current_user.id).all()
-            search_count = Recipe.query.filter_by(username=current_user.id).count()
-
-            query_for_title = "all categories"
-
-            return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results,
-            count=search_count, shopping_list=shopping_list))
-        else:
-            search_results = Recipe.query.filter_by(username=current_user.id, category=category).all()
-            search_count = Recipe.query.filter_by(username=current_user.id, category=category).count()
-
-            return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results,
-            count=search_count, shopping_list=shopping_list))
-
-    if request.form.get('sort_method'):
-        category = request.form.get('sort_method')
-        print(category)
-        if category == "all":
-            search_query = session.get('session_query', None)
-            query_for_title = session.get('session_title', None)
-
-            search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query), Recipe.username==current_user.id).all()
-            search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query), Recipe.username==current_user.id).count()
-
-            session.pop('session_query', None)
-            return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
-            count=search_count, shopping_list=shopping_list))
-        
-        else:
-            search_query = session.get('session_query', None)
-            query_for_title = session.get('session_title', None)
-            print(search_query)
-
-            search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query), 
-            Recipe.username==current_user.id).filter_by(username=current_user.id, category=category).all()
-            search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query), Recipe.username==current_user.id).count()
-            
-            session.pop('session_query', None)
-            return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
-            count=search_count, shopping_list=shopping_list))
-            
-    else:
-        search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
-        search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
-
-        session.pop('session_query', None)
-        return(render_template("search_results.html", user=current_user, query=query_for_title, results=search_results, 
+    return(render_template("search_results.html", user=current_user, query=query, results=search_results, 
         count=search_count, shopping_list=shopping_list))
 
 
@@ -477,9 +398,15 @@ def show_favorites():
     ''' Show all favorite recipes. '''
     shopping_list = ShoppingList.query.count()
     fav_recipe = Recipe.query.filter_by(username=current_user.id, favorite=True).all()
-    print(fav_recipe)
 
-    return render_template("favorite_recipes.html", recipes=fav_recipe, user=current_user, shopping_list=shopping_list)
+    # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+    # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
+    return render_template("favorite_recipes.html", recipes=fav_recipe, user=current_user, shopping_list=shopping_list,
+    favorite_total=favorite_total, total_recipes=total_recipes)
 
 
 @views.route('/random_recipe', methods=['POST', 'GET'])
@@ -680,6 +607,12 @@ def remove_favorite():
 def cart():
     ''' Shows current shopping cart. '''
     
+     # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+    # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
     if request.method == 'POST':
         category = request.form.get('ing_type')
         ingredient = request.form.get('ingredient')
@@ -734,7 +667,7 @@ def cart():
                            meat=shopping_items_meat, frozen=shopping_items_frozen, coffee=shopping_items_coffee,
                            pasta_to_copy=pasta_to_copy, produce_to_copy=produce_to_copy,misc_to_copy=misc_to_copy,
                            dairy_to_copy=dairy_to_copy, meat_to_copy=meat_to_copy, frozen_to_copy=frozen_to_copy,
-                           coffee_to_copy=coffee_to_copy)
+                           coffee_to_copy=coffee_to_copy, favorite_total=favorite_total, total_recipes=total_recipes)
 
 
 @views.route('/delete_item', methods=['POST'])

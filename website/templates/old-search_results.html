@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+    <div class="row mb-2">
+        <div class="col">
+            <h1 class="display-6 text-primary mb-0" style="font-size:1.5rem">There are <b>{{ count }}</b> results for your search term(s): <b>{{ query }}</b></h1>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <form method="POST">
+                <div class="input-group input-group-sm w-100 text-end">
+                    <select class="form-select rounded" id="sort_method" name="sort_method">
+                        <option value="all">Show all</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Sides">Sides</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-link"><i class="fa-solid fa-arrow-down-short-wide"></i>
+                            Filter Recipes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr class="mt-0">
+        </div>
+    </div>
+    <div class="row">
+        {% for result in results %}
+        <div class="d-flex justify-content-between col-lg-4 col-md-3 col-sm-6">
+            <div class="card mb-4 shadow-2 border" style="border-radius:4px;">
+                <img class="card-img-top" src="{{ url_for('static', filename=result.image) }}" style="width: 100%;height: 15vw;object-fit: cover;
+            border-top-left-radius:4px; border-top-right-radius:4px">
+                {% if result.favorite == True %}
+                <button class="btn btn-secondary btn-sm" onclick="remove_favorite('{{ result.id }}')"
+                    style="position:absolute; top: 10px; right: 10px">
+                    <i class="fa-solid fa-star fa-xl text-danger"></i>
+                </button>
+                {% else %}
+                <button class="btn btn-secondary btn-sm" onclick="add_favorite('{{ result.id }}')"
+                    style="position:absolute; top: 10px; right: 10px">
+                    <i class="fa-regular fa-star fa-xl text-danger"></i>
+                </button>
+                {% endif %}
+                <div class="card-body text-center rounded-4">
+                    <h6 class="card-title"><span class=" text-primary fw-lighter">{{ result.recipe_name }}</span></h6>
+                    <hr />
+                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> {{ result.category }}</span>
+                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Prep: {{ result.prep_time
+                        }}</span>
+                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Cook: {{ result.cook_time
+                        }}</span>
+                    <span class="badge badge-info"><i class="fa-solid fa-clock fa-sm"></i> Total: 30 mins</span>
+                    <span class="badge badge-info"><i class="fa fa-cutlery fa-sm"></i> Servings: 6</span>
+                    <hr />
+                    <a href="/view_recipe/{{ result.uuid }}" class="btn btn-secondary btn-sm shadow-none"><i
+                            class="fa fa-book"></i> Vew
+                    </a>
+                    <a href="/edit_recipe/{{ result.uuid }}" type="button" class="btn btn-secondary btn-sm shadow-none"><i class="fa-solid fa-pen-to-square"></i>
+                        Edit
+                    </a>
+                    <button type="button" class="btn btn-danger btn-sm shadow-none" data-mdb-toggle="modal"
+                        data-mdb-target="#delete_recipe" data-recipe-title="{{ result.recipe_name }}"
+                        data-recipe-uuid="{{ result.uuid }}"><i class="fa fa-trash"></i>Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="modal fade" id="delete_recipe" tabindex="-1" aria-labelledby="delete_recipe_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">Are you sure you want to delete this recipe?</div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

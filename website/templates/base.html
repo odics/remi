@@ -117,7 +117,7 @@
             ><i class="fa-solid fa-magnifying-glass"></i
           ></span>
           <span class="nav-text"
-            ><input class="search-recipes" placeholder="Search recipes"
+            ><input id="search_query" class="search-recipes" placeholder="Search recipes"
           /></span>
         </div>
         <div class="nav-layout">
@@ -198,6 +198,18 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
     ></script>
+
+    <script>
+      var search_query = document.getElementById("search_query");
+
+      search_query.onkeyup = function(event) {
+        if (event.key === 'Enter') {
+          if (search_query.value) {
+            window.location.href = "/search/" + search_query.value;
+          }
+        }
+      }
+    </script>
 
     <script>
       $("#delete_recipe").on("show.bs.modal", function (event) {
