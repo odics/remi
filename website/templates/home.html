@@ -48,14 +48,6 @@ content %}
       </div>
       <img
         src="{{ url_for('static', filename=recipe.image) }}"
-        style="
-          width: 100%;
-          height: 15vw;
-          object-fit: cover;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 8px;
-          margin: 0;
-        "
       />
       <div class="recipe-control2">
         <button class="delete" onclick="new_delete(this)" data-recipe-title="{{recipe.recipe_name}}" data-recipe-id="{{ recipe.uuid }}">

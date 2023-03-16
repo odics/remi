@@ -153,6 +153,36 @@
       </div>
     </nav>
 
+    <div class="mobile-nav">
+      <i class="fa-solid fa-bars fa-2x" onclick="mobile_toggle()"></i>
+      <div class="logo">R•E•M•I</div>
+    </div>
+    <div class="mobile-nav-content" id="mobile-nav-content" style="display: none;">
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/add_recipe">Add Recipe</a>
+        </li>
+        <li>
+          Create Recipe
+        </li>
+        <li>
+          All Recipes
+        </li>
+        <li>
+          Favorite Recipes
+        </li>
+        <li>
+          <a href = "/cart">Shopping List</a>
+        </li>
+        <li>
+          Logout
+        </li>
+      </ul>
+    </div>
+
     <main>
     <!-- {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %} {% if category ==
@@ -198,6 +228,19 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
     ></script>
+
+
+    <script>
+      function mobile_toggle() {
+        var x = document.getElementById("mobile-nav-content");
+
+        if (x.style.display === "none") {
+          x.style.display = "flex";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>
 
     <script>
       var search_query = document.getElementById("search_query");
