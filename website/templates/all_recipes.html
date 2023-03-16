@@ -1,7 +1,8 @@
 {% extends "base.html" %} {% block title %}Add Recipe{% endblock %} {% block
 content %}
+<form method="POST">
 <div class="page-title">
-  <div class="title">Showing all recipes</div>
+  <div class="title">{{ page_title }}</div>
   <div class="sort-control">
     <select id="recipe_category" name="sort_method" class="select-category">
       <option value="select">Select Category</option>
@@ -13,7 +14,7 @@ content %}
       <option value="Sides">Sides</option>
     </select>
     <button class="button-primary sort">
-      <i class="fa-solid fa-arrow-down-wide-short"></i> Sort Recipes
+      <i class="fa-solid fa-arrow-down-wide-short"></i> Filter Recipes
     </button>
   </div>
 </div>
@@ -77,5 +78,7 @@ content %}
         <div class="card-title">{{ recipe.recipe_name }}</div>
       </a>
     </div>
+  </form>
     {% endfor %} {% endblock %}
 </div>
+

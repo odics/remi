@@ -1216,6 +1216,11 @@ margin-bottom: .5rem;
     grid-column-start: 2;
 }
 
+.home-title {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
 .recipe-icons {
     color: #243B53;
     display: grid;

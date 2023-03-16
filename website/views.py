@@ -32,14 +32,6 @@ def new_layout():
     page_title = "Showing all recipes"
     return render_template("test.html", user=current_user, recipes=recipes, shopping_list=shopping_list, page_title=page_title)
 
-@views.route('/recipe-test')
-def recipe_test():
-    return render_template("recipe_test.html")
-    
-@views.route('/cart_test')
-def cart_test():
-    return render_template('cart_test.html', user=current_user)
-
 
 @views.route('/all_recipes', methods=['GET', 'POST'])
 @login_required
