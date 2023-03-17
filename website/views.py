@@ -475,7 +475,7 @@ def edit_recipe(recipe_uuid):
 
     if request.method == 'POST':
 
-        tags = request.form.getlist('edited_tags')
+        tags = request.form.getlist('new_tag')
         recipe_title = request.form.get('recipe_title')
         recipe_id = request.form.get('recipe_id')
 
@@ -491,6 +491,18 @@ def edit_recipe(recipe_uuid):
         recipe_servings = request.form.get('servings')
         recipe_category = request.form.get('recipe_category')
 
+        if recipe_category == "0":
+            recipe_category = "Breakfast"
+        elif recipe_category == "1":
+            recipe_category = "Lunch"
+        elif recipe_category == "2":
+            recipe_category = "Dinner"
+        elif recipe_category == "3":
+            recipe_category = "Dessert"
+        elif recipe_category == "4":
+            recipe_category = "Sides"
+        else:
+            recipe_category = "None"
 
         for i in range(0, len(ingredient_to_update)):
             ingredient_update = Ingredients.query.filter_by(id=ingredient_id[i]).first()
@@ -540,10 +552,10 @@ def edit_recipe(recipe_uuid):
         recipe_update.total_time = recipe_total_time
         recipe_update.servings = recipe_servings
         recipe_update.category = recipe_category
-
+        
         if tags:
             for tag in tags:
-                new_tag = Tag(tag_name=str(tag).upper())
+                new_tag = Tag(tag_name=str(tag))
                 recipe_update.tags.append(new_tag)
 
                 db.session.add(new_tag)

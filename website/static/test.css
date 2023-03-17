@@ -1245,6 +1245,18 @@ margin-bottom: .5rem;
     align-items: center;
 }
 
+.tags-wrapper-edit {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-column: 1 / span 2;
+    background-color: #f3f6f9;
+    border-radius: 5px;
+    align-items: center;
+}
+
 .tag-icon {
     color: var(--nav-items-color);
     margin-right: 1rem;
