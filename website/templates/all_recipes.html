@@ -53,12 +53,7 @@ content %}
         "
       />
       <div class="recipe-control2">
-        <button
-          class="delete"
-          onclick="delete_recipe(this)"
-          data-recipe-title="{{recipe.recipe_name}}"
-          data-recipe-id="{{ recipe.uuid }}"
-        >
+        <button type="button" class="delete" onclick="new_delete(this)" data-recipe-title="{{recipe.recipe_name}}" data-recipe-id="{{ recipe.uuid }}">
           <i class="material-symbols-outlined">delete</i>
         </button>
         {% if recipe.favorite == True %}

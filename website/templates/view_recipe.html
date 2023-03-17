@@ -104,6 +104,20 @@
       {% endfor %}
     </div>
     
+    <div class="tags-wrapper">
+      <div class="tag-icon"><i class="fa-solid fa-tags fa-2x"></i></div>
+      <div class="tag-display">
+        <ul id="tag_list">
+        {% for recipe_tag in recipe.tags %}
+        <li class="tags">
+          <span class="tag-text">{{ recipe_tag.tag_name }}</span>
+          <span class="delete_tag" onclick="delete_tag({{ recipe_tag.id }}, '{{ view_id }}', {{ recipe.id }})"><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
+        </li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+
   </div>
 </div>
 </form>

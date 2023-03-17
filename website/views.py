@@ -327,10 +327,10 @@ def save_recipe_to_db():
                         uuid=uuid, original_url=original_url, date_parsed=date_parsed, favorite=False,
                         category=recipe_category, instructions_json=instructions_json)
 
-    tags = request.form.getlist('recipe_tags')
+    tags = request.form.getlist('new_tag')
 
     for tag in tags:
-        new_tag = Tag(tag_name=str(tag).upper())
+        new_tag = Tag(tag_name=str(tag))
         new_recipe.tags.append(new_tag)
 
         db.session.add(new_tag)
@@ -436,6 +436,13 @@ def random_recipe():
 @login_required
 def view_recipe(recipe_uuid):
     ''' View a specific recipe in detail. '''
+
+     # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+        # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
     if request.method == 'POST':
         category = request.form.getlist('category')
         ingredient_list = request.form.getlist('ingredients')
@@ -452,7 +459,7 @@ def view_recipe(recipe_uuid):
     instructions_json = json.loads(recipe.instructions_json)
 
     return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
-                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json)
+                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json, favorite_total=favorite_total, total_recipes=total_recipes)
 
 
 @views.route('/edit_recipe/<recipe_uuid>', methods=['POST', 'GET'])
@@ -460,7 +467,14 @@ def view_recipe(recipe_uuid):
 def edit_recipe(recipe_uuid):
     ''' Edits and updates an existing recipe. '''
 
+     # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+        # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
     if request.method == 'POST':
+
         tags = request.form.getlist('edited_tags')
         recipe_title = request.form.get('recipe_title')
         recipe_id = request.form.get('recipe_id')
@@ -546,7 +560,7 @@ def edit_recipe(recipe_uuid):
     ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()
 
     return render_template("edit_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
-                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json)
+                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json, total_recipes=total_recipes, favorite_total=favorite_total)
 
 
 @views.route('/delete_tag', methods=['POST'])
