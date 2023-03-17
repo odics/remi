@@ -470,7 +470,7 @@ def edit_recipe(recipe_uuid):
      # Get a count of all the favorites:
     favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
 
-        # Get a count of all the recipes:
+    # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
     if request.method == 'POST':
@@ -595,6 +595,21 @@ def delete_tag():
 
     return jsonify({})
 
+@views.route('/show_tags')
+@login_required
+def show_tags():
+
+    # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+    # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
+    shopping_list = ShoppingList.query.count()
+
+    recipes = Recipe.query.filter_by(username=current_user.id)
+
+    return render_template("show_tags.html", recipes=recipes, total_recipes=total_recipes ,favorite_total=favorite_total, shopping_list=shopping_list)
 
 @views.route('/add_favorite', methods=['POST'])
 @login_required

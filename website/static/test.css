@@ -1277,6 +1277,53 @@ margin-bottom: .5rem;
   font-size: .8rem;
 }
 
+.tag-list {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    list-style: none;
+    position: relative;
+    background-color: var(--nav-background);
+    border-radius: 5px;
+    width: fit-content;
+    padding: 5px;
+    margin-right: 3px;
+    font-family: 'Roboto', sans-serif;
+    color: var(--nav-items-color);
+    font-size: .8rem;
+    cursor: pointer;
+  }
+
+  .tag-menu {
+    position: absolute;
+    margin-top: 60px;
+    background-color: var(--nav-background);
+    border-radius: 5px;
+    width: 250px;
+    left: 0;
+    display: none;
+    padding: .3rem;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: var(--nav-text-color);
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 2px;
+    font-size: .8rem;
+  }
+
+  .body-wrapper-tags {
+    display: flex;
+    padding: .5rem;
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+
+  .tag-wrapper-list {
+    display: flex;
+    gap: .5rem;
+  }
+
 .tag-display ul {
   display: flex;
   padding: 0;
