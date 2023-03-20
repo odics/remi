@@ -46,8 +46,14 @@
           const response = await fetch(`/fetch_tags/${tags}`)
           const tagList = await response.json();
           
-          console.log(tagList)
-          updateTagList(tagList)
+          if (tagList.length == 0){
+            tagResults.innerHTML = `<div class="tag-results">Not found.</div>`;
+          } else {
+            console.log(tagList)
+            updateTagList(tagList)
+          }
+
+          
     
         } else {
           updateTagList('')
