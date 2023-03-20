@@ -608,42 +608,63 @@ def show_tags():
 
     shopping_list = ShoppingList.query.count()
     
-    print(tag_list)
-    print(stripped_tags)
-
-    return render_template("show_tags.html", recipes=recipes, total_recipes=total_recipes ,favorite_total=favorite_total, shopping_list=shopping_list)
+    return render_template("show_tags.html", total_recipes=total_recipes ,favorite_total=favorite_total, shopping_list=shopping_list)
 
 @views.route('/fetch_tags/<match_tag>', methods=['POST', 'GET'])
 @login_required
 def fetch_tags(match_tag):
-    recipes = Recipe.query.filter_by(username=current_user.id)
+    '''Takes in a string and performes a regex match based on starting characters. Returns a JSON object of matched tags.'''
+    if match_tag:
+        recipes = Recipe.query.filter_by(username=current_user.id)
 
-    tag_list = []
+        tag_list = []
+
+        for recipe in recipes:
+            if recipe.tags:
+                for tag in recipe.tags:
+                    tag_list.append(tag)
+
+        stripped_tags = []
+
+        for tag in tag_list:
+            if tag.tag_name not in stripped_tags:
+                stripped_tags.append(tag.tag_name)
+        
+        filtered_tags = []
+        regex = "^" + match_tag
+
+        for tag_result in stripped_tags:
+            if re.match(regex, tag_result):
+                filtered_tags.append(tag_result)
+        
+        json_tags = {}
+
+        for tag in filtered_tags:
+            json_tags["tag_name"] = tag
+
+        return(json.dumps(json_tags))
+    else:
+        return({})
+    
+@views.route('/fetch_tagged_recipe/<tag_query>')
+@login_required
+def fetch_tagged_recipe(tag_query):
+    recipes = Recipe.query.filter_by(username=current_user.id).all()
+
+    recipe_list = []
 
     for recipe in recipes:
-        if recipe.tags:
-            for tag in recipe.tags:
-                tag_list.append(tag)
+        for tag in recipe.tags:
+            if tag.tag_name == tag_query:
+                recipe_list.append(recipe.uuid)
+                print(recipe.uuid)
 
-    stripped_tags = []
+    recipe_json = {}
 
-    for tag in tag_list:
-        if tag.tag_name not in stripped_tags:
-            stripped_tags.append(tag.tag_name)
-    
-    filtered_tags = []
-    regex = "^" + match_tag
+    for i in range(len(recipe_list)):
+        recipe_json[i] = recipe_list[i]
 
-    for tag_result in stripped_tags:
-        if re.match(regex, tag_result):
-            filtered_tags.append(tag_result)
-    
-    json_tags = {}
-
-    for tag in filtered_tags:
-        json_tags["tag_name"] = tag
-
-    return(json.dumps(json_tags))
+    return(recipe_json)
 
 
 @views.route('/add_favorite', methods=['POST'])

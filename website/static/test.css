@@ -1328,6 +1328,7 @@ margin-bottom: .5rem;
 
   .body-wrapper-tags {
     display: flex;
+    flex-direction: column;
     padding: .5rem;
     padding-right: 4rem;
     padding-left: 4rem;
@@ -1343,6 +1344,17 @@ margin-bottom: .5rem;
   padding: 0;
   margin: 0;
 }
+
+.tag-results {
+    display: grid;
+    padding: .5rem;
+    width: 40%;
+    background-color: var(--nav-background);
+    border-radius: 5px;
+    margin-top: .5rem;
+    font-family: 'Roboto', sans-serif;
+    color: var(--nav-items-color);
+  }
 
 .tag-input {
     padding: .3rem;

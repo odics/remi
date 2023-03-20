@@ -23,7 +23,37 @@
       </div>
     </div>
     <div class="body-wrapper-tags">
-         <input type="text" class="text-input-tags" placeholder="Start typing to search for tags...">
-      {% endblock %}
+      <input type="text" class="text-input-tags" placeholder="Start typing to search for tags..." id="tag-match">
+      <div id="tag-results">
+
       </div>
+      <script>
+      const tagInput = document.getElementById("tag-match");
+      const tagResults = document.getElementById("tag-results");
+
+      const updateTagList = tagName => {
+        if (tagName.length === 0) {
+          tagName = [];
+          tagResults.innerHTML = '';
+        } else {
+          tagResults.innerHTML = '<div class="tag-results"><a href="/fetch_tagged_recipe/\"' + tagName.tag_name + '>' + tagName.tag_name + '</a></div>';
+          console.log(tagName)
+        }
+      }
+
+      const fetchTags = async tags => {
+        if (tags.length > 0) {
+          const response = await fetch(`/fetch_tags/${tags}`)
+          const tagList = await response.json();
+          updateTagList(tagList)
+        } else {
+          updateTagList('')
+        }
+      }
+
+      tagInput = addEventListener("input", () => fetchTags(tagInput.value));
+
+      </script>
+    {% endblock %}
+    </div>
     </div>
