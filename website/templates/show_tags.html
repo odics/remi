@@ -23,27 +23,7 @@
       </div>
     </div>
     <div class="body-wrapper-tags">
-        <div class="tag-wrapper-list">
-        {% for recipe in recipes %}
-
-            {% for tag in recipe.tags %}
-            <span class="tag-list" id="tag-list" onclick="menutoggle()">{{ tag.tag_name }}
-                <div class="tag-menu" id="tag-menu" style="display: none;">Hello</div>
-            </span>
-            {% endfor %}
-
-        {% endfor %}
-
-        <script>
-            function menutoggle() {
-              var x = document.getElementById("tag-menu");
-              if (x.style.display === "none") {
-                x.style.display = "inline-block";
-              } else {
-                x.style.display = "none";
-              }
-            }
-          </script>
+         <input type="text" class="text-input-tags" placeholder="Start typing to search for tags...">
       {% endblock %}
       </div>
     </div>
