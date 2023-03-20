@@ -17,7 +17,7 @@
       </div>
       {% endif %} {% endfor %} {% endif %} {% endwith %}
     <div class="page-title">
-      <div class="home-title">Showing your recipe tags - click tag to show all recipes with that tag</div>
+      <div class="home-title">click tag to show all recipes with that tag</div>
       <div class="sort-control">
        
       </div>
@@ -32,12 +32,12 @@
       const tagResults = document.getElementById("tag-results");
 
       const updateTagList = tagName => {
-        if (tagName.length === 0) {
-          tagName = [];
-          tagResults.innerHTML = '';
+        if (tagName.length > 0) {
+          for (var tag of tagName) {
+          tagResults.innerHTML = `<div class="tag-results"><a href="/fetch_tagged_recipe/${tag.tag_name}">${tag.tag_name}</a></div>`;
+          }
         } else {
-          tagResults.innerHTML = '<div class="tag-results"><a href="/fetch_tagged_recipe/\"' + tagName.tag_name + '>' + tagName.tag_name + '</a></div>';
-          console.log(tagName)
+          tagResults.innerHTML = ""
         }
       }
 
@@ -45,7 +45,10 @@
         if (tags.length > 0) {
           const response = await fetch(`/fetch_tags/${tags}`)
           const tagList = await response.json();
+          
+          console.log(tagList)
           updateTagList(tagList)
+    
         } else {
           updateTagList('')
         }

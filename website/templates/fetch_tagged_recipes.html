@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block title %}Add Recipe{% endblock %} {% block
+    content %}
+    <form method="POST">
+    <div class="page-title">
+      <div class="home-title">Showing all recipes tagged with {{ tag }}</div>
+      <div class="sort-control">
+      
+      </div>
+    </div>
+    <div class="body-wrapper">
+      {% for recipe in recipes %}
+        <div class="recipe-card">
+          <div class="recipe-details">
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-utensils"></i
+                ><span class="tag-text">{{ recipe.category }}</span>
+              </div>
+            </div>
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-pizza-slice"></i
+                ><span class="tag-text">{{ recipe.servings }}</span>
+              </div>
+            </div>
+            <div class="recipe-detail-tag">
+              <div class="recipe-tag">
+                <i class="fa-solid fa-clock"></i
+                ><span class="tag-text">{{ recipe.total_time }}</span>
+              </div>
+            </div>
+          </div>
+          <img
+            src="{{ url_for('static', filename=recipe.image) }}"
+            style="
+              width: 100%;
+              height: 15vw;
+              object-fit: cover;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 8px;
+              margin: 0;
+            "
+          />
+          <div class="recipe-control2">
+            <button type="button" class="delete" onclick="new_delete(this)" data-recipe-title="{{recipe.recipe_name}}" data-recipe-id="{{ recipe.uuid }}">
+              <i class="material-symbols-outlined">delete</i>
+            </button>
+            {% if recipe.favorite == True %}
+            <button
+              class="favorite-active"
+              onclick="remove_favorite('{{ recipe.id }}')"
+            >
+              <i class="fa-solid fa-heart fa-lg"></i>
+            </button>
+            {% else %}
+            <button class="favorite" onclick="add_favorite('{{ recipe.id }}')">
+              <i class="fa-regular fa-heart fa-lg"></i>
+            </button>
+            {% endif %}
+          </div>
+          <a class="card-link" href="/view_recipe/{{ recipe.uuid }}">
+            <div class="card-title">{{ recipe.recipe_name }}</div>
+          </a>
+        </div>
+      </form>
+        {% endfor %} {% endblock %}
+    </div>
+    
+    

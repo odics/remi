@@ -632,23 +632,27 @@ def fetch_tags(match_tag):
         
         filtered_tags = []
         regex = "^" + match_tag
-
+       
         for tag_result in stripped_tags:
             if re.match(regex, tag_result):
-                filtered_tags.append(tag_result)
-        
-        json_tags = {}
-
-        for tag in filtered_tags:
-            json_tags["tag_name"] = tag
-
-        return(json.dumps(json_tags))
+                filtered_tags.append({"tag_name": tag_result})
+            
+        return(json.dumps(filtered_tags))
     else:
-        return({})
+        return({""})
     
 @views.route('/fetch_tagged_recipe/<tag_query>')
 @login_required
 def fetch_tagged_recipe(tag_query):
+
+    # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+    # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
+    shopping_list = ShoppingList.query.count()
+
     recipes = Recipe.query.filter_by(username=current_user.id).all()
 
     recipe_list = []
@@ -656,15 +660,10 @@ def fetch_tagged_recipe(tag_query):
     for recipe in recipes:
         for tag in recipe.tags:
             if tag.tag_name == tag_query:
-                recipe_list.append(recipe.uuid)
-                print(recipe.uuid)
+                recipe_list.append(recipe)
 
-    recipe_json = {}
-
-    for i in range(len(recipe_list)):
-        recipe_json[i] = recipe_list[i]
-
-    return(recipe_json)
+    return render_template("fetch_tagged_recipes.html", favorite_total=favorite_total, total_recipes=total_recipes,
+                           shopping_list=shopping_list, recipes=recipe_list, tag=tag_query)
 
 
 @views.route('/add_favorite', methods=['POST'])
