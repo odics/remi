@@ -60,7 +60,9 @@
 
   <body>
     <nav class="navbar">
-      <div class="logo">R•E•M•I</div>
+      <div class="logo">
+        R•E•M•I
+      </div>
       <div class="nav-grid">
         <div class="nav-layout">
           <span class="nav-icon"><i class="fa-solid fa-home"></i></span>
@@ -197,7 +199,7 @@
         <p id="modal-inner-text"></p>
         <div>
           <a class="modal-delete" id="delete-link" href="#">Delete Recipe</a>
-          <button class="button-primary" id="close" onclick="close_modal()">Close</button>
+          <a class="button-primary close-modal" id="close" onclick="close_modal()">Close</a>
         </div>
       </div>
     </div>
@@ -572,6 +574,7 @@ var modal = document.getElementById("modal-container");
 var close_btn = document.getElementById("close");
 
 function close_modal() {
+  document.preventDefault;
   modal.style.display = "none";
 }
 

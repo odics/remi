@@ -497,11 +497,20 @@ hr.divider {
     font-family: 'Quicksand', sans-serif;
     font-size: 2rem;
     font-weight: 700;
-    margin-top: 1rem;
     color: var(--logo-color);
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     letter-spacing: 5px;
+    gap: 1rem;
+}
+
+.username {
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 1rem;
 }
 
 .pill {
@@ -1045,6 +1054,27 @@ margin-bottom: .5rem;
     font-size: .7rem;
     color: #D9E2EC;
     align-self: start;  
+}
+
+.button-primary.close-modal {
+    background-color: var(--primary-button);
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    display: block;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start;  
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .button-primary.login {
