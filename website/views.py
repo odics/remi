@@ -209,6 +209,12 @@ def add_recipe():
     ''' Import and preview a recipe before saving to database. '''
     shopping_list = session.get('shopping_list', None)
 
+      # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+    # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
     if request.method == 'POST':
         url = request.form.get('recipe_url')
 
@@ -241,7 +247,8 @@ def add_recipe():
                                    original_url=recipe.original_url, date_parsed=recipe.date_parsed, 
                                    instructions_json=json.loads(recipe.instructions_json))
 
-    return render_template("add_recipe.html", user=current_user, shopping_list=shopping_list)
+    return render_template("add_recipe.html", user=current_user, shopping_list=shopping_list, total_recipes=total_recipes,
+                           favorite_total=favorite_total)
 
 
 @views.route('/save_recipe', methods=['GET', 'POST'])

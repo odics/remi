@@ -21,7 +21,7 @@ body {
     --nav-items-hover: #BCCCDC;
     --nav-text-color: rgba(68, 60, 104, 0.678);
     --search-input-color: #c1cdda92;
-    --pill-background: #C6F7E2;
+    --pill-background: #31719b85;
     --recipe-card-background: #F0F4F8;
     --primary-button: #035388;
     --secondary-button: #D9E2EC;
@@ -512,9 +512,10 @@ hr.divider {
     justify-content: center;
     margin: 0;
     font-family: 'Quicksand', sans-serif;
+    color:rgb(0, 0, 0);
     text-transform: uppercase;
-    font-size: .5rem;
-    padding: 3px;
+    font-size: .6rem;
+    padding: 4px;
 }
 
 hr {
@@ -1035,6 +1036,26 @@ margin-bottom: .5rem;
     border-radius: 5px;
     height: 30px;
     display: block;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start;  
+}
+
+.button-primary.login {
+    background-color: var(--primary-button);
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
@@ -1761,4 +1782,44 @@ margin-bottom: .5rem;
       .ingredient-list {
         margin-top: 3rem;
       }
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 4rem;
+    gap: 1rem;
+}
+
+.login-form {
+    display: grid;
+    gap: .2rem;
+    margin-bottom: 1rem;
+}
+
+.login-form.remember-me {
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.login-input {
+    padding: .3rem;
+    background-color: var(--search-input-color);
+    border: 1px solid;
+    height: 30px;
+    border-color: rgb(191, 186, 205);
+    border-radius: 5px;
+    width: 100%;
+    align-self: start;  
+    font-family: 'Oxygen', sans-serif;
+    color: var(--nav-text-color);
+    font-size: .8rem;
+}
+
+.form-label {
+    font-family: 'Roboto', sans-serif;
+    color: var(--nav-items-color);
 }

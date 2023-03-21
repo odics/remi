@@ -2,36 +2,23 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<section class="pb-4">
-    <section class="w-120 p-4 d-flex justify-content-center pb-4">
-        <form method="POST" style="width: 22rem;">
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-                <input type="email" id="email" name="email" class="form-control" placeholder="Enter email"/>
-                <label class="form-label" for="email">Email address</label>
-            </div>
-
-            <!-- Password input -->
-            <div class="form-outline mb-4">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Enter password"/>
-                <label class="form-label" for="password">Password</label>
-            </div>
-
-            <!-- 2 column grid layout for inline styling -->
-            <div class="row mb-4">
-                <div class="col d-flex justify-content-center">
-                    <!-- Checkbox -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-                        <label class="form-check-label" for="form2Example31"> Remember me </label>
-                    </div>
+            <div class="login-container">
+                <form method="POST" style="width: 22rem;">
+                <div class="login-form">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="login-input">
                 </div>
+
+                <div class="login-form">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="login-input">
+                </div>
+
+                <div class="login-form remember-me">
+                    <label class="form-label" for="remember-me">Remember Me</label>
+                    <input class="form-check-input" type="checkbox" value="" id="remember-me" checked />
+                </div>
+                <button type="submit" class="button-primary login">Login</button>
+                </form>
             </div>
-
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>
-
-        </form>
-    </section>
-</section>
 {% endblock %}
