@@ -636,7 +636,7 @@ def fetch_tags(match_tag):
         for tag_result in stripped_tags:
             if re.match(regex, tag_result):
                 filtered_tags.append({"tag_name": tag_result})
-            
+
         return(json.dumps(filtered_tags))
     else:
         return({""})

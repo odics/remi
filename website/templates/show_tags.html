@@ -16,29 +16,31 @@
         <div class="alert-close" id="alert-close"><i class="fa-solid fa-circle-xmark fa-xl"></i></div>
       </div>
       {% endif %} {% endfor %} {% endif %} {% endwith %}
-    <div class="page-title">
+    <div class="page-title-tags">
       <div class="home-title">click tag to show all recipes with that tag</div>
-      <div class="sort-control">
-       
-      </div>
     </div>
     <div class="body-wrapper-tags">
       <input type="text" class="text-input-tags" placeholder="Start typing to search for tags..." id="tag-match">
       <div id="tag-results">
-
+      
       </div>
-      <script>
+    </div>
+    <script>
       const tagInput = document.getElementById("tag-match");
       const tagResults = document.getElementById("tag-results");
 
       const updateTagList = tagName => {
+        var tagHTML = "";
+
         if (tagName.length > 0) {
           for (var tag of tagName) {
-          tagResults.innerHTML = `<div class="tag-results"><a href="/fetch_tagged_recipe/${tag.tag_name}">${tag.tag_name}</a></div>`;
+          tagHTML += `<div class="tag-results"><i class="fa-solid fa-tag"></i> <a class="menu-link" href="/fetch_tagged_recipe/${tag.tag_name}">${tag.tag_name}</a></div>`;
           }
         } else {
           tagResults.innerHTML = ""
         }
+
+        tagResults.innerHTML = tagHTML
       }
 
       const fetchTags = async tags => {
