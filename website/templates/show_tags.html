@@ -25,7 +25,9 @@
       
       </div>
     </div>
+
     <script>
+      // Dynamic tag search
       const tagInput = document.getElementById("tag-match");
       const tagResults = document.getElementById("tag-results");
 
@@ -34,7 +36,7 @@
 
         if (tagName.length > 0) {
           for (var tag of tagName) {
-          tagHTML += `<div class="tag-results"><i class="fa-solid fa-tag"></i> <a class="menu-link" href="/fetch_tagged_recipe/${tag.tag_name}">${tag.tag_name}</a></div>`;
+          tagHTML += `<div class="tag-results"><i class="fa-solid fa-tag"></i> <a class="menu-link" href="/fetch_tagged_recipe/${tag.tag_name}">${tag.tag_name}</a><div class="recipe-count">recipes with this tag: ${tag.count}</div></div>`;
           }
         } else {
           tagResults.innerHTML = ""
@@ -54,16 +56,12 @@
             console.log(tagList)
             updateTagList(tagList)
           }
-
-          
-    
         } else {
           updateTagList('')
         }
       }
 
       tagInput = addEventListener("input", () => fetchTags(tagInput.value));
-
       </script>
     {% endblock %}
     </div>

@@ -35,7 +35,7 @@ def all_recipes():
     recipes = Recipe.query.filter_by(username=current_user.id).all()
     page_title = "Showing all recipes"
 
-     # Get a count of all the favorites:
+    # Get a count of all the favorites:
     favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
 
     # Get a count of all the recipes:
@@ -643,6 +643,18 @@ def fetch_tags(match_tag):
         for tag_result in stripped_tags:
             if re.match(regex, tag_result):
                 filtered_tags.append({"tag_name": tag_result})
+
+        
+
+        for tag in filtered_tags:
+            count = 0
+            recipes = Recipe.query.filter_by(username=current_user.id).all()
+            for recipe in recipes:
+                for recipe_tag in recipe.tags:
+                    if recipe_tag.tag_name == tag["tag_name"]:
+                        count = count + 1
+            tag["count"] = count
+            print(tag)
 
         return(json.dumps(filtered_tags))
     else:
