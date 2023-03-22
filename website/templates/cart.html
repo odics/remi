@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Add Recipe{% endblock %} {% block
     content %}
-    <form method="POST">
+    <form method="POST" id="cart-form">
     <div class="cart-wrapper">
         <div class="cart-card">
         <h2>Manually Add Ingredient</h2>
@@ -23,7 +23,7 @@
         <div class="ingredient-list-cart">
             <div class="ing-menu">
             <h2>Ingredient List - {{ shopping_list }} Items</h2>
-            <button class="button-primary">Clear Cart</button>
+            <button type="button" class="button-primary" id="clear-cart-button">Clear Cart</button>
             </div>
             {% if produce %}
             <div class="ing-heading">
@@ -109,4 +109,13 @@
 </form>
 
 
+<div class="modal-container" id="modal-container-cart" data-user-id="{{ user.id }}">
+    <div class="modal">
+      <p id="modal-inner-text">Are you sure you want to clear all {{ shopping_list }} items from the cart?</p>
+      <div>
+        <a class="modal-delete" id="confirm-clear-cart" href="#">Clear Cart</a>
+        <a class="button-primary close-modal" id="close-cart-modal">Close</a>
+      </div>
+    </div>
+  </div>
 {% endblock %}
