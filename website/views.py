@@ -11,6 +11,22 @@ import os
 
 views = Blueprint('views', __name__)
 
+@views.route('/settings', methods=['GET'])
+@login_required
+def settings():
+    '''App settings.'''
+
+    # Get a count of all the favorites:
+    favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
+
+    # Get a count of all the recipes:
+    total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
+    shopping_list = ShoppingList.query.count()
+
+    return render_template("settings.html", favorite_total=favorite_total, total_recipes=total_recipes, shopping_list=shopping_list, user=current_user)
+
+
 @views.route('/all_recipes', methods=['GET', 'POST'])
 @login_required
 def all_recipes():
@@ -87,13 +103,14 @@ def create_recipe():
     ''' Creates a recipe from user-provided information. '''
     if request.method == 'GET':
 
-         # Get a count of all the favorites:
+        # Get a count of all the favorites:
         favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
 
         # Get a count of all the recipes:
         total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
         shopping_list = ShoppingList.query.count()
+
         session['shopping_list'] = shopping_list
         
         return render_template("create_recipe.html", user=current_user, shopping_list=shopping_list, total_recipes=total_recipes, favorite_total=favorite_total)

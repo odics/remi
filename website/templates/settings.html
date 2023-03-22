@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block
+    content %}
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %} {% if category ==
+      'error' %}
+      <div class="alert alert-danger alert-dismissable fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% else %}
+      <div class="alert-success" id="alert">
+        <i class="fa-solid fa-circle-info fa-2x"></i>
+        <p>{{ message }}</p>
+        <div class="alert-close" id="alert-close"><i class="fa-solid fa-circle-xmark fa-xl"></i></div>
+      </div>
+      {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <div class="body-wrapper-settings">
+      <div class="settings-display">
+
+        <div class="title-settings">
+          User information
+        </div>
+        <div class="content-settings">
+          Currently logged in as {{ user.first_name }}
+        </div>
+
+        <div class="title-settings">
+          Appearance
+        </div>
+        <div class="content-settings">
+          Dark theme - light theme
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+    </div>
+    </div>
