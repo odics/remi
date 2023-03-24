@@ -47,7 +47,7 @@ content %}
         </div>
       </div>
       <img
-        src="{{ url_for('static', filename=recipe.image) }}"
+      src="{{ url_for('static', filename='/images/' + recipe.image) }}"
       />
       <div class="recipe-control2">
         <button class="delete" onclick="new_delete(this)" data-recipe-title="{{recipe.recipe_name}}" data-recipe-id="{{ recipe.uuid }}">

@@ -374,7 +374,7 @@ hr.divider {
     position: fixed;
     display: grid;
     width: 13rem;
-    grid-template-rows: 10% 1fr 15%;
+    grid-template-rows: 10% 1fr 15vh;
     background-color: var(--nav-background);
     height: 100vh;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;

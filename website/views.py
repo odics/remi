@@ -22,7 +22,7 @@ def settings():
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     return render_template("settings.html", favorite_total=favorite_total, total_recipes=total_recipes, shopping_list=shopping_list, user=current_user)
 
@@ -32,7 +32,7 @@ def settings():
 def all_recipes():
     ''' Lists all available recipes in the database.'''
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     session['shopping_list'] = shopping_list
 
     if request.method == 'POST':
@@ -89,7 +89,7 @@ def home():
     except IndexError:
         popular_category = "None"
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     session['shopping_list'] = shopping_list
 
     return render_template("home.html", user=current_user, recipes=recipes, shopping_list=shopping_list,
@@ -109,7 +109,7 @@ def create_recipe():
         # Get a count of all the recipes:
         total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-        shopping_list = ShoppingList.query.count()
+        shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
         session['shopping_list'] = shopping_list
         
@@ -421,7 +421,7 @@ def delete_recipe_go_home(recipe_id):
 @login_required
 def show_favorites():
     ''' Show all favorite recipes. '''
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     fav_recipe = Recipe.query.filter_by(username=current_user.id, favorite=True).all()
 
     # Get a count of all the favorites:
@@ -447,7 +447,7 @@ def random_recipe():
             db.session.add(ingredient)
             db.session.commit()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     recipe = Recipe.query.filter_by(username=current_user.id).group_by(func.random()).first()
     ingredients = Ingredients.query.filter_by(uuid=recipe.uuid).all()
@@ -476,7 +476,7 @@ def view_recipe(recipe_uuid):
             db.session.add(ingredient)
             db.session.commit()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     recipe_id = recipe_uuid
     recipe = Recipe.query.filter_by(uuid=recipe_id).first()
@@ -589,7 +589,7 @@ def edit_recipe(recipe_uuid):
 
         return redirect(url_for('views.view_recipe', recipe_uuid=recipe_uuid))
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     recipe_id = recipe_uuid
     recipe = Recipe.query.filter_by(uuid=recipe_id).first()
@@ -630,7 +630,7 @@ def show_tags():
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     
     return render_template("show_tags.html", total_recipes=total_recipes ,favorite_total=favorite_total, shopping_list=shopping_list)
 
@@ -687,7 +687,7 @@ def fetch_tagged_recipe(tag_query):
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     recipes = Recipe.query.filter_by(username=current_user.id).all()
 
@@ -755,7 +755,7 @@ def cart():
 
         return redirect(url_for('views.cart'))
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     shopping_items_pasta = ShoppingList.query.filter_by(category='pasta').all()
     shopping_items_produce = ShoppingList.query.filter_by(category='produce').all()
     shopping_items_misc = ShoppingList.query.filter_by(category='misc').all()
