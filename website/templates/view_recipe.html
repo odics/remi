@@ -85,11 +85,13 @@
                 Shopping List</button>
               </li>
               <li class="item">
-                <a href="{{ recipe.original_url }}" target="#"><i class="fa-solid fa-link nav-icon"></i> Link to Original
+                <i class="fa-solid fa-link nav-icon"></i>
+                <a href="{{ recipe.original_url }}" target="#">Link to Original
                 Recipe</a>
               </li>
               <li class="item">
-                <a href="/edit_recipe/{{ recipe.uuid }}"><i class="fa-regular fa-pen-to-square nav-icon"></i> Edit Recipe</a>
+                <i class="fa-regular fa-pen-to-square nav-icon"></i>
+                <a href="/edit_recipe/{{ recipe.uuid }}">Edit Recipe</a>
               </li>
               <li onclick="delete_recipe(this);" class="item" data-recipe-id = "{{ recipe.uuid }}" data-recipe-title="{{ recipe.recipe_name }}">
                 <i class="fa-solid fa-trash-can nav-icon"></i> Delete Recipe

@@ -295,6 +295,8 @@ main {
 
 .recipe-dropdown-content li {
     list-style: none;
+    display: flex;
+    gap: .5rem;
     margin: 5px;
     padding: 8px;
     transition: 200ms ease-in-out;
@@ -326,6 +328,8 @@ hr.divider {
 
 .recipe-dropdown-content button {
     background-color: var(--nav-background);
+    display: flex;
+    gap: .5rem;
     border: none;
     transition: 200ms ease-in-out;
     letter-spacing: 2px;
