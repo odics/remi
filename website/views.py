@@ -751,20 +751,20 @@ def cart():
         category = request.form.get('ing_type')
         ingredient = request.form.get('ingredient')
 
-        ingredient_to_add = ShoppingList(shopping_item=ingredient, category=category)
+        ingredient_to_add = ShoppingList(shopping_item=ingredient, category=category, username=current_user.id)
         db.session.add(ingredient_to_add)
         db.session.commit()
 
         return redirect(url_for('views.cart'))
 
     shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
-    shopping_items_pasta = ShoppingList.query.filter_by(category='pasta').all()
-    shopping_items_produce = ShoppingList.query.filter_by(category='produce').all()
-    shopping_items_misc = ShoppingList.query.filter_by(category='misc').all()
-    shopping_items_dairy = ShoppingList.query.filter_by(category='dairy_bread').all()
-    shopping_items_meat = ShoppingList.query.filter_by(category='meat').all()
-    shopping_items_frozen = ShoppingList.query.filter_by(category='frozen').all()
-    shopping_items_coffee = ShoppingList.query.filter_by(category='coffee_tea').all()
+    shopping_items_pasta = ShoppingList.query.filter_by(username=current_user.id, category='pasta').all()
+    shopping_items_produce = ShoppingList.query.filter_by(username=current_user.id, category='produce').all()
+    shopping_items_misc = ShoppingList.query.filter_by(username=current_user.id, category='misc').all()
+    shopping_items_dairy = ShoppingList.query.filter_by(username=current_user.id, category='dairy_bread').all()
+    shopping_items_meat = ShoppingList.query.filter_by(username=current_user.id, category='meat').all()
+    shopping_items_frozen = ShoppingList.query.filter_by(username=current_user.id, category='frozen').all()
+    shopping_items_coffee = ShoppingList.query.filter_by(username=current_user.id, category='coffee_tea').all()
 
     pasta_to_copy = ""
     produce_to_copy = ""
