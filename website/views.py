@@ -658,7 +658,7 @@ def fetch_tags(match_tag):
         regex = "^" + match_tag
        
         for tag_result in stripped_tags:
-            if re.match(regex, tag_result):
+            if re.match(regex, tag_result, re.IGNORECASE):
                 filtered_tags.append({"tag_name": tag_result})
 
         
