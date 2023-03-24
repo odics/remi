@@ -73,20 +73,23 @@ const clearCartButton = document.getElementById("clear-cart-button");
 const closeCartModalButton = document.getElementById("close-cart-modal");
 const confirmClearCartButton = document.getElementById("confirm-clear-cart");
 
-const userID = clearCartModal.dataset.userId;
+if (clearCartButton) {
+    const userID = clearCartModal.dataset.userId;
+    clearCartButton.addEventListener("click", () => {
+        clearCartModal.style.display = "block";
+        console.log("Hello")
+    });
+    
+    closeCartModalButton.addEventListener("click", () => {
+        clearCartModal.style.display = "none";
+    })
+    
+    confirmClearCartButton.addEventListener("click", () => {
+        clear_cart(userID)
+    })
+}
 
-clearCartButton.addEventListener("click", () => {
-    clearCartModal.style.display = "block";
-    console.log("Hello")
-});
 
-closeCartModalButton.addEventListener("click", () => {
-    clearCartModal.style.display = "none";
-})
-
-confirmClearCartButton.addEventListener("click", () => {
-    clear_cart(userID)
-})
 
 // Add and remove favorite recipes
 function add_favorite(recipe_id) {
@@ -136,13 +139,15 @@ var tag_lister = document.getElementById("list_all_tags");
 var all_tags = document.querySelector(".tag-text");
 var input_text_key_press = document.getElementById("new_tag");
 
-document.getElementById("ing").onkeypress = function (e) {
-    var key = e.charCode || e.keyCode || 0;
-    if (key == 13) {
-        e.preventDefault();
+if (document.getElementById("ing")) {
+    const ing = document.getElementById.addEventListener("keypress",  (e) => {
+        var key = e.charCode || e.keyCode || 0;
+        if (key == 13) {
+            e.preventDefault();
+        }})
     }
-}
 
+if (input_text_key_press) {
 input_text_key_press.onkeyup = function () {
     if (event.keyCode === 13) {
         var tag_input = document.getElementById("new_tag");
@@ -158,8 +163,9 @@ input_text_key_press.onkeyup = function () {
         tag_to_add.innerHTML = "<span class='tag-text'>" + tag_input.value + '</span>' + " <span class='delete_tag' onclick='delete_tag(this)'><i class='fa-solid fa-circle-xmark fa-lg'></i></span><input type='hidden' name='new_tag' value='" + tag_input.value + "'>";
         tag_input.value = "";
     }
-}
+}}
 
+if (tag_lister) {
 tag_lister.onclick = function () {
     var all_tags = document.querySelectorAll(".tag-text");
 
@@ -167,7 +173,7 @@ tag_lister.onclick = function () {
         console.log(all_tags[i].textContent);
     }
 
-}
+}}
 
 
 // Recipe creator functions
@@ -266,6 +272,7 @@ function close_modal() {
 
 // Recipe deletion
 function delete_recipe(e) {
+    var modal = document.getElementById("modal-container");
     var recipe_id = e.dataset.recipeId;
     var delete_button = document.getElementById("confirm-delete");
     delete_button.setAttribute("onClick", 'delete_recipe_go_home("' + recipe_id + '");');
@@ -273,9 +280,10 @@ function delete_recipe(e) {
     var recipe_title = e.dataset.recipeTitle;
     modal.style.display = "block";
     modal_text.innerText = "Are you sure you want to delete " + recipe_title + "?";
-}
+};
 
 function new_delete(e) {
+    var modal = document.getElementById("modal-container");
     var recipe_id = e.dataset.recipeId;
     var delete_link = document.getElementById("delete-link")
     var modal_text = document.getElementById("modal-inner-text");
@@ -284,12 +292,14 @@ function new_delete(e) {
     modal_text.innerText = "Are you sure you want to delete " + recipe_title + "?";
 
     delete_link.setAttribute("href", "/delete_recipe_go_home/" + recipe_id)
-}
+};
 
 // Flask flashed message handling
-var flashAlert = document.getElementById("alert");
-var flashMessage = document.getElementById("alert-close");
+const flashAlert = document.getElementById("alert");
+const flashMessage = document.getElementById("alert-close");
 
-flashMessage.onclick = function () {
+if (flashMessage) {
+flashMessage.addEventListener("click", () => {
+    console.log("Alert close pressed");
     flashAlert.style.display = "none";
-}
+})};
