@@ -139,17 +139,20 @@ var tag_lister = document.getElementById("list_all_tags");
 var all_tags = document.querySelector(".tag-text");
 var input_text_key_press = document.getElementById("new_tag");
 
-if (document.getElementById("ing")) {
-    const ing = document.getElementById.addEventListener("keypress",  (e) => {
-        var key = e.charCode || e.keyCode || 0;
-        if (key == 13) {
-            e.preventDefault();
-        }})
-    }
+// if (document.getElementById("ing")) {
+//     const ing = document.getElementById.addEventListener("keypress",  (e) => {
+//         var key = e.charCode || e.keyCode || 0;
+//         if (key == 13) {
+//             e.preventDefault();
+//         }})
+//     }
 
 if (input_text_key_press) {
-input_text_key_press.onkeyup = function () {
-    if (event.keyCode === 13) {
+input_text_key_press.onkeydown = function (e) {
+    if (e.key === 'Enter') {
+        
+        e.preventDefault();
+       
         var tag_input = document.getElementById("new_tag");
         var tag_list = document.getElementById("tag_list");
         var tag_to_add = document.createElement("li");
@@ -305,3 +308,28 @@ flashMessage.addEventListener("click", () => {
     console.log("Alert close pressed");
     flashAlert.style.display = "none";
 })};
+
+const editCartItem = (item) => {
+    let currentItemContent = item.innerHTML
+    let textBox = item.nextElementSibling
+    let itemID = item.dataset.itemNumber
+    
+    textBox.style.display = "block"
+    textBox.setAttribute("value", currentItemContent)
+    textBox.setAttribute("class", "cart-text-input")
+    item.style.display = "none"
+
+    textBox.addEventListener("keydown", (e) => {
+        if (e.key == 'Enter') {
+            console.log("enter")
+            e.preventDefault();
+            fetch('/update_cart/' + itemID + '/' + textBox.value).then((_res) => {
+                var currentScrollPosition = $(window).scrollTop();
+                location.reload();
+                setTimeout(function () {
+                    $(window).scrollTop(currentScrollPosition);
+                }, 100);
+            });
+        }
+    })
+}

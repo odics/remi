@@ -805,6 +805,7 @@ margin-bottom: .5rem;
     font-size: .9rem;
     letter-spacing: 1px;
     padding: .5rem;
+    gap: .5rem;
 }
 
 .cart-ingredient i {
@@ -952,6 +953,20 @@ margin-bottom: .5rem;
 }
 
 .text-input {
+    padding: .3rem;
+    background-color: var(--search-input-color);
+    border: 1px solid;
+    height: 30px;
+    border-color: rgb(191, 186, 205);
+    border-radius: 5px;
+    width: 100%;
+    align-self: start;  
+    font-family: 'Oxygen', sans-serif;
+    color: var(--nav-text-color);
+    font-size: .8rem;
+}
+
+.cart-text-input {
     padding: .3rem;
     background-color: var(--search-input-color);
     border: 1px solid;

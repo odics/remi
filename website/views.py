@@ -443,7 +443,7 @@ def random_recipe():
         category = request.form.getlist('category')
         ingredient_list = request.form.getlist('ingredients')
         for ingredient in ingredient_list:
-            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)])
+            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)], username=current_user.id)
             db.session.add(ingredient)
             db.session.commit()
 
@@ -472,9 +472,11 @@ def view_recipe(recipe_uuid):
         category = request.form.getlist('category')
         ingredient_list = request.form.getlist('ingredients')
         for ingredient in ingredient_list:
-            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)])
+            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)], username=current_user.id)
             db.session.add(ingredient)
             db.session.commit()
+
+        flash('Success fully added ingredients to shopping list', category="success")
 
     shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
@@ -826,3 +828,15 @@ def clear_cart():
 
     return jsonify({})
 
+@views.route('/update_cart/<item_id>/<updated_value>', methods=['GET'])
+@login_required
+def update_car(item_id, updated_value):
+    ''' Dynamically updates given cart item. '''
+
+    item_to_update = ShoppingList.query.filter_by(username=current_user.id, id=item_id).first()
+    print(item_to_update.shopping_item)
+    print(updated_value)
+    item_to_update.shopping_item = updated_value
+    db.session.commit()
+
+    return jsonify({})
