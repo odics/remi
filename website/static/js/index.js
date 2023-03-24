@@ -273,13 +273,15 @@ function close_modal() {
 // Recipe deletion
 function delete_recipe(e) {
     var modal = document.getElementById("modal-container");
-    var recipe_id = e.dataset.recipeId;
-    var delete_button = document.getElementById("confirm-delete");
-    delete_button.setAttribute("onClick", 'delete_recipe_go_home("' + recipe_id + '");');
-    var modal_text = document.getElementById("modal-inner-text");
-    var recipe_title = e.dataset.recipeTitle;
     modal.style.display = "block";
+    var recipe_title = e.dataset.recipeTitle;
+    var modal_text = document.getElementById("modal-inner-text");
     modal_text.innerText = "Are you sure you want to delete " + recipe_title + "?";
+    
+    var recipe_id = e.dataset.recipeId;
+    var delete_link = document.getElementById("delete-link");
+    delete_link.setAttribute("href", "/delete_recipe_go_home/" + recipe_id)
+    
 };
 
 function new_delete(e) {
