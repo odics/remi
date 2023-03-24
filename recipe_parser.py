@@ -39,7 +39,7 @@ def download_image(url, file_name):
     :return: does not return a value, simply saves the image to disk
     """
     res = requests.get(url, stream=True)
-    file_name = "./website/static/" + file_name
+    file_name = "./website/static/images/" + file_name
 
     if res.status_code == 200:
         with open(file_name, 'wb') as f:
