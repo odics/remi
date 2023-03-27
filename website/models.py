@@ -55,3 +55,4 @@ class ShoppingList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     shopping_item = db.Column(db.String())
     category = db.Column(db.String())
+    username = db.Column(db.String())

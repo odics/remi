@@ -31,7 +31,7 @@
             </div>
             {% for item in produce %}
             <div class="cart-ingredient">
-                <p>{{ item.shopping_item }}</p>
+                <p class="cart-input">{{ item.shopping_item }}</p>
                 <i onclick="delete_shopping_item({{ item.id }})" class="fa-solid fa-square-xmark fa-lg"></i>
             </div>
             {% endfor %}
@@ -42,7 +42,7 @@
             </div>
             {% for item in meat %}
             <div class="cart-ingredient">
-                <p>{{ item.shopping_item }}</p>
+                <p class="cart-input">{{ item.shopping_item }}</p>
                 <i onclick="delete_shopping_item({{ item.id }})" class="fa-solid fa-square-xmark fa-lg"></i>
             </div>
             {% endfor %}
@@ -53,7 +53,7 @@
             </div>
             {% for item in dairy %}
             <div class="cart-ingredient">
-                <p>{{ item.shopping_item }}</p>
+                <p class="cart-input">{{ item.shopping_item }}</p>
                 <i onclick="delete_shopping_item({{ item.id }})" class="fa-solid fa-square-xmark fa-lg"></i>
             </div>
             {% endfor %}
@@ -64,7 +64,7 @@
             </div>
             {% for item in coffee_tea %}
             <div class="cart-ingredient">
-                <p>{{ item.shopping_item }}</p>
+                <p class="cart-input">{{ item.shopping_item }}</p>
                 <i onclick="delete_shopping_item({{ item.id }})" class="fa-solid fa-square-xmark fa-lg"></i>
             </div>
             {% endfor %}
@@ -75,7 +75,7 @@
             </div>
             {% for item in pasta %}
             <div class="cart-ingredient">
-                <p>{{ item.shopping_item }}</p>
+                <p class="cart-input">{{ item.shopping_item }}</p>
                 <i onclick="delete_shopping_item({{ item.id }})" class="fa-solid fa-square-xmark fa-lg"></i>
             </div>
             {% endfor %}
@@ -86,7 +86,8 @@
             </div>
             {% for item in misc %}
             <div class="cart-ingredient">
-                <p>{{ item.shopping_item }}</p>
+                <p class="cart-input" onclick="editCartItem(this)" data-item-number="{{ item.id }}">{{ item.shopping_item }}</p>
+                <input type="text" style="display: none">
                 <i onclick="delete_shopping_item({{ item.id }})" class="fa-solid fa-square-xmark fa-lg"></i>
             </div>
             {% endfor %}
@@ -97,7 +98,7 @@
             </div>
             {% for item in frozen %}
             <div class="cart-ingredient">
-                <p>{{ item.shopping_item }}</p>
+                <p class="cart-input">{{ item.shopping_item }}</p>
                 <i onclick="delete_shopping_item({{ item.id }})" class="fa-solid fa-square-xmark fa-lg"></i>
             </div>
             {% endfor %}

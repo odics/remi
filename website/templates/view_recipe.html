@@ -1,11 +1,27 @@
 {% extends "base.html" %} {% block title %}{{ recipe.recipe_name }}{% endblock
 %} {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %} {% for category, message in messages %} {% if category ==
+  'error' %}
+  <div class="alert alert-danger alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% else %}
+  <div class="alert-success" id="alert">
+    <i class="fa-solid fa-circle-info fa-2x"></i>
+    <p>{{ message }}</p>
+    <div class="alert-close"><i class="fa-solid fa-circle-xmark fa-xl" id="alert-close"></i></div>
+  </div>
+  {% endif %} {% endfor %} {% endif %} {% endwith %}
 <form method="POST">
 <div class="view-recipe">
   <div class="ingredient-list">
     <img
     class="instruction-img"
-    src="{{ url_for('static', filename=recipe.image) }}"
+    src="{{ url_for('static', filename='/images/' + recipe.image) }}"
   />
     {% for ingredient in ingredients %}
     <div class="ingredient-wrapper">
@@ -85,11 +101,13 @@
                 Shopping List</button>
               </li>
               <li class="item">
-                <a href="{{ recipe.original_url }}" target="#"><i class="fa-solid fa-link nav-icon"></i> Link to Original
+                <i class="fa-solid fa-link nav-icon"></i>
+                <a href="{{ recipe.original_url }}" target="#">Link to Original
                 Recipe</a>
               </li>
               <li class="item">
-                <a href="/edit_recipe/{{ recipe.uuid }}"><i class="fa-regular fa-pen-to-square nav-icon"></i> Edit Recipe</a>
+                <i class="fa-regular fa-pen-to-square nav-icon"></i>
+                <a href="/edit_recipe/{{ recipe.uuid }}">Edit Recipe</a>
               </li>
               <li onclick="delete_recipe(this);" class="item" data-recipe-id = "{{ recipe.uuid }}" data-recipe-title="{{ recipe.recipe_name }}">
                 <i class="fa-solid fa-trash-can nav-icon"></i> Delete Recipe

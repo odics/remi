@@ -22,7 +22,7 @@ def settings():
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     return render_template("settings.html", favorite_total=favorite_total, total_recipes=total_recipes, shopping_list=shopping_list, user=current_user)
 
@@ -32,7 +32,7 @@ def settings():
 def all_recipes():
     ''' Lists all available recipes in the database.'''
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     session['shopping_list'] = shopping_list
 
     if request.method == 'POST':
@@ -89,7 +89,7 @@ def home():
     except IndexError:
         popular_category = "None"
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     session['shopping_list'] = shopping_list
 
     return render_template("home.html", user=current_user, recipes=recipes, shopping_list=shopping_list,
@@ -109,7 +109,7 @@ def create_recipe():
         # Get a count of all the recipes:
         total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-        shopping_list = ShoppingList.query.count()
+        shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
         session['shopping_list'] = shopping_list
         
@@ -421,7 +421,7 @@ def delete_recipe_go_home(recipe_id):
 @login_required
 def show_favorites():
     ''' Show all favorite recipes. '''
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     fav_recipe = Recipe.query.filter_by(username=current_user.id, favorite=True).all()
 
     # Get a count of all the favorites:
@@ -443,11 +443,11 @@ def random_recipe():
         category = request.form.getlist('category')
         ingredient_list = request.form.getlist('ingredients')
         for ingredient in ingredient_list:
-            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)])
+            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)], username=current_user.id)
             db.session.add(ingredient)
             db.session.commit()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     recipe = Recipe.query.filter_by(username=current_user.id).group_by(func.random()).first()
     ingredients = Ingredients.query.filter_by(uuid=recipe.uuid).all()
@@ -472,11 +472,13 @@ def view_recipe(recipe_uuid):
         category = request.form.getlist('category')
         ingredient_list = request.form.getlist('ingredients')
         for ingredient in ingredient_list:
-            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)])
+            ingredient = ShoppingList(shopping_item=ingredient, category=category[ingredient_list.index(ingredient)], username=current_user.id)
             db.session.add(ingredient)
             db.session.commit()
 
-    shopping_list = ShoppingList.query.count()
+        flash('Success fully added ingredients to shopping list', category="success")
+
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     recipe_id = recipe_uuid
     recipe = Recipe.query.filter_by(uuid=recipe_id).first()
@@ -589,7 +591,7 @@ def edit_recipe(recipe_uuid):
 
         return redirect(url_for('views.view_recipe', recipe_uuid=recipe_uuid))
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     recipe_id = recipe_uuid
     recipe = Recipe.query.filter_by(uuid=recipe_id).first()
@@ -630,7 +632,7 @@ def show_tags():
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
     
     return render_template("show_tags.html", total_recipes=total_recipes ,favorite_total=favorite_total, shopping_list=shopping_list)
 
@@ -658,7 +660,7 @@ def fetch_tags(match_tag):
         regex = "^" + match_tag
        
         for tag_result in stripped_tags:
-            if re.match(regex, tag_result):
+            if re.match(regex, tag_result, re.IGNORECASE):
                 filtered_tags.append({"tag_name": tag_result})
 
         
@@ -687,7 +689,7 @@ def fetch_tagged_recipe(tag_query):
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
-    shopping_list = ShoppingList.query.count()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
     recipes = Recipe.query.filter_by(username=current_user.id).all()
 
@@ -749,20 +751,20 @@ def cart():
         category = request.form.get('ing_type')
         ingredient = request.form.get('ingredient')
 
-        ingredient_to_add = ShoppingList(shopping_item=ingredient, category=category)
+        ingredient_to_add = ShoppingList(shopping_item=ingredient, category=category, username=current_user.id)
         db.session.add(ingredient_to_add)
         db.session.commit()
 
         return redirect(url_for('views.cart'))
 
-    shopping_list = ShoppingList.query.count()
-    shopping_items_pasta = ShoppingList.query.filter_by(category='pasta').all()
-    shopping_items_produce = ShoppingList.query.filter_by(category='produce').all()
-    shopping_items_misc = ShoppingList.query.filter_by(category='misc').all()
-    shopping_items_dairy = ShoppingList.query.filter_by(category='dairy_bread').all()
-    shopping_items_meat = ShoppingList.query.filter_by(category='meat').all()
-    shopping_items_frozen = ShoppingList.query.filter_by(category='frozen').all()
-    shopping_items_coffee = ShoppingList.query.filter_by(category='coffee_tea').all()
+    shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
+    shopping_items_pasta = ShoppingList.query.filter_by(username=current_user.id, category='pasta').all()
+    shopping_items_produce = ShoppingList.query.filter_by(username=current_user.id, category='produce').all()
+    shopping_items_misc = ShoppingList.query.filter_by(username=current_user.id, category='misc').all()
+    shopping_items_dairy = ShoppingList.query.filter_by(username=current_user.id, category='dairy_bread').all()
+    shopping_items_meat = ShoppingList.query.filter_by(username=current_user.id, category='meat').all()
+    shopping_items_frozen = ShoppingList.query.filter_by(username=current_user.id, category='frozen').all()
+    shopping_items_coffee = ShoppingList.query.filter_by(username=current_user.id, category='coffee_tea').all()
 
     pasta_to_copy = ""
     produce_to_copy = ""
@@ -826,3 +828,15 @@ def clear_cart():
 
     return jsonify({})
 
+@views.route('/update_cart/<item_id>/<updated_value>', methods=['GET'])
+@login_required
+def update_car(item_id, updated_value):
+    ''' Dynamically updates given cart item. '''
+
+    item_to_update = ShoppingList.query.filter_by(username=current_user.id, id=item_id).first()
+    print(item_to_update.shopping_item)
+    print(updated_value)
+    item_to_update.shopping_item = updated_value
+    db.session.commit()
+
+    return jsonify({})
