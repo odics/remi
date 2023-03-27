@@ -761,11 +761,31 @@ margin-bottom: .5rem;
 }
 
 .ing-menu {
+    display: grid;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+
+.button-input {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: .5rem;
 }
+
+.info i {
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+
+.info {
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: var(--nav-items-color);
+}
+
+
 
 .ing-menu h2 {
     margin-left: .5rem;
@@ -809,7 +829,7 @@ margin-bottom: .5rem;
 }
 
 .cart-ingredient i {
-    color: #AB091E;
+    color: var(--nav-icon-color);
 }
 
 .cart-ingredient i:hover {
