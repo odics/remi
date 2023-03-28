@@ -73,6 +73,7 @@ main {
     height: 30px;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
@@ -91,6 +92,7 @@ main {
     height: 30px;
     display: flex;
     align-items:center;
+    justify-content: center;
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
@@ -109,7 +111,7 @@ main {
 
 .add-user {
     display: flex;
-    margin-top: .5rem;
+    margin-top: 1rem;
 }
 
 .user-text-input {
@@ -128,9 +130,42 @@ main {
 
 .user-form-control {
     display: none;
-    grid-template-columns: 1fr 1fr 1fr auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-flow: row;
     gap: .5rem;
     margin-top: .5rem;
+}
+
+.theme-container-light {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    border-radius: 10px;
+    background-color: var(--main-background);
+}
+
+.nav-light {
+    width: 40px;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--nav-background);
+}
+
+.theme-container-dark {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    border-radius: 10px;
+    background-color: #464041;
+}
+
+.nav-dark {
+    width: 40px;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #243B53;
 }
 
 .view-recipe {
@@ -1689,6 +1724,16 @@ margin-bottom: .5rem;
 
 .content-settings {
     margin-bottom: 2rem;
+    font-family: 'Roboto', sans-serif;
+    color: var(--nav-items-color);
+    font-weight: 300;
+}
+
+.content-settings-theme {
+    margin-bottom: 2rem;
+    margin-top: .5rem;
+    display: flex;
+    gap: 1rem;
     font-family: 'Roboto', sans-serif;
     color: var(--nav-items-color);
     font-weight: 300;
