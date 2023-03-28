@@ -20,14 +20,40 @@
       <div class="settings-display">
 
         <div class="title-settings">
-          User information
+          <i class="fa-solid fa-user"></i> User information
         </div>
         <div class="content-settings">
           Currently logged in as {{ user.first_name }}
         </div>
 
         <div class="title-settings">
-          Appearance
+          <i class="fa-solid fa-user-group"></i> User Settings
+        </div>
+        <div class="content-settings">
+          <div class="users">
+            <span class="user-info-heading">Name</span>
+            <span class="user-info-heading">Email</span>
+            <span class="user-info-heading">Action</span>
+          </div>
+          {% for user in all_users %}
+          <div class="users">
+            <span class="user-info">{{ user.first_name }}</span>
+            <span class="user-info">{{ user.email }}</span>
+            <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
+          </div>
+          {% endfor %}
+          <div class="add-user">
+          <button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Add User</button>
+          </div>
+          <div class="user-form-control">
+            <input class="user-text-input" type="text" placeholder="Username">
+            <input class="user-text-input" type="text" name="" id="" placeholder="Email">
+            <input class="user-text-input" type="text" name="" id="" placeholder="Password">
+          </div>
+        </div>
+
+        <div class="title-settings">
+          <i class="fa-solid fa-desktop"></i> Appearance
         </div>
         <div class="content-settings">
           Dark theme - light theme

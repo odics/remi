@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, request, flash, session, redirect,
 from sqlalchemy import func, desc
 from flask_login import login_required, current_user
 from recipe_parser import recipe_parser
-from .models import Recipe, Ingredients, ShoppingList, Tag
+from .models import Recipe, Ingredients, ShoppingList, Tag, User
 from . import db
 import re
 import os
@@ -24,7 +24,10 @@ def settings():
 
     shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
-    return render_template("settings.html", favorite_total=favorite_total, total_recipes=total_recipes, shopping_list=shopping_list, user=current_user)
+    all_users = User.query.all()
+
+    return render_template("settings.html", favorite_total=favorite_total, total_recipes=total_recipes, shopping_list=shopping_list, user=current_user,
+                           all_users=all_users)
 
 
 @views.route('/all_recipes', methods=['GET', 'POST'])

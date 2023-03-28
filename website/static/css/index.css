@@ -37,6 +37,86 @@ main {
     align-items: center;
 }
 
+.users {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: .5rem;
+}
+
+.user-info-heading {
+    text-transform: uppercase;
+    font-size: .8rem;
+    margin-bottom: .5rem;
+}
+
+.user-info {
+    margin-bottom: .3rem;
+}
+
+.button-user-primary {
+    background-color: var(--primary-button);
+    border: none;
+    border-radius: 5px;
+    height: 20px;
+    display: block;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start; 
+}
+
+.button-user-delete {
+    background-color: var(--modal-delete);
+    border: none;
+    border-radius: 5px;
+    height: 20px;
+    display: block;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    font-size: .7rem;
+    color: #D9E2EC;
+    align-self: start; 
+}
+
+.user-control {
+    display: flex;
+    gap: .5rem;
+}
+
+.add-user {
+    display: flex;
+    margin-top: .5rem;
+}
+
+.user-text-input {
+    padding: .3rem;
+    background-color: var(--search-input-color);
+    border: 1px solid;
+    height: 30px;
+    border-color: rgb(191, 186, 205);
+    border-radius: 5px;
+    width: 100%;
+    align-self: start;  
+    font-family: 'Oxygen', sans-serif;
+    color: var(--nav-text-color);
+    font-size: .8rem;
+}
+
+.user-form-control {
+    display: flex;
+    gap: .5rem;
+    margin-top: .5rem;
+}
+
 .view-recipe {
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -1583,6 +1663,7 @@ margin-bottom: .5rem;
 
 .title-settings{
     font-family: 'Barlow', sans-serif;
+    color: var(--nav-icon-color);
     text-transform: uppercase;
     letter-spacing: 3px;
     font-size: 1rem;
