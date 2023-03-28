@@ -41,7 +41,7 @@
             <span class="user-info">{{ user.first_name }}</span>
             <span class="user-info">{{ user.email }}</span>
             <span class="user-info">{{ user.id }}</span>
-            <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete" id="deleteUser"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
+            <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete" id="deleteUser" onclick="deleteUser({{ user.id }})"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
           </div>
           {% endfor %}
           <div class="add-user">
@@ -80,7 +80,7 @@
 
       var addUser = document.getElementById("addUser");
       var userFormControl = document.getElementById("userFormControl");
-      var deleteUser = document.getElementById("deleteUser");
+      var userModal = document.getElementById("modal-container-cp");
 
       addUser.addEventListener("click", function() {
         userFormControl.style.display = "grid";
@@ -97,15 +97,18 @@
         userFormControl.style.display = "none";
       });
 
-
+      function deleteUser(userID) {
+        console.log(`Deleting user ID ${userID}`);
+        userModal.style.display = "block";
+      }
 
     </script>
 
-<div class="modal-container" id="modal-container-cp">
+<div class="modal-container-cp" id="modal-container-cp">
   <div class="modal">
     <p id="modal-inner-text"></p>
     <div>
-      <a class="modal-delete" id="delete-link" href="#">Delete Recipe</a>
+      <a class="modal-delete" id="delete-link" href="#">Delete User</a>
       <a class="button-primary close-modal" id="close" onclick="close_modal()">Close</a>
     </div>
   </div>
