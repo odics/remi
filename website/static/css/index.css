@@ -39,8 +39,21 @@ main {
 
 .users {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: .5rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: .5rem;
+}
+
+.users-headings {
+    display: grid;
+    border-bottom: 1px solid;
+    border-color: rgb(191, 186, 205);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
 }
 
 .user-info-heading {
@@ -57,8 +70,9 @@ main {
     background-color: var(--primary-button);
     border: none;
     border-radius: 5px;
-    height: 20px;
-    display: block;
+    height: 30px;
+    display: flex;
+    align-items: center;
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
@@ -74,8 +88,9 @@ main {
     background-color: var(--modal-delete);
     border: none;
     border-radius: 5px;
-    height: 20px;
-    display: block;
+    height: 30px;
+    display: flex;
+    align-items:center;
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
@@ -112,7 +127,8 @@ main {
 }
 
 .user-form-control {
-    display: flex;
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr auto auto;
     gap: .5rem;
     margin-top: .5rem;
 }
@@ -1672,7 +1688,7 @@ margin-bottom: .5rem;
 }
 
 .content-settings {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     font-family: 'Roboto', sans-serif;
     color: var(--nav-items-color);
     font-weight: 300;

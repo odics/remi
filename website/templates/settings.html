@@ -30,25 +30,31 @@
           <i class="fa-solid fa-user-group"></i> User Settings
         </div>
         <div class="content-settings">
-          <div class="users">
+          <div class="users-headings">
             <span class="user-info-heading">Name</span>
             <span class="user-info-heading">Email</span>
+            <span class="user-info-heading">User ID</span>
+            <span class="user-info-heading">Admin</span>
             <span class="user-info-heading">Action</span>
           </div>
           {% for user in all_users %}
           <div class="users">
             <span class="user-info">{{ user.first_name }}</span>
             <span class="user-info">{{ user.email }}</span>
+            <span class="user-info">{{ user.id }}</span>
+            <span class="user-info">No</span>
             <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
           </div>
           {% endfor %}
           <div class="add-user">
-          <button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Add User</button>
+          <button class="button-user-primary" id="addUser"><i class="fa-solid fa-pen-to-square"></i> Add User</button>
           </div>
-          <div class="user-form-control">
-            <input class="user-text-input" type="text" placeholder="Username">
-            <input class="user-text-input" type="text" name="" id="" placeholder="Email">
-            <input class="user-text-input" type="text" name="" id="" placeholder="Password">
+          <div class="user-form-control" style="display:none;" id="userFormControl">
+            <input class="user-text-input" type="text" placeholder="Username" id="userFirstName">
+            <input class="user-text-input" type="text" placeholder="Email" id="userEmail">
+            <input class="user-text-input" type="text" placeholder="Password" id="userPassword">
+            <button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Confirm</button>
+            <button class="button-user-delete" id="cancelAddUser"><i class="fa-solid fa-user-xmark"></i> Cancel</button>
           </div>
         </div>
 
@@ -60,6 +66,26 @@
         </div>
       </div>
     </div>
+    <script>
+
+      var addUser = document.getElementById("addUser");
+      var userFormControl = document.getElementById("userFormControl");
+
+      addUser.addEventListener("click", function() {
+        userFormControl.style.display = "grid";
+      });
+
+      cancelAddUser.addEventListener("click", function() {
+        var userFirstName = document.getElementById("userFirstName");
+        var userEmail = document.getElementById("userEmail");
+        var userPassword = document.getElementById("userPassword");
+        userFirstName.value = "";
+        userEmail.value = "";
+        userPassword.value = "";
+        userFormControl.style.display = "none";
+      });
+
+    </script>
     {% endblock %}
     </div>
     </div>
