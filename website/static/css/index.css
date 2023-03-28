@@ -39,7 +39,7 @@ main {
 
 .users {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 25%);
     align-items: center;
     gap: 1rem;
     margin-bottom: .5rem;
@@ -49,7 +49,7 @@ main {
     display: grid;
     border-bottom: 1px solid;
     border-color: rgb(191, 186, 205);
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 25%);
     align-items: center;
     gap: 1rem;
     margin-bottom: .5rem;

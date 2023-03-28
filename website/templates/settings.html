@@ -34,7 +34,6 @@
             <span class="user-info-heading">Name</span>
             <span class="user-info-heading">Email</span>
             <span class="user-info-heading">User ID</span>
-            <span class="user-info-heading">Admin</span>
             <span class="user-info-heading">Action</span>
           </div>
           {% for user in all_users %}
@@ -42,21 +41,22 @@
             <span class="user-info">{{ user.first_name }}</span>
             <span class="user-info">{{ user.email }}</span>
             <span class="user-info">{{ user.id }}</span>
-            <span class="user-info">No</span>
-            <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
+            <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete" id="deleteUser"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
           </div>
           {% endfor %}
           <div class="add-user">
           <button class="button-user-primary" id="addUser"><i class="fa-solid fa-pen-to-square"></i> Add User</button>
           </div>
+          <form method="POST">
           <div class="user-form-control" style="display:none;" id="userFormControl">
-            <input class="user-text-input" type="text" placeholder="Username" id="userFirstName">
-            <input class="user-text-input" type="text" placeholder="Email" id="userEmail">
+            <input class="user-text-input" type="text" placeholder="Username" name="firstName" id="userFirstName" required>
+            <input class="user-text-input" type="text" placeholder="Email" name="email" id="userEmail" required>
             <button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Confirm</button>
-            <input class="user-text-input" type="text" placeholder="Password" id="userPassword">
-            <input class="user-text-input" type="text" placeholder="Confirm password" id="confirmPassword">
+            <input class="user-text-input" type="password" placeholder="Password" id="userPassword" name="password1" required>
+            <input class="user-text-input" type="password" placeholder="Confirm password" id="confirmPassword" name="password2" required>
             <button class="button-user-delete" id="cancelAddUser"><i class="fa-solid fa-user-xmark"></i> Cancel</button>
           </div>
+        </form>
         </div>
 
         <div class="title-settings">
@@ -80,12 +80,14 @@
 
       var addUser = document.getElementById("addUser");
       var userFormControl = document.getElementById("userFormControl");
+      var deleteUser = document.getElementById("deleteUser");
 
       addUser.addEventListener("click", function() {
         userFormControl.style.display = "grid";
       });
 
-      cancelAddUser.addEventListener("click", function() {
+      cancelAddUser.addEventListener("click", function(e) {
+        e.preventDefault();
         var userFirstName = document.getElementById("userFirstName");
         var userEmail = document.getElementById("userEmail");
         var userPassword = document.getElementById("userPassword");
@@ -95,7 +97,20 @@
         userFormControl.style.display = "none";
       });
 
+
+
     </script>
+
+<div class="modal-container" id="modal-container-cp">
+  <div class="modal">
+    <p id="modal-inner-text"></p>
+    <div>
+      <a class="modal-delete" id="delete-link" href="#">Delete Recipe</a>
+      <a class="button-primary close-modal" id="close" onclick="close_modal()">Close</a>
+    </div>
+  </div>
+</div>
+
     {% endblock %}
     </div>
     </div>

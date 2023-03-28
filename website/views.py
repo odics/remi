@@ -2,19 +2,46 @@ import json
 import shortuuid
 from flask import Blueprint, render_template, request, flash, session, redirect, url_for, jsonify
 from sqlalchemy import func, desc
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, login_user, logout_user
 from recipe_parser import recipe_parser
 from .models import Recipe, Ingredients, ShoppingList, Tag, User
 from . import db
 import re
 import os
+from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint('views', __name__)
 
-@views.route('/settings', methods=['GET'])
+@views.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
     '''App settings.'''
+
+    if request.method == 'POST':
+        email = request.form.get('email')
+        first_name = request.form.get('firstName')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            flash('Email already exists.', category='error')
+        elif len(email) < 4:
+            flash('Email must be grater than 4 characters', category='error')
+        elif len(first_name) < 2:
+            flash('First name must be greater than 1 character', category='error')
+        elif password1 != password2:
+            flash('Passwords must match', category='error')
+        elif len(password1) < 7:
+            flash('Password must be seven characters or more', category='error')
+        else:
+            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+
+            flash('Account created for ' + first_name, category='success')
+            return redirect(url_for('views.settings'))
 
     # Get a count of all the favorites:
     favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()

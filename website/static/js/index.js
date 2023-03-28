@@ -77,7 +77,6 @@ if (clearCartButton) {
     const userID = clearCartModal.dataset.userId;
     clearCartButton.addEventListener("click", () => {
         clearCartModal.style.display = "block";
-        console.log("Hello")
     });
     
     closeCartModalButton.addEventListener("click", () => {
