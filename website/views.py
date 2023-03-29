@@ -256,8 +256,8 @@ def search_recipes(query):
     shopping_list = session.get('shopping_list', None)
     search_query = "%" + query + "%"
 
-    search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query)).all()
-    search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query)).count()
+    search_results = Recipe.query.filter(Recipe.recipe_name.like(search_query), Recipe.username==current_user.id).all()
+    search_count = Recipe.query.filter(Recipe.recipe_name.like(search_query), Recipe.username==current_user.id).count()
 
     return(render_template("search_results.html", user=current_user, query=query, results=search_results, 
         count=search_count, shopping_list=shopping_list))
