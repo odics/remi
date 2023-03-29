@@ -56,6 +56,19 @@ def settings():
     return render_template("settings.html", favorite_total=favorite_total, total_recipes=total_recipes, shopping_list=shopping_list, user=current_user,
                            all_users=all_users)
 
+@views.route('/delete_user/<user_id>')
+@login_required
+def delete_user(user_id):
+    ''' Deletes a user based on provided user ID '''
+
+    user_to_delete = db.session.query(User).filter_by(id=user_id).first()
+    username = user_to_delete.first_name
+    db.session.delete(user_to_delete)
+    db.session.commit()
+
+    flash("Successfully deleted " + username, category="success")
+
+    return redirect(url_for('views.settings'))
 
 @views.route('/all_recipes', methods=['GET', 'POST'])
 @login_required

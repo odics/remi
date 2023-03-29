@@ -41,7 +41,7 @@
             <span class="user-info">{{ user.first_name }}</span>
             <span class="user-info">{{ user.email }}</span>
             <span class="user-info">{{ user.id }}</span>
-            <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete" id="deleteUser" onclick="deleteUser({{ user.id }})"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
+            <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete" id="deleteUser" onclick="deleteUser({{ user.id }}, '{{ user.first_name }}')"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
           </div>
           {% endfor %}
           <div class="add-user">
@@ -74,45 +74,58 @@
             </div>
           </div>
         </div>
+
+        <div class="modal-container-cp" id="modal-container-cp" style="display: none">
+          <div class="modal">
+            <p id="cp-modal-inner-text"></p>
+            <div>
+              <a class="modal-delete" id="delete-link" href="#">Delete User</a>
+              <a class="button-primary close-modal" id="close" onclick="closeCPModal()">Close</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <script>
 
-      var addUser = document.getElementById("addUser");
-      var userFormControl = document.getElementById("userFormControl");
-      var userModal = document.getElementById("modal-container-cp");
 
-      addUser.addEventListener("click", function() {
-        userFormControl.style.display = "grid";
-      });
 
-      cancelAddUser.addEventListener("click", function(e) {
-        e.preventDefault();
-        var userFirstName = document.getElementById("userFirstName");
-        var userEmail = document.getElementById("userEmail");
-        var userPassword = document.getElementById("userPassword");
-        userFirstName.value = "";
-        userEmail.value = "";
-        userPassword.value = "";
-        userFormControl.style.display = "none";
-      });
 
-      function deleteUser(userID) {
-        console.log(`Deleting user ID ${userID}`);
-        userModal.style.display = "block";
-      }
+<script>
 
-    </script>
+  var addUser = document.getElementById("addUser");
+  var userFormControl = document.getElementById("userFormControl");
+  var userModal = document.getElementById("modal-container-cp");
 
-<div class="modal-container-cp" id="modal-container-cp">
-  <div class="modal">
-    <p id="modal-inner-text"></p>
-    <div>
-      <a class="modal-delete" id="delete-link" href="#">Delete User</a>
-      <a class="button-primary close-modal" id="close" onclick="close_modal()">Close</a>
-    </div>
-  </div>
-</div>
+  function closeCPModal() {
+    userModal.style.display = "none";
+  }
+
+  addUser.addEventListener("click", function() {
+    userFormControl.style.display = "grid";
+  });
+
+  cancelAddUser.addEventListener("click", function(e) {
+    e.preventDefault();
+    var userFirstName = document.getElementById("userFirstName");
+    var userEmail = document.getElementById("userEmail");
+    var userPassword = document.getElementById("userPassword");
+    userFirstName.value = "";
+    userEmail.value = "";
+    userPassword.value = "";
+    userFormControl.style.display = "none";
+  });
+
+  function deleteUser(userID, userName) {
+    var cpInnerText = document.getElementById("cp-modal-inner-text");
+    var userModalText = `Are you sure you want to delete ${userName}?`
+    var userDeleteLink = document.getElementById("delete-link");
+
+    cpInnerText.innerHTML = userModalText;
+    userDeleteLink.setAttribute("href", `/delete_user/${userID}`);
+    userModal.style.display = "block";
+  }
+
+</script>
 
     {% endblock %}
     </div>
