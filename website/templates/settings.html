@@ -41,16 +41,19 @@
             <span class="user-info-heading">Name</span>
             <span class="user-info-heading">Email</span>
             <span class="user-info-heading">User ID</span>
+            <span class="user-info-heading">Admin</span>
             <span class="user-info-heading">Action</span>
-          </div>
-          {% for user in all_users %}
-          <div class="users">
+      
+            {% for user in all_users %}
+         
             <span class="user-info">{{ user.first_name }}</span>
             <span class="user-info">{{ user.email }}</span>
             <span class="user-info">{{ user.id }}</span>
+            <span class="user-info">Yes</span>
             <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete" id="deleteUser" onclick="deleteUser({{ user.id }}, '{{ user.first_name }}')"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
-          </div>
+          
           {% endfor %}
+          </div>
           <div class="add-user">
           <button class="button-user-primary" id="addUser"><i class="fa-solid fa-pen-to-square"></i> Add User</button>
           </div>

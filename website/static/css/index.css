@@ -39,7 +39,7 @@ main {
 
 .users {
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
     align-items: center;
     gap: 1rem;
     margin-bottom: .5rem;
@@ -47,13 +47,14 @@ main {
 
 .users-headings {
     display: grid;
-    border-bottom: 1px solid;
+    /* border-bottom: 1px solid; */
     border-color: rgb(191, 186, 205);
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
     align-items: center;
     gap: 1rem;
     margin-bottom: .5rem;
     margin-top: .5rem;
+    grid-auto-flow: row;
 }
 
 .user-info-heading {
