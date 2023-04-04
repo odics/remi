@@ -13,20 +13,23 @@ body {
 }
 
 :root {
-    --nav-background: #17181a;
-    --main-background: rgb(65, 61, 61);
-    --logo-color: rgba(137, 132, 155, 0.512);
-    --nav-items-color: #81909e;
-    --nav-icon-color: #b4b7b9;
+    --nav-background: #212529;
+    --main-background: #343a40;
+    --logo-color: #94989c;
+    --nav-items-color: #94989c;
+    --nav-icon-color: #94989c;
     --nav-items-hover: #484b4e;
-    --nav-text-color: rgba(177, 173, 199, 0.678);
-    --search-input-color: #c1cdda92;
-    --pill-background: #C6F7E2;
-    --recipe-card-background: #F0F4F8;
+    --nav-text-color: #94989c;
+    --search-input-color: #343a40;
+    --pill-background: #343a40;
+    --recipe-card-background: #212529;
     --primary-button: #035388;
     --secondary-button: #D9E2EC;
-    --recipe-tag-background: #f0f4f8e5;
-    --instructions-background: #f0f4f8c7;
+    --recipe-tag-background: #212529be;
+    --instructions-background: #212529;
+    --information-wrapper: #212529;
+    --recipe-icons: #94989c;
+    --tags-wrapper: #212529;
     --modal-delete: #AB091E;
 
 }
@@ -915,7 +918,7 @@ margin-bottom: .5rem;
     background-color: var(--search-input-color);
     border: 1px solid;
     height: 30px;
-    border-color: rgb(191, 186, 205);
+    border-color: #94989c;
     border-radius: 5px;
     width: 100%;
     align-self: start;  
@@ -930,7 +933,7 @@ margin-bottom: .5rem;
     border: 1px solid;
     height: 30px;
     width: 500px;
-    border-color: rgb(191, 186, 205);
+    border-color: #94989c;
     border-radius: 5px;
     font-family: 'Oxygen', sans-serif;
     color: var(--nav-text-color);
@@ -1271,7 +1274,7 @@ margin-bottom: .5rem;
     margin-top: 0;
     padding: 1rem;
     display: flex;
-    background-color: #f3f6f9;
+    background-color: var(--information-wrapper);
     border-radius: 5px;
     justify-content: space-around;
 }
@@ -1282,7 +1285,7 @@ margin-bottom: .5rem;
     margin-top: 0;
     padding: 1rem;
     display: flex;
-    background-color: #f3f6f9;
+    background-color: var(--tags-wrapper);
     border-radius: 5px;
     align-items: center;
 }
@@ -1321,7 +1324,7 @@ margin-bottom: .5rem;
   align-items: center;
   gap: 5px;
   list-style: none;
-  background-color: var(--nav-background);
+  background-color: var(--main-background);
   border-radius: 5px;
   width: fit-content;
   padding: 5px;
@@ -1460,7 +1463,7 @@ margin-bottom: .5rem;
 }
 
 .recipe-icons {
-    color: #243B53;
+    color: var(--recipe-icons);
     display: grid;
     grid-template-columns: auto 1fr;
     grid-auto-flow: row;

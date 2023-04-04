@@ -21,7 +21,7 @@
   <div class="ingredient-list">
     <img
     class="instruction-img"
-    src="{{ url_for('static', filename='/images/' + recipe.image) }}"
+    src="{{ url_for('static', filename='images/' + recipe.image) }}"
   />
     {% for ingredient in ingredients %}
     <div class="ingredient-wrapper">

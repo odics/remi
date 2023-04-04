@@ -1033,11 +1033,35 @@ margin-bottom: .5rem;
     color: #0C6B58;
 }
 
+.alert-error {
+    margin-left: 4rem;
+    margin-right: 4rem;
+    border-radius: 10px;
+    border-left: 4px solid #4d0303;
+    border-right: 4px solid #4d0303;
+    margin-top: 1rem;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    background-color: #7c2929;
+    color: #e69696;
+}
+
 .alert-close {
     position: absolute;
     top: 13px;
     right: 10px;
     color: #0C6B58;
+}
+
+.alert-close-error {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    color: #e69696;
 }
 
 .sort-control {

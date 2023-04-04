@@ -28,7 +28,7 @@ def settings():
         if user:
             flash('Email already exists.', category='error')
         elif len(email) < 4:
-            flash('Email must be grater than 4 characters', category='error')
+            flash('Email must be greater than 4 characters', category='error')
         elif len(first_name) < 2:
             flash('First name must be greater than 1 character', category='error')
         elif password1 != password2:
@@ -36,12 +36,22 @@ def settings():
         elif len(password1) < 7:
             flash('Password must be seven characters or more', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
-            db.session.add(new_user)
-            db.session.commit()
+            if request.form.get('admin'):
+                new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'), admin=True)
+                print("user is admin")
+                db.session.add(new_user)
+                db.session.commit()
 
-            flash('Account created for ' + first_name, category='success')
-            return redirect(url_for('views.settings'))
+                flash('Account created for ' + first_name, category='success')
+                return redirect(url_for('views.settings'))
+            else:
+                new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'), admin=False)
+                print("user is NOT admin")
+                db.session.add(new_user)
+                db.session.commit()
+
+                flash('Account created for ' + first_name, category='success')
+                return redirect(url_for('views.settings'))
 
     # Get a count of all the favorites:
     favorite_total = Recipe.query.filter_by(username=current_user.id, favorite=True).count()
