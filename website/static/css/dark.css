@@ -12,6 +12,10 @@ body {
     position: relative; 
 }
 
+input[type="checkbox"] {
+    accent-color: var(--nav-background);
+    }
+
 :root {
     --nav-background: #212529;
     --main-background: #343a40;
@@ -64,7 +68,7 @@ body {
    display: grid;
    grid-template-columns: 1fr auto;
    border-bottom: 1px solid;
-   border-color: #D9E2EC;
+   border-color: var(--nav-background);
 }
 
 .cr-ingredient-wrapper {
@@ -72,7 +76,7 @@ body {
     gap: .5rem;
     grid-template-columns: 1fr auto auto;
     border-bottom: 1px solid;
-    border-color: #D9E2EC;
+    border-color: var(--nav-background);
     padding-bottom: .5rem;
     margin-top: .5rem;
     align-items: center;
@@ -1196,7 +1200,7 @@ margin-bottom: .5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #464041;
+    color: var(--nav-items-color);
 }
 
 .favorite:hover {
