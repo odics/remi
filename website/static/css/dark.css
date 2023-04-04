@@ -255,6 +255,8 @@ body {
     height: 150px;
     display: flex;
     border-radius: 10px;
+    border: 1px solid;
+    border-color: var(--nav-text-color);
     background-color: var(--main-background);
 }
 
@@ -271,6 +273,8 @@ body {
     height: 150px;
     display: flex;
     border-radius: 10px;
+    border: 1px solid;
+    border-color: var(--nav-text-color);
     background-color: #464041;
 }
 
@@ -661,7 +665,7 @@ hr.divider {
     padding: .3rem;
     background-color: var(--search-input-color);
     border: 1px solid;
-    border-color: rgb(191, 186, 205);
+    border-color: var(--nav-items-color);
     border-radius: 5px;
     width: 100%;
 }
@@ -922,19 +926,32 @@ margin-bottom: .5rem;
 
 .ing-menu {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: .5rem;
+    justify-content: center;
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+
+  .ing-menu button {
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .ing-menu h2 {
+    margin-left: 0;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+
+.button-input {
+    display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: .5rem;
-}
-
-.ing-menu h2 {
-    margin-left: .5rem;
-    margin-top: .5rem;
-}
-
-.ing-menu button {
-    margin-right: .5rem;
-    margin-top: .5rem;
 }
 
 .ing-heading {
@@ -953,6 +970,18 @@ margin-bottom: .5rem;
 
 .ing-heading i {
     margin-right: .5rem;
+}
+
+.info i {
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+
+.info {
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: var(--nav-items-color);
 }
 
 .cart-ingredient {
@@ -1476,12 +1505,17 @@ margin-bottom: .5rem;
 }
 
 .recipe-card img {
+    filter: brightness(60%);
     width: 100%;
     height: 15vw;
     object-fit: cover;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     margin: 0;
+}
+
+.recipe-card img:hover {
+    filter: brightness(100%);
 }
 
 .recipe-detail-tag {
@@ -1499,6 +1533,53 @@ margin-bottom: .5rem;
 }
 
 /* TAGS START HERE */
+
+.tag-results {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: .5rem;
+    width: 500px;
+    background-color: var(--nav-background);
+    border-radius: 5px;
+    margin-top: .5rem;
+    font-family: 'Roboto', sans-serif;
+    color: var(--nav-items-color);
+  }
+
+  .recipe-count {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-size: .8rem;
+  }
+
+  .tag-results i {
+    margin-right: .5rem;
+  }
+
+  .tag-wrapper-list {
+    display: flex;
+    gap: .5rem;
+  }
+
+.tag-display ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.tag-input {
+    padding: .3rem;
+    background-color: var(--search-input-color);
+    border: 1px solid;
+    height: 25.2px;
+    border-color: rgb(191, 186, 205);
+    border-radius: 5px;
+    font-family: 'Oxygen', sans-serif;
+    color: var(--nav-text-color);
+    font-size: .8rem;
+    margin-left: .5rem;
+}
 
 .tags-wrapper {
     margin-top: 0;
@@ -1607,18 +1688,6 @@ margin-bottom: .5rem;
   margin: 0;
 }
 
-.tag-results {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    padding: .5rem;
-    width: 500px;
-    background-color: var(--nav-background);
-    border-radius: 5px;
-    margin-top: .5rem;
-    font-family: 'Roboto', sans-serif;
-    color: var(--nav-items-color);
-  }
 
   .tag-results i {
     margin-right: .5rem;
@@ -1956,6 +2025,13 @@ margin-bottom: .5rem;
         margin-top: 0;
         width: 100%;
       }
+
+      .button-input {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: .5rem;
+    }
 
       .ing-menu h2 {
         margin-left: 0;
