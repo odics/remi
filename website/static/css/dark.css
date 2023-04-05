@@ -18,6 +18,7 @@ input[type="checkbox"] {
 
 :root {
     --nav-background: #212529;
+    --nav-background-light: #D9E2EC;
     --main-background: #343a40;
     --logo-color: #94989c;
     --nav-items-color: #94989c;
@@ -257,7 +258,7 @@ body {
     border-radius: 10px;
     border: 1px solid;
     border-color: var(--nav-text-color);
-    background-color: var(--main-background);
+    background-color: white;
 }
 
 .nav-light {
@@ -265,7 +266,7 @@ body {
     height: 100%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    background-color: var(--nav-background);
+    background-color: var(--nav-background-light);
 }
 
 .theme-container-dark {
@@ -275,7 +276,7 @@ body {
     border-radius: 10px;
     border: 1px solid;
     border-color: var(--nav-text-color);
-    background-color: #464041;
+    background-color: var(--main-background);
 }
 
 .nav-dark {
@@ -283,7 +284,7 @@ body {
     height: 100%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    background-color: #243B53;
+    background-color: var(--nav-background);
 }
 
 .user-info-heading {

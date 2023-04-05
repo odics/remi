@@ -14,6 +14,8 @@ body {
 
 :root {
     --nav-background: #D9E2EC;
+    --nav-background-dark: #212529;
+    --main-background-dark: #343a40;
     --main-background: white;
     --logo-color: rgba(49, 41, 77, 0.512);
     --nav-items-color: #486581;
@@ -158,7 +160,7 @@ main {
     height: 150px;
     display: flex;
     border-radius: 10px;
-    background-color: #464041;
+    background-color: var(--nav-background-dark);
 }
 
 .nav-dark {
@@ -166,7 +168,7 @@ main {
     height: 100%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    background-color: #243B53;
+    background-color: var(--main-background-dark);
 }
 
 .view-recipe {

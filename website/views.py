@@ -39,6 +39,25 @@ def edit_user(payload):
 
     return({})
 
+
+@views.route('/theme/<theme>')
+@login_required
+def theme(theme):
+    '''Changes user appearance theme.'''
+
+    user = User.query.filter_by(id=current_user.id).first()
+
+    if theme == "light":
+        user.theme = "1"
+        db.session.commit()
+        return redirect(url_for('views.settings'))
+
+    
+    if theme == "dark":
+        user.theme = "2"
+        db.session.commit()
+        return redirect(url_for('views.settings'))
+
 @views.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
@@ -88,10 +107,13 @@ def settings():
 
     shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
+
     all_users = User.query.all()
 
     return render_template("settings.html", favorite_total=favorite_total, total_recipes=total_recipes, shopping_list=shopping_list, user=current_user,
-                           all_users=all_users)
+                           all_users=all_users, theme=theme)
 
 @views.route('/delete_user/<user_id>')
 @login_required
@@ -137,8 +159,11 @@ def all_recipes():
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
+
     return render_template("all_recipes.html", user=current_user, recipes=recipes, shopping_list=shopping_list, 
-    page_title=page_title, total_recipes=total_recipes, favorite_total=favorite_total)
+    page_title=page_title, total_recipes=total_recipes, favorite_total=favorite_total, theme=theme)
 
 
 @views.route('/', methods=['GET', 'POST'])
@@ -161,6 +186,9 @@ def home():
     # Get the most popular category. Start by querying the table:
     category_query = db.session.query(
         Recipe.category, func.count(Recipe.id).label('qty')).group_by(Recipe.category).order_by(desc('qty')).limit(1)
+    
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
 
     # The result is a list containing one tuple of two items. First item (category_query[0][0]) is the name of the popular category.
     # This is wrapped in a try/except block in case the user has no recipes added yet, in which case it will throw an IndexError:
@@ -174,7 +202,7 @@ def home():
 
     return render_template("home.html", user=current_user, recipes=recipes, shopping_list=shopping_list,
                            favorite_total=favorite_total, total_recipes=total_recipes,
-                           popular_category=popular_category)
+                           popular_category=popular_category, theme=theme)
 
 
 @views.route('/create_recipe', methods=['GET', 'POST'])
@@ -192,8 +220,12 @@ def create_recipe():
         shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
         session['shopping_list'] = shopping_list
+
+        user = User.query.filter_by(id=current_user.id).first()
+        theme = user.theme
         
-        return render_template("create_recipe.html", user=current_user, shopping_list=shopping_list, total_recipes=total_recipes, favorite_total=favorite_total)
+        return render_template("create_recipe.html", user=current_user, shopping_list=shopping_list, total_recipes=total_recipes, 
+                               favorite_total=favorite_total, theme=theme)
     
     if request.method == 'POST':
         prep_time = request.form.get('prep_time')
@@ -312,6 +344,9 @@ def add_recipe():
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
+
     if request.method == 'POST':
         url = request.form.get('recipe_url')
 
@@ -345,7 +380,7 @@ def add_recipe():
                                    instructions_json=json.loads(recipe.instructions_json))
 
     return render_template("add_recipe.html", user=current_user, shopping_list=shopping_list, total_recipes=total_recipes,
-                           favorite_total=favorite_total)
+                           favorite_total=favorite_total, theme=theme)
 
 
 @views.route('/save_recipe', methods=['GET', 'POST'])
@@ -510,8 +545,11 @@ def show_favorites():
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
+
     return render_template("favorite_recipes.html", recipes=fav_recipe, user=current_user, shopping_list=shopping_list,
-    favorite_total=favorite_total, total_recipes=total_recipes)
+    favorite_total=favorite_total, total_recipes=total_recipes, theme=theme)
 
 
 @views.route('/random_recipe', methods=['POST', 'GET'])
@@ -532,9 +570,12 @@ def random_recipe():
     recipe = Recipe.query.filter_by(username=current_user.id).group_by(func.random()).first()
     ingredients = Ingredients.query.filter_by(uuid=recipe.uuid).all()
     instructions_json = json.loads(recipe.instructions_json)
+    
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
 
     return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
-                           shopping_list=shopping_list, view_id=recipe.uuid, instructions_json=instructions_json)
+                           shopping_list=shopping_list, view_id=recipe.uuid, instructions_json=instructions_json, theme=theme)
 
 
 @views.route('/view_recipe/<recipe_uuid>', methods=['POST', 'GET'])
@@ -547,6 +588,9 @@ def view_recipe(recipe_uuid):
 
         # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
 
     if request.method == 'POST':
         category = request.form.getlist('category')
@@ -566,7 +610,8 @@ def view_recipe(recipe_uuid):
     instructions_json = json.loads(recipe.instructions_json)
 
     return render_template("view_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
-                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json, favorite_total=favorite_total, total_recipes=total_recipes)
+                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json, 
+                           favorite_total=favorite_total, total_recipes=total_recipes, theme=theme)
 
 
 @views.route('/edit_recipe/<recipe_uuid>', methods=['POST', 'GET'])
@@ -579,6 +624,9 @@ def edit_recipe(recipe_uuid):
 
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
 
     if request.method == 'POST':
 
@@ -669,7 +717,7 @@ def edit_recipe(recipe_uuid):
 
         db.session.commit()
 
-        return redirect(url_for('views.view_recipe', recipe_uuid=recipe_uuid))
+        return redirect(url_for('views.view_recipe', recipe_uuid=recipe_uuid, theme=theme))
 
     shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
 
@@ -679,7 +727,8 @@ def edit_recipe(recipe_uuid):
     ingredients = Ingredients.query.filter_by(uuid=recipe_uuid).all()
 
     return render_template("edit_recipe.html", recipe=recipe, ingredients=ingredients, user=current_user,
-                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json, total_recipes=total_recipes, favorite_total=favorite_total)
+                           shopping_list=shopping_list, view_id=recipe_id, instructions_json=instructions_json, 
+                           total_recipes=total_recipes, favorite_total=favorite_total, theme=theme)
 
 
 @views.route('/delete_tag', methods=['POST'])
@@ -713,8 +762,11 @@ def show_tags():
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
 
     shopping_list = ShoppingList.query.filter_by(username=current_user.id).count()
+
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
     
-    return render_template("show_tags.html", total_recipes=total_recipes ,favorite_total=favorite_total, shopping_list=shopping_list)
+    return render_template("show_tags.html", total_recipes=total_recipes ,favorite_total=favorite_total, shopping_list=shopping_list, theme=theme)
 
 @views.route('/fetch_tags/<match_tag>', methods=['POST', 'GET'])
 @login_required
@@ -780,8 +832,11 @@ def fetch_tagged_recipe(tag_query):
             if tag.tag_name == tag_query:
                 recipe_list.append(recipe)
 
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
+
     return render_template("fetch_tagged_recipes.html", favorite_total=favorite_total, total_recipes=total_recipes,
-                           shopping_list=shopping_list, recipes=recipe_list, tag=tag_query)
+                           shopping_list=shopping_list, recipes=recipe_list, tag=tag_query, theme=theme)
 
 
 @views.route('/add_favorite', methods=['POST'])
@@ -826,6 +881,9 @@ def cart():
 
     # Get a count of all the recipes:
     total_recipes = Recipe.query.filter_by(username=current_user.id).count()
+
+    user = User.query.filter_by(id=current_user.id).first()
+    theme = user.theme
 
     if request.method == 'POST':
         category = request.form.get('ing_type')
@@ -881,7 +939,7 @@ def cart():
                            meat=shopping_items_meat, frozen=shopping_items_frozen, coffee=shopping_items_coffee,
                            pasta_to_copy=pasta_to_copy, produce_to_copy=produce_to_copy,misc_to_copy=misc_to_copy,
                            dairy_to_copy=dairy_to_copy, meat_to_copy=meat_to_copy, frozen_to_copy=frozen_to_copy,
-                           coffee_to_copy=coffee_to_copy, favorite_total=favorite_total, total_recipes=total_recipes)
+                           coffee_to_copy=coffee_to_copy, favorite_total=favorite_total, total_recipes=total_recipes, theme=theme)
 
 
 @views.route('/delete_item', methods=['POST'])

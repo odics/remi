@@ -29,10 +29,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    {% if theme == "1" %}
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/index.css') }}"
     />
+    {% else %}
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/dark.css') }}"
+    />
+    {% endif %}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

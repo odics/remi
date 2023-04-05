@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(50))
     admin = db.Column(db.Boolean, default=False)
     recipes = db.relationship('Recipe')
+    theme = db.Column(db.String, default="1")
 
 
 class Recipe(db.Model):
