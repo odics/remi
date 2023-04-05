@@ -49,8 +49,17 @@
             <span class="user-info">{{ user.email }}</span>
             <span class="user-info">{{ user.id }}</span>
             <span class="user-info">{% if user.admin %}Yes{% else %}No{% endif %}</span>
-            <span class="user-control"><button class="button-user-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete" id="deleteUser" onclick="deleteUser({{ user.id }}, '{{ user.first_name }}')"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
+            <span class="user-control"><button class="button-user-primary" data-user-id="{{ user.id }}" onclick="editUser({{ user.id }})"><i class="fa-solid fa-pen-to-square"></i> Edit</button><button class="button-user-delete" id="deleteUser" onclick="deleteUser({{ user.id }}, '{{ user.first_name }}')"><i class="fa-solid fa-user-xmark"></i> Delete</button></span>
+            
           
+            <span class="user-info" data-user="{{ user.id }}" style="display: none"><input class="user-text-input" type="text" placeholder="Enter new name" id="newName{{ user.id }}" required></span>
+            <span class="user-info" data-user="{{ user.id }}" style="display: none"><input class="user-text-input" type="text" placeholder="Enter new email" id="newEmail{{ user.id }}" required></span>
+            <span class="user-info" data-user="{{ user.id }}" style="display: none">{{ user.id }}</span>
+            <span class="user-info" data-user="{{ user.id }}" style="display: none"><select id="isAdmin{{ user.id }}" class="ing-preview">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select></span>
+            <button class="button-user-primary" data-user="{{ user.id }}" style="display: none" onclick="saveUser({{ user.id }})">Save</button>
           {% endfor %}
           </div>
           <div class="add-user">
@@ -111,6 +120,35 @@
 
   function closeCPModal() {
     userModal.style.display = "none";
+  }
+
+  function editUser(userID) {
+    var userDetails = document.querySelectorAll(`span[data-user='${userID}']`)
+    var saveButton = document.querySelector(`button[data-user='${userID}']`)
+
+    for (var i = 0; i < userDetails.length; i++) {
+      userDetails[i].style.display = "flex"
+    }
+
+    saveButton.style.display = "flex"
+  }
+
+  async function saveUser(userID) {
+    var newUserName = document.getElementById(`newName${userID}`).value
+    var newEmail = document.getElementById(`newEmail${userID}`).value
+    var isAdmin = document.getElementById(`isAdmin${userID}`).value
+
+    var payload = {
+      username: newUserName,
+      email: newEmail,
+      admin: isAdmin,
+      id: userID
+    }
+
+    console.log(payload)
+
+    const response = await fetch(`/edit_user/${JSON.stringify(payload)}`)
+
   }
 
   addUser.addEventListener("click", function() {

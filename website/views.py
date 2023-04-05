@@ -12,6 +12,33 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint('views', __name__)
 
+@views.route('/edit_user/<payload>',methods=['GET', 'POST'])
+@login_required
+def edit_user(payload):
+    ''' Edits an existing user '''
+
+    payload = json.loads(payload)
+    user_id = payload["id"]
+    new_username = payload["username"]
+    new_email = payload["email"]
+    is_admin = payload["admin"]
+
+    user_to_edit = User.query.filter_by(id=user_id).first()
+
+    user_to_edit.first_name = new_username
+    user_to_edit.email = new_email
+    
+    if is_admin == "1":
+        user_to_edit.admin = True
+        
+    else:
+        user_to_edit.admin = False
+        
+
+    db.session.commit()
+
+    return({})
+
 @views.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
