@@ -282,6 +282,7 @@ def recipe_parser(url):
             total_time = get_time(recipe_json['@graph'][7]['totalTime'])
         else:
             total_time = get_time(recipe_json[0]['totalTime'])
+        print(total_time) # Do not remove this, for some reason certain websites will not work without this print statement.
     except:
         total_time = "Not specified"
         print("Failed to get total time from " + url)
