@@ -926,27 +926,20 @@ margin-bottom: .5rem;
 }
 
 .ing-menu {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     align-items: center;
     margin-bottom: .5rem;
-    justify-content: center;
-    padding-left: .5rem;
-    padding-right: .5rem;
-  }
+}
 
-  .ing-menu button {
-    margin-right: 0;
-    margin-left: 0;
-    margin-top: 0;
-    width: 100%;
-  }
-
-  .ing-menu h2 {
-    margin-left: 0;
+.ing-menu button {
+    margin-right: .5rem;
     margin-top: .5rem;
-    margin-bottom: .5rem;
-  }
+}
+
+.ing-menu h2 {
+    margin-left: .5rem;
+    margin-top: .5rem;
+}
 
 .button-input {
     display: flex;
@@ -955,11 +948,23 @@ margin-bottom: .5rem;
     margin-bottom: .5rem;
 }
 
+.info i {
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+
+.info {
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: var(--nav-items-color);
+}
+
 .ing-heading {
     background-color: var(--nav-items-hover);
     font-family: 'Roboto', sans-serif;
-    border-bottom: 1px solid #03538871;
-    border-top: 1px solid #03538871;
+    border-bottom: 1px solid var(--nav-items-color);
+    border-top: 1px solid var(--nav-items-color);
     padding: .5rem;
     color: var(--nav-icon-color);
     text-transform: uppercase;
@@ -998,7 +1003,8 @@ margin-bottom: .5rem;
 }
 
 .cart-ingredient i {
-    color: #AB091E;
+    color: var(--nav-icon-color);
+
 }
 
 .cart-ingredient i:hover {
@@ -2025,6 +2031,12 @@ margin-bottom: .5rem;
         margin-left: 0;
         margin-top: 0;
         width: 100%;
+      }
+
+      .ing-menu h2 {
+        margin-left: 0;
+        margin-top: .5rem;
+        margin-bottom: .5rem;
       }
 
       .button-input {

@@ -31,7 +31,7 @@
         <div class="content-settings">
           Currently logged in as {{ user.first_name }}
         </div>
-
+        {% if user.admin == True %}
         <div class="title-settings">
           <i class="fa-solid fa-user-group"></i> User Settings
         </div>
@@ -80,12 +80,18 @@
           
         </form>
         </div>
-
+        {% endif %}
         <div class="title-settings">
           <i class="fa-solid fa-desktop"></i> Appearance
         </div>
 
-        Current theme {{ theme }}
+        <div class="content-settings">
+          {% if theme == "1" %}
+          Currently using light theme.
+          {% else %}
+          Currently using dark theme.
+          {% endif %}
+        </div>
 
         <div class="content-settings-theme">
           <a href="/theme/light">
